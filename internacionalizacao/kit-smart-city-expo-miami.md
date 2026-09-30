@@ -9,6 +9,26 @@ Evento: 5–6 out (conferência e exposição) e 7 out (side events e AI Summit)
 
 **Meta:** voltar com dados ("falamos com X pessoas de Y cidades; top 5 desafios…; o ICP EUA se parece com o do Brasil em…") e uma SWOT da internacionalização B2G para o time e os sócios.
 
+## Perguntas da Etapa 1
+
+| Eixo | Pergunta macro | Perguntas da cola | Quem | Fonte |
+|---|---|---|---|---|
+| gov | Estrutura organizacional: quem cuida do plano diretor, da governança de dados e da decisão jurídica de compra | F23 · F24 · F8 · R7 · R21 | Ambas | Evento + pesquisa de mesa |
+| gov | Período de gestão e alternância dos ciclos eleitorais | F25 | Flavia | Pesquisa de mesa + evento |
+| gov | Como a capacidade orçamentária é definida | F26 · F10 | Flavia | Evento + pesquisa de mesa |
+| icp | Tipo de ente: município, condado, distrito? | F23 · A2 | Flavia | Evento |
+| icp | Faixas de porte populacional mais relevantes | A2 cruzado com a dor relatada | Ambas | Análise pós-evento |
+| icp | Maturidade de governança e integração de dados | R1 · R4 · R8 · R21 + escalas N1–N5 | Roberta | Evento |
+| cultural | Governo digital e comunicação com o cidadão: o que valorizam e o que detestam | R13 · tema T1 | Roberta | Evento |
+| cultural | Relação governo × mercado imobiliário: como é e como precisa ser | F27 · F20 · F16–F19 · tema T2 | Flavia | Evento |
+| cultural · icp | Como os governos organizam investimentos em tecnologia para urbanismo | R22 · F10 · tema T3 | Roberta | Evento |
+| cultural · icp | Como os governos se organizam em smart cities e quais cidades são mais bem avaliadas | R23 · F13 · tema T4 | Roberta | Evento + pesquisa de mesa |
+| cultural | Como os governos se organizam em relação aos ODS-ONU | F28 · tema T5 | Flavia | Evento + pesquisa de mesa |
+| posicionamento | O que valorizam na hora de contratar um serviço ou software | F29 · F11 · tema T6 | Flavia | Evento |
+| posicionamento | Quais instituições e associações transmitem autoridade e confiança | F30 · F14 | Flavia | Evento |
+| demanda | Ranking das dores: geral, alinhadas ao produto e alinhadas ao ICP-BR | F1 · F2 · F3 · R11 + códigos D | Ambas | Evento + análise |
+| demanda | Causa-raiz e cadeia dor → implicação → benefício → resultado esperado | A5–A8 · F7 · F12 | Ambas | Evento (conversas longas) |
+
 ## Papéis
 
 - **Flavia (Operações):** dor de mercado, penetração (decisor, via de compra, orçamento, barreiras, parceiros-canal) e geração de demanda. Perguntas F1–F22.
@@ -23,7 +43,7 @@ _A ser escrito pela Flavia (cerca de 20 segundos, em inglês e português)._
 
 As conversas não são gravadas. Logo depois de cada uma, a Flavia envia um áudio curto contando como foi, cobrindo:
 
-> Conversa [nº] · [nome] · [cargo] · [cidade/empresa], [estado] · tipo: governo / tech-gov / mercado / fornecedor · porte · O que a pessoa contou (citando códigos das perguntas, ex. F3, R11) · Desafios: [códigos D] · Maturidade dados/tecnologia/urbanismo [1–5] · Interesse: quente/morno/frio · Próximo passo
+> Conversa [nº] · [nome] · [cargo] · [cidade/empresa], [estado] · tipo: governo / tech-gov / mercado / fornecedor · porte · O que a pessoa contou (citando códigos das perguntas, ex. F3, R11) · Dor → por quê → consequência → o que mudaria → resultado esperado · Valoriza / detesta (por tema T1–T6) · Desafios: [códigos D] · Maturidade dados/tecnologia/urbanismo [1–5] · Interesse: quente/morno/frio · Próximo passo
 
 ## Cola de perguntas
 
@@ -43,6 +63,29 @@ As conversas não são gravadas. Logo depois de cada uma, a Flavia envia um áud
   PT: O que te trouxe ao Smart City Expo este ano? O que você espera encontrar aqui?  
   → Desafios · intenção de compra
 
+### Estrutura e ciclo político
+
+- **F23** (Flavia · corredor · Governo, Tech-gov)  
+  EN: Who owns the comprehensive plan and zoning here: the city, the county, or a regional body?  
+  PT: Quem é responsável pelo plano diretor e pelo zoneamento aqui: a cidade, o condado ou um órgão regional?  
+  → ICP: tipo de ente · estrutura
+- **F24** (Flavia · longa · Governo)  
+  EN: Who signs off on a technology contract: procurement, the city attorney, the council?  
+  PT: Quem aprova juridicamente um contrato de tecnologia: compras, a procuradoria (city attorney), o council?  
+  → Estrutura: decisão jurídica de compra
+- **R21** (Roberta · longa · Governo, Tech-gov)  
+  EN: Who is responsible for data governance: IT, GIS, a data office, or each department on its own?  
+  PT: Quem responde pela governança de dados: TI, GIS, um escritório de dados, ou cada departamento por conta própria?  
+  → Estrutura: governança de dados
+- **F25** (Flavia · longa · Governo)  
+  EN: When is your next election, and how do changes in leadership affect technology projects?  
+  PT: Quando é a próxima eleição, e como as trocas de gestão afetam os projetos de tecnologia?  
+  → Ciclo eleitoral · risco de continuidade
+- **F26** (Flavia · longa · Governo)  
+  EN: How is the budget set each year: who proposes, who approves, and when is the window to get something new in?  
+  PT: Como o orçamento é definido a cada ano: quem propõe, quem aprova, e qual é a janela para incluir algo novo?  
+  → Capacidade orçamentária · timing
+
 ### Prioridades e dor
 
 - **F1** (Flavia · corredor · Governo)  
@@ -57,6 +100,28 @@ As conversas não são gravadas. Logo depois de cada uma, a Flavia envia um áud
   EN: How long does it take a developer or resident to find out what they can build on a parcel? And to get a permit?  
   PT: Quanto tempo um incorporador ou cidadão leva para descobrir o que pode construir num lote? E para conseguir o alvará?  
   → Desafios · métrica de dor
+
+### Aprofundar a dor
+
+- **A5** (Ambas · corredor · Governo, Tech-gov, Mercado imobiliário)  
+  EN: Why do you think that happens?  
+  PT: Por que você acha que isso acontece?  
+  → Causa-raiz (repetir até 3 vezes)
+- **A6** (Ambas · corredor · Governo, Tech-gov, Mercado imobiliário)  
+  EN: What does that cause further down the line, and for whom?  
+  PT: O que isso causa mais adiante, e para quem?  
+  → Implicação / consequência
+- **A7** (Ambas · longa · Governo, Tech-gov, Mercado imobiliário)  
+  EN: If that were solved, what would be different for you and your team?  
+  PT: Se isso estivesse resolvido, o que mudaria para você e sua equipe?  
+  → Benefício da resolução
+- **A8** (Ambas · longa · Governo, Tech-gov, Mercado imobiliário)  
+  EN: What result would you expect in 12 months, and how would you measure it?  
+  PT: Que resultado você esperaria em 12 meses, e como mediria?  
+  → Resultado esperado · KPI
+
+### Prioridades e dor
+
 - **F4** (Flavia · longa · Governo)  
   EN: How many zoning questions does your planning counter handle per week? How many staff answer them?  
   PT: Quantas consultas de zoneamento o balcão de planejamento recebe por semana? Quantas pessoas respondem?  
@@ -88,7 +153,7 @@ As conversas não são gravadas. Logo depois de cada uma, a Flavia envia um áud
   EN: Where would the budget come from: general fund, permit fees, grants? When does your fiscal year start?  
   PT: De onde sairia o orçamento: fundo geral, taxas de licenciamento, grants? Quando começa o ano fiscal de vocês?  
   → Orçamento · timing
-- **F11** (Flavia · corredor · Governo)  
+- **F11** (Flavia · longa · Governo)  
   EN: What would a foreign company need to show you to be taken seriously?  
   PT: O que uma empresa estrangeira precisaria mostrar para ser levada a sério por vocês?  
   → Barreiras de entrada
@@ -97,12 +162,23 @@ As conversas não são gravadas. Logo depois de cada uma, a Flavia envia um áud
   PT: Vocês considerariam um piloto? Como seria o sucesso depois de seis meses?  
   → Oportunidade · critério de sucesso
 
+### Posicionamento
+
+- **F29** (Flavia · corredor · Governo, Tech-gov)  
+  EN: When you hire software, what matters most to you? And what makes you walk away from a vendor?  
+  PT: Na hora de contratar um software, o que mais importa para vocês? E o que faz vocês desistirem de um fornecedor?  
+  → Posicionamento: critérios de contratação · Tema T6
+- **F30** (Flavia · longa · Governo, Tech-gov, Mercado imobiliário)  
+  EN: Which institutions or associations give a vendor credibility in your eyes: certifications, peer cities, organizations?  
+  PT: Quais instituições ou associações dão credibilidade a um fornecedor para vocês: certificações, cidades de referência, organizações?  
+  → Posicionamento: selos de autoridade · Tema T6
+
 ### Geração de demanda
 
 - **F13** (Flavia · longa · Governo, Tech-gov, Mercado imobiliário)  
-  EN: Which cities do you look up to? Whose recommendation would make you take a meeting?  
-  PT: Quais cidades são referência para vocês? A recomendação de quem faria você aceitar uma reunião?  
-  → Canais de demanda · referências
+  EN: Which cities do you look up to, and which rankings or awards do you pay attention to? Whose recommendation would make you take a meeting?  
+  PT: Quais cidades são referência para vocês, e quais rankings ou prêmios vocês acompanham? A recomendação de quem faria você aceitar uma reunião?  
+  → ICP: rankings de referência · canais de demanda
 - **F14** (Flavia · longa · Governo, Tech-gov, Mercado imobiliário)  
   EN: Which associations, events, newsletters or communities do you actually follow?  
   PT: Quais associações, eventos, newsletters ou comunidades você realmente acompanha?  
@@ -133,7 +209,7 @@ As conversas não são gravadas. Logo depois de cada uma, a Flavia envia um áud
 - **F20** (Flavia · longa · Mercado imobiliário)  
   EN: Would you publicly support a city that cut approval times, with a letter or at a council meeting?  
   PT: Você apoiaria publicamente uma cidade que reduzisse os prazos de aprovação, com carta ou em reunião do council?  
-  → Alavanca de venda para prefeitura
+  → Tema T2: relação governo × mercado · alavanca de venda
 
 ### Parceiros e canal
 
@@ -205,14 +281,33 @@ As conversas não são gravadas. Logo depois de cada uma, a Flavia envia um áud
   EN: Can you simulate the impact of a zoning change today, on housing capacity, height or density? How?  
   PT: Hoje vocês conseguem simular o impacto de uma mudança de zoneamento na capacidade habitacional, altura ou densidade? Como?  
   → Desafios de visualização · aderência Ospa
-- **R13** (Roberta · longa · Governo, Tech-gov, Mercado imobiliário)  
-  EN: How do residents and developers get zoning information today? What confuses them most?  
-  PT: Como cidadãos e incorporadores acessam informação de zoneamento hoje? O que mais confunde?  
-  → Maturidade de urbanismo · desafios
 - **R14** (Roberta · corredor · Governo, Tech-gov)  
   EN: If you had the perfect dashboard for urban decisions, what's the first question it would answer?  
   PT: Se você tivesse o painel perfeito para decisões urbanas, qual seria a primeira pergunta que ele responderia?  
   → Necessidade de produto
+
+### Temas e cultura
+
+- **R13** (Roberta · longa · Governo, Tech-gov, Mercado imobiliário)  
+  EN: How do residents and developers get zoning information today? What do they value, and what frustrates them most?  
+  PT: Como cidadãos e incorporadores acessam informação de zoneamento hoje? O que eles valorizam, e o que mais os frustra?  
+  → Tema T1: governo digital e comunicação · maturidade de urbanismo
+- **F27** (Flavia · longa · Governo, Mercado imobiliário)  
+  EN: How would you describe the relationship between the city and developers? What works well, and what do both sides dislike?  
+  PT: Como você descreveria a relação entre a cidade e os incorporadores? O que funciona bem, e o que os dois lados detestam?  
+  → Tema T2: relação governo × mercado
+- **R22** (Roberta · longa · Governo, Tech-gov)  
+  EN: How does the city decide on technology investments for planning and zoning? Who champions them, and what has gone wrong before?  
+  PT: Como a cidade decide investimentos em tecnologia para planejamento e zoneamento? Quem puxa essas iniciativas, e o que já deu errado antes?  
+  → Tema T3: investimento em tecnologia para urbanismo
+- **R23** (Roberta · longa · Governo, Tech-gov)  
+  EN: Is there a smart city strategy or office? Who leads it, and what works or doesn't about smart city projects here?  
+  PT: Existe uma estratégia ou escritório de smart city? Quem lidera, e o que funciona ou não nos projetos de smart city daqui?  
+  → Tema T4: smart cities
+- **F28** (Flavia · longa · Governo)  
+  EN: Does the city work with the UN Sustainable Development Goals or a similar framework? Does it shape priorities or funding?  
+  PT: A cidade trabalha com os ODS da ONU ou algum referencial parecido? Isso influencia prioridades ou financiamento?  
+  → Tema T5: ODS-ONU
 
 ### Mercado imobiliário
 
@@ -261,23 +356,35 @@ As conversas não são gravadas. Logo depois de cada uma, a Flavia envia um áud
 
 ## Taxonomia de desafios (provisória, substituir pela do Notion)
 
-| Código | Desafio | Em inglês |
-|---|---|---|
-| D01 | Aprovação lenta e backlog de processos | Slow permitting / approval backlog |
-| D02 | Legislação urbanística complexa e difícil de interpretar | Complex, hard-to-read zoning code |
-| D03 | Dados em silos e sistemas que não conversam | Siloed data, disconnected systems |
-| D04 | Dados desatualizados ou de baixa qualidade | Outdated or low-quality data |
-| D05 | Falta de equipe ou de capacidade técnica | Staff shortage / limited capacity |
-| D06 | Excesso de consultas repetitivas no atendimento | Repetitive zoning questions at the counter |
-| D07 | Dificuldade de visualizar e simular cenários | Hard to visualize or simulate scenarios |
-| D08 | Decisões tomadas sem dados | Decisions made without data |
-| D09 | Revisão de plano diretor ou zoneamento | Comprehensive plan / zoning rewrite |
-| D10 | Pressão por habitação e preço de moradia | Housing supply and affordability pressure |
-| D11 | Orçamento e financiamento de tecnologia | Budget / funding for technology |
-| D12 | Sistemas legados e dependência de fornecedor | Legacy systems / vendor lock-in |
-| D13 | Transparência e engajamento público | Transparency and public engagement |
-| D14 | Clima, resiliência e risco | Climate, resilience and risk |
-| D15 | Arrecadação e valorização imobiliária | Tax base and land value capture |
+| Código | Desafio | Em inglês | Produto | ICP-BR |
+|---|---|---|---|---|
+| D01 | Aprovação lenta e backlog de processos | Slow permitting / approval backlog | sim | sim |
+| D02 | Legislação urbanística complexa e difícil de interpretar | Complex, hard-to-read zoning code | sim | sim |
+| D03 | Dados em silos e sistemas que não conversam | Siloed data, disconnected systems | sim | sim |
+| D04 | Dados desatualizados ou de baixa qualidade | Outdated or low-quality data | sim |  |
+| D05 | Falta de equipe ou de capacidade técnica | Staff shortage / limited capacity |  |  |
+| D06 | Excesso de consultas repetitivas no atendimento | Repetitive zoning questions at the counter | sim |  |
+| D07 | Dificuldade de visualizar e simular cenários | Hard to visualize or simulate scenarios | sim |  |
+| D08 | Decisões tomadas sem dados | Decisions made without data | sim |  |
+| D09 | Revisão de plano diretor ou zoneamento | Comprehensive plan / zoning rewrite | sim |  |
+| D10 | Pressão por habitação e preço de moradia | Housing supply and affordability pressure |  |  |
+| D11 | Orçamento e financiamento de tecnologia | Budget / funding for technology |  |  |
+| D12 | Sistemas legados e dependência de fornecedor | Legacy systems / vendor lock-in |  |  |
+| D13 | Transparência e engajamento público | Transparency and public engagement |  |  |
+| D14 | Clima, resiliência e risco | Climate, resilience and risk |  |  |
+| D15 | Arrecadação e valorização imobiliária | Tax base and land value capture |  | sim |
+| D16 | Baixa previsibilidade para investidores | Low predictability for investors and developers | sim | sim |
+
+## Temas culturais (valoriza / detesta)
+
+| Tema | Assunto | Perguntas | Quem |
+|---|---|---|---|
+| T1 | Governo digital e comunicação com o cidadão | R13 | Roberta |
+| T2 | Relação governo × mercado imobiliário | F27 · F20 | Flavia |
+| T3 | Investimento em tecnologia para urbanismo | R22 · F10 | Roberta |
+| T4 | Smart cities | R23 · F13 | Roberta |
+| T5 | ODS-ONU e sustentabilidade | F28 | Flavia |
+| T6 | Contratação de software e fornecedores | F29 · F30 · F11 | Flavia |
 
 ## Escalas de maturidade
 
@@ -293,21 +400,24 @@ As conversas não são gravadas. Logo depois de cada uma, a Flavia envia um áud
 
 | Critério | Brasil | EUA (observar) | Perguntas | Veredito |
 |---|---|---|---|---|
+| Tipo de ente | Prefeitura (município) | City, county, township ou special district: quem detém plano diretor e zoneamento? | F23 · A2 | igual / parecido / diferente / sem dado |
 | População | Tier 01: 150 a 400 mil hab. (peso 5) | Faixa de população em que a dor e o orçamento aparecem juntos | A2 · cruzar porte com intensidade da dor | igual / parecido / diferente / sem dado |
-| Secretaria de TI/Inovação | Tem secretaria de tecnologia ou inovação (sinal de maturidade) | CIO, chief data officer ou innovation office | R7 | igual / parecido / diferente / sem dado |
+| Secretaria de TI/Inovação | Tem secretaria de tecnologia ou inovação (sinal de maturidade) | CIO, chief data officer ou innovation office | R7 · R21 | igual / parecido / diferente / sem dado |
 | PPA / Plano de Governo | Menciona tecnologia, plano diretor, gêmeo digital, smart city, dados | Strategic plan ou comprehensive plan citam dados, digital twin, smart city | F1 · F6 | igual / parecido / diferente / sem dado |
-| Ranking CSC | Presença no Ranking Connected Smart Cities | Digital Cities Survey, What Works Cities, prêmios de smart city | Pesquisa pós-evento + A3 | igual / parecido / diferente / sem dado |
+| Ranking CSC | Presença no Ranking Connected Smart Cities | Digital Cities Survey, What Works Cities, prêmios de smart city, e os rankings que os próprios entrevistados citam | F13 · R23 | igual / parecido / diferente / sem dado |
 | Mercado imobiliário (FipeZap) | Cidade está entre as 56 praças do FipeZap (mercado líquido) | Metro com mercado imobiliário ativo e pressão de construção | F5 · F16 · F19 | igual / parecido / diferente / sem dado |
 | PIB per capita | Acima da média estadual | Renda e base tributária acima da média do estado | Pesquisa pós-evento | igual / parecido / diferente / sem dado |
 | Status do PDM | Revisado nos últimos 2 anos ou em revisão | Comprehensive plan ou zoning code em reescrita | F6 | igual / parecido / diferente / sem dado |
+| Governança e integração de dados | Não é critério da matriz hoje | Nível nas escalas de dados e tecnologia (N1–N5). Pode virar critério novo? | R1 · R4 · R8 · R21 | igual / parecido / diferente / sem dado |
 | Comprador | Secretarias de Planejamento/Desenvolvimento Urbano e de Tecnologia (caso Itajaí) | Planning Director, CIO/IT e City Manager? | F8 · R7 | igual / parecido / diferente / sem dado |
 | Dor principal | Consulta de viabilidade lenta, legislação difícil de interpretar, dados dispersos, aprovação de projetos lenta, baixa arrecadação municipal, baixa previsibilidade para investidores | Top 5 desafios dos EUA (taxonomia D01–D15) | F2 · F3 · R11 | igual / parecido / diferente / sem dado |
 
 ## Relatório de volta
 
 1. Números da missão (conversas, pessoas, cidades, estados, tipos, porte, leads quentes/mornos/frios)
-2. Top 5 desafios (menções, %, citações, comparação com o Brasil)
-3. Maturidade (distribuição nas três escalas)
+2. Ranking de dores em três listas (geral, alinhadas ao produto, alinhadas ao ICP-BR) e cadeia de valor das 5 principais (causa-raiz → implicação → benefício → resultado esperado, com nº de relatos)
+3. Estrutura de governo e cultura (quem decide, ciclos, temas T1–T6, critérios de contratação, instituições de credibilidade)
+3b. Maturidade (distribuição nas três escalas)
 4. ICP Brasil × EUA (veredito por critério)
 5. Leitura da Flavia (dor, penetração, geração de demanda)
 6. Leitura da Roberta (dados e tecnologia, visualização e decisão, benchmarking de fornecedores, implicações de produto)
