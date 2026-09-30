@@ -15,11 +15,15 @@ Evento: 5–6 out (conferência e exposição) e 7 out (side events e AI Summit)
 - **Roberta (Tech-Product-Data):** gestão e governança de dados e de tecnologia, visualização e decisão, benchmarking de fornecedores e escalas de maturidade. Perguntas R1–R20.
 - Perguntas A (abertura) e Z (fechamento): ambas.
 
-## Ritual de gravação
+## Apresentação da Ospa
 
-Pedir permissão antes de gravar (a Flórida exige consentimento de todas as partes). Depois da conversa, dizer:
+_A ser escrito pela Flavia (cerca de 20 segundos, em inglês e português)._
 
-> Conversa [nº] · [nome] · [cargo] · [cidade/empresa], [estado] · tipo: governo / tech-gov / mercado / fornecedor · porte · Desafios: [códigos D] · Maturidade dados/tecnologia/urbanismo [1–5] · Interesse: quente/morno/frio · Próximo passo
+## Áudio pós-conversa
+
+As conversas não são gravadas. Logo depois de cada uma, a Flavia envia um áudio curto contando como foi, cobrindo:
+
+> Conversa [nº] · [nome] · [cargo] · [cidade/empresa], [estado] · tipo: governo / tech-gov / mercado / fornecedor · porte · O que a pessoa contou (citando códigos das perguntas, ex. F3, R11) · Desafios: [códigos D] · Maturidade dados/tecnologia/urbanismo [1–5] · Interesse: quente/morno/frio · Próximo passo
 
 ## Cola de perguntas
 
@@ -38,10 +42,6 @@ Pedir permissão antes de gravar (a Flórida exige consentimento de todas as par
   EN: What brought you to Smart City Expo this year? What are you hoping to find?  
   PT: O que te trouxe ao Smart City Expo este ano? O que você espera encontrar aqui?  
   → Desafios · intenção de compra
-- **A4** (Ambas · corredor · Governo, Tech-gov, Mercado imobiliário, Fornecedor)  
-  EN: Do you mind if I record our chat so I don't miss anything? It stays internal.  
-  PT: Você se importa se eu gravar a conversa para não perder nada? Fica só para uso interno.  
-  → Consentimento (a Flórida exige consentimento de todas as partes para gravar)
 
 ### Prioridades e dor
 
@@ -83,7 +83,7 @@ Pedir permissão antes de gravar (a Flórida exige consentimento de todas as par
 - **F9** (Flavia · longa · Governo)  
   EN: How do you usually buy new technology: direct purchase, cooperative contracts, an RFP, or through a vendor or partner you already work with?  
   PT: Como vocês costumam comprar tecnologia: compra direta, contrato cooperativo, RFP, ou via um fornecedor ou parceiro que já atende a cidade?  
-  → ICP: canal · via de compra
+  → Via de compra · canal
 - **F10** (Flavia · longa · Governo)  
   EN: Where would the budget come from: general fund, permit fees, grants? When does your fiscal year start?  
   PT: De onde sairia o orçamento: fundo geral, taxas de licenciamento, grants? Quando começa o ano fiscal de vocês?  
@@ -140,7 +140,7 @@ Pedir permissão antes de gravar (a Flórida exige consentimento de todas as par
 - **F21** (Flavia · corredor · Fornecedor)  
   EN: Do you partner with other companies to bring complementary tools to your city customers?  
   PT: Vocês fazem parceria com outras empresas para levar ferramentas complementares aos seus clientes (cidades)?  
-  → ICP: canal via parceiro (modelo BR)
+  → Parceiros-canal
 - **F22** (Flavia · longa · Fornecedor)  
   EN: How long does a typical city deal take for you, and what slows it down?  
   PT: Quanto tempo leva uma venda típica para cidade no caso de vocês, e o que atrasa?  
@@ -300,9 +300,8 @@ Pedir permissão antes de gravar (a Flórida exige consentimento de todas as par
 | Mercado imobiliário (FipeZap) | Cidade está entre as 56 praças do FipeZap (mercado líquido) | Metro com mercado imobiliário ativo e pressão de construção | F5 · F16 · F19 | igual / parecido / diferente / sem dado |
 | PIB per capita | Acima da média estadual | Renda e base tributária acima da média do estado | Pesquisa pós-evento | igual / parecido / diferente / sem dado |
 | Status do PDM | Revisado nos últimos 2 anos ou em revisão | Comprehensive plan ou zoning code em reescrita | F6 | igual / parecido / diferente / sem dado |
-| Canal de venda | Venda via parceiro ou integrador tratado como cliente direto (ex.: Aprova Digital) | Fornecedores de licenciamento, parceiros Esri ou consultorias como canal? | F9 · F21 | igual / parecido / diferente / sem dado |
 | Comprador | Secretarias de Planejamento/Desenvolvimento Urbano e de Tecnologia (caso Itajaí) | Planning Director, CIO/IT e City Manager? | F8 · R7 | igual / parecido / diferente / sem dado |
-| Dor principal | Consulta de viabilidade lenta, legislação difícil de interpretar, dados dispersos | Top 5 desafios dos EUA (taxonomia D01–D15) | F2 · F3 · R11 | igual / parecido / diferente / sem dado |
+| Dor principal | Consulta de viabilidade lenta, legislação difícil de interpretar, dados dispersos, aprovação de projetos lenta, baixa arrecadação municipal, baixa previsibilidade para investidores | Top 5 desafios dos EUA (taxonomia D01–D15) | F2 · F3 · R11 | igual / parecido / diferente / sem dado |
 
 ## Relatório de volta
 
