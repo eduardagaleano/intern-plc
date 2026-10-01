@@ -238,6 +238,7 @@ a{color:var(--closer)}
       <span><i class="dot" style="background:var(--sdr)"></i>SDR · board de contas ABM</span>
       <span><i class="dot" style="background:var(--closer)"></i>Closer · pipeline de oportunidades</span>
       <span><i class="dot" style="background:var(--cs)"></i>Passagem para CS</span>
+      <span><b>Meta total: 240 dias · ~8 meses</b>, do MQA ao empenho (SDR 95 dias + closer 145 dias, dos quais 100 nas etapas NGC)</span>
     </div>
   </header>
 
@@ -294,7 +295,7 @@ a{color:var(--closer)}
   <section class="view" id="view-reunioes" hidden>
     <div class="callout">
       <h3>Por que o playbook não está sendo seguido</h3>
-      <p>Playbook em documento descreve o comportamento; o CRM é que faz o comportamento acontecer. Como o CRM agora é próprio, as regras abaixo podem virar travas: o botão de gerar proposta só aparece em NGC negociação com scorecard mínimo, a proposta sai de modelo fechado por tier, cada etapa tem campos obrigatórios e cada reunião tem um modelo de pauta com CTA. A revisão semanal de pipeline passa a checar critério de saída, não opinião, e a passagem de SQA intenção para NGC negociação tem um deal review com a liderança.</p>
+      <p>Playbook em documento descreve o comportamento; o CRM é que faz o comportamento acontecer. Como o CRM agora é próprio, as regras abaixo podem virar travas: o botão de gerar proposta só aparece em SQA intenção, depois do milestone de entrada, a proposta sai de modelo fechado por tier, cada etapa tem campos obrigatórios e cada reunião tem um modelo de pauta com CTA. A revisão semanal de pipeline passa a checar critério de saída, não opinião, e a passagem de SQA intenção para NGC negociação tem um deal review com a liderança.</p>
     </div>
     <h2>Regras de condução</h2>
     <div class="rules" id="rules"></div>
@@ -360,6 +361,11 @@ a{color:var(--closer)}
         <h3>De 10 para 8 colunas, em dois boards</h3>
         <p>O SDR trabalha 4 etapas, até o diagnóstico (SQA apresentação), mais a reserva (MQA Prospect), que fica com marketing e não tem cadência individual. O closer trabalha um pipeline de oportunidades com 4 etapas, a partir da SQA consideração, dentro do padrão de 5 a 7 etapas de oportunidade usado em vendas enterprise. Cada time enxerga só o próprio board, e a oportunidade nasce no SQA.</p>
       </div>
+    </div>
+    <h2>Pendências para discutir</h2>
+    <div class="callout">
+      <p><b>Briefing da prefeitura.</b> Formulário para a prefeitura com principais desafios, o que querem resolver, o que precisam analisar e diretrizes de gestão. Entra depois da SQA apresentação; etapa exata ainda em aberto.</p>
+      <p><b>Compromissos x tarefas por etapa.</b> Discutir a relação entre os compromissos do comprador (milestones) e as tarefas do time em cada etapa, e onde o briefing se encaixa nessa lógica.</p>
     </div>
     <h2>Mapa do quadro anterior para o novo</h2>
     <div class="tbl-wrap"><table id="map-table"></table></div>
@@ -452,21 +458,21 @@ const STAGES = [
    <div><h4>Quem é dono</h4><p>Marketing cuida da reserva: score, enriquecimento, régua 1:muitos e alertas. O SDR só entra quando a conta é promovida ou quando um alerta de mão levantada chega. A revisão trimestral é feita por marketing, liderança comercial e RevOps.</p></div>
   </div></div>`},
 {id:"s0",lane:"sdr",code:"1",name:"MQA",alias:"conta qualificada, em cadência",board:"Contas ABM",short:"Contatos mapeados e cadência rodando com 3 ou mais papéis; sai na primeira resposta explícita",
- job:"Antes da compra: a prefeitura ainda não nomeou o problema",sla:"30 dias de cadência",
+ job:"Antes da compra: a prefeitura ainda não nomeou o problema",sla:"35 dias de cadência",
  objetivo:"Qualificar a conta, mapear os contatos e conseguir a primeira resposta explícita de alguém da prefeitura.",
  entrada:"Conta entre as 168 do ABM (já estava lá ou foi promovida da reserva), com ICP score acima do corte.",
  exit:["Mapa do grupo comprador com 6 a 8 nomes e papel hipotético (usuário, champion, decisor econômico, técnico, gatekeeper jurídico ou de controle, fazenda, gabinete)","Gatilho e hipótese de dor registrados em uma frase","Cadência iniciada com pelo menos 3 papéis em paralelo, com mensagem diferente por papel","Primeira resposta explícita registrada e classificada (ver tipos de resposta abaixo): a conta passa para MQA interação"],
- kr:"Contas em cadência que chegam à primeira resposta explícita em até 30 dias.",
+ kr:"Contas em cadência que chegam à primeira resposta explícita em até 35 dias.",
  kpis:["Dias da 1ª tentativa até a 1ª resposta explícita (mediana e faixas)","Contatos acionados por conta e % de contas com 3 ou mais papéis","Taxa de entrega por canal (e-mail sem bounce, WhatsApp entregue, telefone válido)","Taxa de resposta explícita por contato, por conta, por SDR e por modelo de mensagem","Toques até a primeira resposta explícita"],
- crm:"Sub-status no card: <b>mapeada</b> (sem tentativa) · <b>em cadência</b> (dia X de 30) · <b>cadência encerrada sem resposta</b>. Toda tentativa é registrada com contato, papel, canal e versão do modelo de mensagem. O card mostra \"dias desde a 1ª tentativa\" e \"contatos acionados / respondidos\". Alerta para o SDR e para a liderança quando a conta passa de 30 dias sem resposta explícita.",
- meeting:{name:"Primeira abordagem (cadência)",dur:"até 30 dias · 8 a 12 toques · 3 ou mais canais",who:"SDR e 3 ou mais papéis da conta em paralelo",
+ crm:"Sub-status no card: <b>mapeada</b> (sem tentativa) · <b>em cadência</b> (dia X de 30) · <b>cadência encerrada sem resposta</b>. Toda tentativa é registrada com contato, papel, canal e versão do modelo de mensagem. O card mostra \"dias desde a 1ª tentativa\" e \"contatos acionados / respondidos\". Alerta para o SDR e para a liderança quando a conta passa de 35 dias sem resposta explícita.",
+ meeting:{name:"Primeira abordagem (cadência)",dur:"até 35 dias · 10 a 14 toques · 3 ou mais canais",who:"SDR e 3 ou mais papéis da conta em paralelo",
   pauta:["Abrir com o gatilho específico da cidade, de preferência com prazo (revisão do plano diretor, LOA, programa com data)","Nomear o problema provável para aquele papel, com as palavras dele","Uma prova curta: o que uma prefeitura parecida resolveu","Fechar com uma pergunta fácil de responder"],
   cta:"Uma resposta explícita: confirmar ou corrigir a hipótese, dizer quem cuida do tema, ou aceitar uma conversa curta.",
   show:["Um case curto de prefeitura semelhante","Conteúdo ligado ao gatilho"],
   dont:["Abrir só com \"Oi, tudo bem?\": gera resposta cordial sem conteúdo","Mesma mensagem para todos os papéis","Mandar link de apresentação institucional ou deck","Pedir reunião para \"apresentar a OSPA Place\" no primeiro toque","Seguir mandando para o mesmo contato por semanas sem mudar canal, ângulo ou pessoa"],
   after:"Quando a cadência termina sem resposta explícita: trocar o ângulo e os papéis e fazer uma segunda cadência depois de 60 a 90 dias, ou rebaixar a conta para a reserva (MQA Prospect, subgrupo B) no próximo rebalanceamento. A conta não fica parada \"mandando mensagem há semanas\"."},
  roles:"6 a 8 papéis mapeados; 3 ou mais acionados em paralelo.",
- alerts:["Mais de 30 dias de cadência sem resposta explícita","Só 1 contato acionado na conta","Muitas respostas cordiais e nenhuma com conteúdo: problema na abertura da mensagem","Mesmo modelo de mensagem com resposta baixa em várias contas: problema de copy, não de conta"],
+ alerts:["Mais de 35 dias de cadência sem resposta explícita","Só 1 contato acionado na conta","Muitas respostas cordiais e nenhuma com conteúdo: problema na abertura da mensagem","Mesmo modelo de mensagem com resposta baixa em várias contas: problema de copy, não de conta"],
  ref:"Benchmarks de prospecção (majoritariamente e-mail frio nos EUA, servem como ordem de grandeza): resposta média de 3% a 5%, quartil superior acima de 10%; cerca de metade das respostas são positivas; sequências com 3 ou mais canais respondem bem mais que canal único; abordagens com gatilho de prazo convertem em reunião mais que abordagens só de problema (The Digital Bloom, Instantly). Ebsta e Pavilion: multithreading aumenta a conversão em negócios grandes.",
  old:"MQA (qualificamos a conta, os contatos e fizemos tentativa de contato)",
  extra:`<div class="extra"><h3>Tipos de resposta</h3>
@@ -487,14 +493,14 @@ const STAGES = [
   <tr><td>Respostas explícitas, mas poucas viram diagnóstico</td><td>CTA ou oferta da reunião fraca</td><td>Oferecer diagnóstico sobre a dor dita, não "apresentação da OSPA"</td></tr>
   <tr><td>Respostas só de cargos sem relação com a dor</td><td>Mapa de papéis errado</td><td>Revisar o mapa e pedir indicação do dono da dor</td></tr>
   </tbody></table></div>
-  <p class="note">Ritual sugerido: revisão semanal de 15 min com a liderança, olhando contas em cadência há mais de 30 dias e a taxa de resposta explícita por modelo e por SDR. É ali que a impressão de "ninguém responde há semanas" vira um diagnóstico.</p>
+  <p class="note">Ritual sugerido: revisão semanal de 15 min com a liderança, olhando contas em cadência há mais de 35 dias e a taxa de resposta explícita por modelo e por SDR. É ali que a impressão de "ninguém responde há semanas" vira um diagnóstico.</p>
   </div>`},
 {id:"s1",lane:"sdr",code:"2",name:"MQA interação",alias:"conta ativada",board:"Contas ABM",short:"2 ou mais pessoas com interação de mão dupla e diagnóstico aceito pelo dono da dor",
- job:"Identificação do problema",sla:"45 dias",
+ job:"Identificação do problema",sla:"35 dias",
  objetivo:"Abrir conversa real com a conta e chegar ao dono da dor.",
  entrada:"Primeira resposta explícita (interesse, indicação ou objeção com conteúdo) vinda da cadência, conversa com conteúdo em evento, ou mão levantada.",
  exit:["Pelo menos 2 pessoas da conta, de preferência de secretarias diferentes, com interação de mão dupla (responderam, conversaram, pediram algo)","Ou: o dono da dor levantou a mão explicitamente (atalho)","Dono da dor identificado por nome e cargo","Reunião de diagnóstico aceita pelo dono da dor, com data"],
- kr:"Contas ativadas que viram diagnóstico com o dono da dor em até 45 dias.",
+ kr:"Contas ativadas que viram diagnóstico com o dono da dor em até 35 dias.",
  kpis:["# contas ativadas por canal","Termômetro da conta (pessoas, papéis e recência)","Taxa MQA interação para SQA interação","Tempo de follow-up pós evento (meta: 48 h)"],
  crm:"Engajamento é atributo da conta (termômetro frio, morno, quente), não coluna. Cada interação fica vinculada à conta e à pessoa, com o papel dela.",
  meeting:{name:"Conversa de conexão",dur:"10 a 20 min · evento, telefone ou vídeo",who:"SDR e uma pessoa da conta",
@@ -508,7 +514,7 @@ const STAGES = [
  ref:"Ebsta e Pavilion: falar com várias pessoas da conta aumenta a conversão em 130% em negócios grandes. Forrester: engajamento é medido no grupo comprador, não no lead.",
  old:"MQA + MQA engajado + MQA interação"},
 {id:"s2",lane:"sdr",code:"3",name:"SQA interação",alias:"diagnóstico agendado",board:"Contas ABM",short:"Reunião realizada com o dono da dor e oportunidade aceita pelo closer",
- job:"Identificação do problema",sla:"14 dias",
+ job:"Identificação do problema",sla:"10 dias",
  objetivo:"Garantir que o diagnóstico aconteça com a pessoa certa e que o closer chegue preparado.",
  entrada:"Reunião de diagnóstico aceita pelo dono da dor.",
  exit:["Reunião realizada (não só agendada) com o dono da dor presente","Nota de passagem preenchida: gatilho, hipótese de dor, mapa de papéis e o que a conta disse, nas palavras dela","Closer aceita a oportunidade em até 2 dias úteis ou devolve com motivo"],
@@ -525,7 +531,7 @@ const STAGES = [
  ref:"Prática enterprise de SDR: a meta é reunião realizada e aceita pelo closer, não agendada.",
  old:"SQA interação"},
 {id:"c1",lane:"sdr",code:"4",name:"SQA apresentação",alias:"reunião de diagnóstico",board:"Contas ABM",short:"Dor confirmada nas palavras do cliente e sessão de valor agendada com mais uma secretaria",
- job:"Identificação do problema e exploração de soluções",sla:"21 dias",
+ job:"Identificação do problema e exploração de soluções",sla:"15 dias",
  objetivo:"Entender a situação e a dor nas palavras do cliente, e ganhar o direito de mostrar valor para mais gente.",
  entrada:"Oportunidade aceita pelo closer.",
  exit:["Situação atual descrita e dor confirmada pelo cliente (registro com as palavras dele)","Impacto: o que acontece se nada mudar","Evento crítico candidato (calendário de gestão, plano diretor, LOA, financiamento)","Champion candidato identificado","Sessão de valor agendada com pelo menos mais uma secretaria"],
@@ -535,15 +541,15 @@ const STAGES = [
  meeting:{name:"Reunião de diagnóstico",dur:"45 a 60 min",who:"SDR (closer opcional em conta Tier 1), dono da dor e quem ele trouxer",
   pauta:["Combinado inicial: objetivo, tempo e o que se decide no final","Contexto da prefeitura e da área: como funciona hoje","Um insight com dado do próprio município: ensinar algo novo, não apresentar a empresa","Perguntas de problema e de implicação (SPIN): onde trava, quanto custa, quem sofre","Evento crítico: o que precisa estar pronto e até quando","Quem mais é afetado e quem decide","Resumo em voz alta, com as palavras do cliente"],
   cta:"Agendar a sessão de valor (online) com pelo menos mais uma secretaria, e saber quais dores cada uma quer ver resolvidas na demo.",
-  show:["Um case de prefeitura semelhante (2 min)","Uma tela ou mapa que ilustre o insight, se ajudar"],
-  dont:["Tour completo da plataforma","Proposta preliminar ou preço","Lista de módulos e funcionalidades","Perguntar orçamento: a LOA é pública, pesquise antes"],
+  show:["Um case de prefeitura semelhante (2 min)","Uma tela ou mapa que ilustre o insight, se ajudar","Faixa de investimento (ordem de grandeza): é a primeira coisa que querem saber, e mostra que não são R$ 80 mil nem R$ 8 milhões"],
+  dont:["Tour completo da plataforma","Proposta preliminar ou preço detalhado","Lista de módulos e funcionalidades","Perguntar orçamento: a LOA é pública, pesquise antes"],
   after:"Enviar em até 24 h o Resumo do diagnóstico: uma página com a dor nas palavras do cliente, o impacto e o próximo passo. É esse documento que circula internamente na prefeitura, e não uma proposta. Depois, briefing de 10 min do SDR para o closer, com as palavras da conta: o closer entra na sessão de valor."},
  roles:"Dono da dor e champion candidato.",
  alerts:["Cliente pede proposta no fim da primeira reunião: responda com o resumo e a sessão de valor","Nenhuma outra secretaria aceita participar"],
  ref:"Gartner (sense making): vendedores que ajudam o cliente a interpretar a informação fecham 80% de negócios de alta qualidade, contra 30% dos que só entregam informação. Winning by Design: SPICED.",
  old:"SQA apresentação, sem demo completa e sem proposta preliminar"},
 {id:"c2",lane:"closer",code:"5",name:"SQA consideração",alias:"validação de valor",board:"Pipeline",tag:"pipe",short:"Dor reconhecida por 2 secretarias, métrica, evento crítico e workshop agendado",
- job:"Exploração de soluções",sla:"30 dias",
+ job:"Exploração de soluções",sla:"20 dias",
  objetivo:"Fazer mais de uma secretaria reconhecer a dor como comum e ver, num ambiente real, como uma prefeitura parecida resolveu a mesma dor.",
  entrada:"Diagnóstico completo e sessão de valor agendada.",
  exit:["Dor reconhecida por pelo menos 2 secretarias (registro em ata ou e-mail)","Resultado esperado com uma métrica e linha de base hipotética","Evento crítico com data","Rota de contratação hipotética (inexigibilidade, CPSI, ata ou licitação) e fonte de recurso provável","Champion testado: já fez algo por nós (convidou alguém, conseguiu um dado)","Workshop do comitê agendado"],
@@ -552,51 +558,48 @@ const STAGES = [
  crm:"Entra no pipeline e no forecast (categoria pipeline). Valor estimado e data provável obrigatórios. Scorecard visível no card.",
  meeting:{name:"Sessão de valor",dur:"60 a 90 min · online",who:"Closer, especialista e 2 ou mais secretarias",
   pauta:["Recapitular a dor com as palavras do diagnóstico e confirmar com o grupo","Demo de referência (online), no ambiente tester ou de uma prefeitura cliente de porte parecido: 2 ou 3 fluxos ligados à dor declarada, sempre conectando ao caso deles","Rodada por papel: o que cada secretaria ganharia","Estimativa de impacto com a métrica deles","Como a prefeitura costuma contratar soluções assim, quem assina, se há dotação","Quem precisa estar no comitê para isso andar"],
-  cta:"O champion convoca o workshop de parceria com os papéis que faltam (procuradoria ou controle, fazenda, gabinete), com data.",
-  show:["Demo de referência guiada pela dor deles, nunca um tour genérico","Estimativa de impacto preliminar","Faixa de investimento verbal, só se perguntarem, como ordem de grandeza"],
+  cta:"O champion convoca a reunião de proposta de escopo com os papéis do comitê de compra que faltam (procuradoria ou controle, Fazenda, gabinete), com data. O workshop de sensibilização é opcional para ampliar esse grupo.",
+  show:["Demo de referência guiada pela dor deles, nunca um tour genérico","Estimativa de impacto preliminar","Faixa de investimento refinada pelo escopo provável"],
   dont:["Proposta escrita","Tratar dados do município antes do contrato: isso é serviço vendido na implantação","Cardápio de módulos","Mostrar tudo o que a plataforma faz","Discutir desconto"],
   after:"Escolha do ambiente: use o ambiente tester como padrão. Ambiente de prefeitura cliente só com autorização dela e sem dados sensíveis, escolhendo uma de porte e dor parecidos (conecta com o case). A personalização vem da narrativa, não dos dados: a demo segue as dores ditas no diagnóstico, na ordem de prioridade do comitê, e cada fluxo termina em \"no caso de vocês, isso significa...\". O tratamento dos dados da cidade entra na proposta como parte da implantação, o que reforça o valor do serviço."},
  roles:"Pelo menos 3 papéis, de 2 secretarias.",
  alerts:["Só uma secretaria engajada","Ninguém sabe dizer como a prefeitura contrata","Pedido de proposta para \"levar ao prefeito\" sem comitê"],
  ref:"Gartner: grupos que chegam a consenso têm 2,5 vezes mais chance de fechar negócio de alta qualidade. Bain B2B Elements of Value: valor por papel. MEDDPICC: dor e métrica.",
  old:"SQA consideração"},
-{id:"c3",lane:"closer",code:"6",name:"SQA intenção",alias:"comitê e plano de trabalho",board:"Pipeline",tag:"pipe",gate:true,short:"Comitê indicado pela prefeitura, rota e recurso definidos, plano de trabalho aceito",
- job:"Construção de requisitos e criação de consenso",sla:"45 dias",
- objetivo:"Transformar interesse de pessoas em decisão da instituição, com plano de trabalho e caminho de contratação acordados.",
- entrada:"Workshop agendado pelo champion.",
- exit:["Membros do comitê indicados pela prefeitura (e-mail, ofício ou portaria)","Pelo menos 5 dos 6 a 8 papéis cobertos, incluindo decisor econômico e procuradoria ou controle","Critérios de decisão declarados pelo comitê","Rota de contratação e fonte de recurso definidas, com ordenador de despesa identificado","Plano de trabalho conjunto aceito (etapas, responsáveis dos dois lados, datas)","Reunião de proposta agendada com o decisor econômico presente"],
- kr:"Planos de trabalho aceitos e cobertura do grupo comprador.",
- kpis:["Cobertura de papéis (engajados / necessários)","Taxa SQA intenção para NGC negociação","Pipeline forecasting: 4 de 37 (obrigatórios)"],
- crm:"Mapa do comitê com papel e postura (apoia, neutro, resiste). Plano de trabalho anexado ao card. Trava: o botão de gerar proposta só fica disponível depois desta etapa, com deal review da liderança.",
- meeting:{name:"Workshop de parceria",dur:"90 a 120 min · online, com câmeras abertas",who:"Closer, especialista e comitê (6 a 8 papéis)",
-  pauta:["Objetivo comum: cada secretaria diz o que precisa resolver","Resultado esperado compartilhado e como vamos medir","Critérios de decisão e preocupações: procuradoria e controle falam aqui, não no fim","Escopo recomendado em alto nível: o que entra agora e o que fica para fases futuras","Caminho de contratação: rota, documentos e quem faz o quê","Rascunho do plano de trabalho, preenchido junto"],
-  cta:"Aprovar o plano de trabalho conjunto e agendar a apresentação da proposta com o decisor econômico.",
-  show:["Escopo recomendado (uma opção), sem preço detalhado","Faixa de investimento","Visão do dossiê de contratação","Conversa com prefeitura cliente, se pedirem"],
-  dont:["Apresentar várias opções de escopo para o comitê escolher","Prometer personalização fora do escopo recomendado","Enviar proposta antes do plano aceito","Buscar unanimidade: o objetivo é consenso sem veto"]},
- roles:"5 ou mais papéis, com decisor econômico e gatekeeper jurídico.",
- alerts:["Comitê \"criado\" por nós, sem indicação da prefeitura","Procuradoria ou controle ausentes","Plano sem datas do lado da prefeitura"],
- ref:"Gartner: 74% dos grupos compradores têm conflito não saudável, e o consenso aumenta a qualidade do negócio. Mutual action plan (Highspot). Forrester: grupo comprador vinculado à oportunidade.",
- old:"SQA intenção"},
-{id:"c4",lane:"closer",code:"7",name:"NGC negociação",alias:"proposta recomendada",board:"Pipeline",tag:"best",short:"Proposta única com aval por escrito do decisor econômico e DFD com data",
- job:"Seleção de fornecedor e validação",sla:"60 dias",
- objetivo:"Obter o sim do decisor econômico para uma proposta única e levar a prefeitura até escrever o ETP e o TR.",
- entrada:"Plano de trabalho aceito e reunião de proposta agendada com o decisor econômico.",
- exit:["Proposta única apresentada ao vivo ao decisor econômico","Ajustes feitos só dentro das alavancas definidas (fases, prazo de implantação, número de usuários, capacitação)","Aval por escrito (e-mail ou ofício) do decisor econômico","Dossiê de contratação entregue","Abertura do processo administrativo (DFD) com data no plano"],
- kr:"Aval por escrito em até 30 dias, com no máximo 2 rodadas de ajuste, e ETP e TR escritos em até 60 dias.",
- kpis:["Taxa NGC negociação para NGC fechamento","Valor médio por contrato","Rodadas de ajuste (meta: até 2)","Pipeline forecasting: 17 de 37 (obrigatórios)"],
- crm:"Categoria de forecast: melhor cenário. Proposta gerada de modelo padrão por tier, sem edição livre de escopo. Ajustes registrados como alavancas.",
- meeting:{name:"Apresentação da proposta",dur:"60 min",who:"Closer, liderança comercial (Tier 1), decisor econômico e comitê",
-  pauta:["Recapitular dor, resultado esperado e critérios de decisão, com as palavras do comitê","A recomendação: um escopo de parceria, e por que ele","O que fica para fases futuras e por quê","Investimento, cronograma e rota de contratação","Como tiramos o risco: implantação faseada, capacitação, referências, segurança jurídica","Próximos passos do plano de trabalho"],
-  cta:"Aval por escrito da proposta e data de abertura do processo administrativo (DFD), com o ETP e o TR como próximos passos do plano.",
-  show:["Proposta formal, apresentada ao vivo e enviada depois","Dossiê de contratação","Referência de prefeitura cliente"],
-  after:"Depois do aval, a etapa continua até a prefeitura escrever o ETP e o TR: abertura do DFD, entrega do dossiê de contratação (minutas, atestados, justificativa de preço) e validação da rota com a procuradoria. É a pré-condição para entrar no forecast de commit.",
-  dont:["Enviar a proposta só por e-mail","Cardápio de módulos ou várias versões de preço","Desconto não planejado: preço consistente entre prefeituras sustenta a justificativa de preço","Reabrir o escopo do zero"]},
- roles:"Decisor econômico presente; champion e procuradoria alinhados.",
- alerts:["Decisor econômico não comparece","Pedido de \"mais opções\"","Silêncio de mais de 15 dias após a proposta"],
- ref:"JOLT Effect (Dixon e McKenna): recomendar, limitar a exploração e tirar o risco da mesa. Em 56% das perdas por falta de decisão o cliente queria mudar, mas travou com medo de errar. Gartner: excesso de informação leva a compra menor ou a nenhuma compra.",
- old:"NGC negociação"},
+{id:"c3",lane:"closer",code:"6",name:"SQA intenção",alias:"proposta de escopo e de valores",board:"Pipeline",tag:"pipe",gate:true,short:"",
+ job:"Construção de requisitos, seleção e consenso",sla:"25 dias",
+ objetivo:"Apresentar, sempre em reunião, a proposta de escopo da parceria ao comitê de compra e a proposta de valores ao decisor econômico, e sair com a validação explícita dos dois.",
+ entrada:"Champion convocou a reunião de proposta com os papéis do comitê de compra.",
+ exit:[],kr:"",
+ kpis:["Cobertura de papéis do comitê de compra","Taxa SQA intenção para NGC negociação","Rodadas de ajuste (meta: até 2)","Pipeline forecasting: 4 de 37 (obrigatórios)"],
+ crm:"A proposta é gerada aqui, a partir do modelo por tier, sem edição livre de escopo, e só depois do milestone de entrada. Proposta só é registrada como apresentada com data de reunião. Mapa do comitê com papel e postura. Plano de trabalho anexado ao card.",
+ meeting:{name:"Proposta de escopo da parceria + proposta de valores",dur:"2 reuniões de 60 min, com até 10 dias entre elas",who:"Reunião 1: closer, especialista e comitê de compra. Reunião 2: closer, liderança comercial (Tier 1) e decisor econômico",
+  pauta:["Reunião 1 · Escopo: recapitular as dores de cada secretaria, com as palavras delas","Reunião 1 · A recomendação: um escopo de parceria, o que entra agora e o que fica para fases futuras","Reunião 1 · Resultados esperados, indicadores e plano de implantação","Reunião 2 · Valores: investimento anual, vigência e condições, coerentes com a faixa dita no diagnóstico","Reunião 2 · Rota de contratação e como tiramos o risco (implantação faseada, capacitação, referências, segurança jurídica)","Reunião 2 · Pedido de validação explícita de escopo e valores"],
+  cta:"Reunião 1: o comitê concorda com o escopo e agenda a reunião de valores com o decisor econômico. Reunião 2: validação explícita, por escrito, de escopo e valores.",
+  show:["Proposta formal, apresentada ao vivo e enviada depois da reunião","Escopo recomendado (uma opção) com fases futuras","Plano de trabalho conjunto","Referência de prefeitura cliente"],
+  dont:["Enviar a proposta só por e-mail","Cardápio de módulos ou várias versões de preço","Valor muito diferente da faixa dita no diagnóstico","Desconto não planejado: preço consistente entre prefeituras sustenta a justificativa de preço","Deixar a validação de valores para a NGC negociação"]},
+ roles:"Comitê de compra com 5 ou mais papéis; decisor econômico na reunião de valores.",
+ alerts:["Decisor econômico ausente na reunião de valores","Pedido de \"mais opções\"","Silêncio de mais de 10 dias entre as duas reuniões","Comitê \"criado\" por nós, sem indicação da prefeitura"],
+ ref:"JOLT Effect (Dixon e McKenna): recomendar, limitar a exploração e tirar o risco da mesa. Gartner: consenso do grupo comprador antes da seleção de fornecedor; excesso de informação leva a compra menor ou a nenhuma compra.",
+ old:"SQA intenção (agora com as reuniões de proposta)"},
+{id:"c4",lane:"closer",code:"7",name:"NGC negociação",alias:"escopo e valores validados",board:"Pipeline",tag:"best",short:"",
+ job:"Validação e rito de contratação",sla:"40 dias",
+ objetivo:"Com escopo e valores já validados, conduzir a rota de contratação até a prefeitura escrever o ETP e o TR, sem reabrir a proposta.",
+ entrada:"Validação explícita de escopo e valores.",
+ exit:[],kr:"",
+ kpis:["Taxa NGC negociação para NGC fechamento","Valor médio por contrato","Dias entre a validação e o ETP/TR","Pipeline forecasting: 24 de 37 (obrigatórios)"],
+ crm:"Categoria de forecast: melhor cenário. Escopo e valores validados ficam travados no card; qualquer ajuste é registrado como alavanca e precisa de aprovação da liderança.",
+ meeting:{name:"Plano do rito de contratação",dur:"45 min e ritos quinzenais",who:"Closer, champion e, quando necessário, procuradoria e jurídico da OSPA Place",
+  pauta:["Confirmar o que foi validado: escopo, valores e vigência","Rota de contratação e precedente validado com a procuradoria","Abertura do DFD e responsáveis","Entrega do dossiê de contratação (minutas, atestados, justificativa de preço)","Datas e responsáveis do ETP e do TR"],
+  cta:"ETP e TR com data e responsável na prefeitura.",
+  show:["Dossiê de contratação","Minutas de ETP e TR","Planilha de documentos jurídicos"],
+  dont:["Reapresentar a proposta","Reabrir escopo ou valores","Negociar sem troca: todo ajuste é dado em troca de algo (data do DFD, ETP/TR)","Sumir enquanto a prefeitura escreve os documentos"]},
+ roles:"Champion conduzindo internamente; procuradoria e Fazenda ativas.",
+ alerts:["Pedido de rediscutir valores depois da validação","DFD sem data há mais de 15 dias","Troca de secretário ou de procurador"],
+ ref:"MEDDPICC: paper process (rito de contratação). Gartner buyer enablement: material que ajuda a comprar. Lei 14.133/2021, arts. 72 e 74.",
+ old:"NGC negociação (a proposta deixa de ser apresentada aqui; aqui ela já chega validada)"},
 {id:"c5",lane:"closer",code:"8",name:"NGC fechamento",alias:"ETP e TR escritos (commit)",board:"Pipeline",tag:"commit",short:"",
- job:"Validação final e contratação",sla:"60 a 90 dias",
+ job:"Validação final e contratação",sla:"60 dias",
  objetivo:"Conduzir o rito do ETP/TR até o empenho sem perder o comitê, e passar o bastão sem perder o que foi prometido.",
  entrada:"ETP e TR escritos pela prefeitura.",
  exit:[],
@@ -635,12 +638,12 @@ const MS = {
   ["Reunião realizada, não apenas agendada","Dono da dor presente"]],
  c2:["Quando o cliente confirmou a dor com as próprias palavras e aceitou a sessão de valor com outra secretaria.",
   ["Situação atual descrita e dor confirmada pelo cliente, com as palavras dele","Impacto registrado: o que acontece se nada mudar","Evento crítico candidato registrado","Champion candidato identificado","Sessão de valor agendada com pelo menos mais uma secretaria","Nota de passagem SDR para closer completa e aceita pelo closer em até 2 dias úteis"]],
- c3:["Quando duas secretarias reconheceram a dor e o champion convocou o workshop do comitê.",
-  ["Dor reconhecida por pelo menos 2 secretarias (ata ou e-mail)","Resultado esperado com uma métrica e linha de base hipotética","Evento crítico com data","Rota de contratação hipotética e fonte de recurso provável","Champion testado: já fez algo por nós","Workshop do comitê agendado"]],
- c4:["Quando a prefeitura indicou o comitê, aprovou o plano de trabalho e agendou a proposta com o decisor econômico.",
-  ["Membros do comitê indicados pela prefeitura (e-mail, ofício ou portaria)","Pelo menos 5 dos 6 a 8 papéis cobertos, incluindo decisor econômico e procuradoria ou controle","Critérios de decisão declarados pelo comitê","Rota de contratação e fonte de recurso definidas, com ordenador de despesa identificado","Plano de trabalho conjunto aceito","Reunião de proposta agendada com o decisor econômico presente"]],
- c5:["Quando a prefeitura escreveu o ETP e o TR, depois de dar aval por escrito à proposta.",
-  ["Aval por escrito do decisor econômico (e-mail ou ofício)","Escopo recomendado e investimento anual com vigência aceitos","Rota de contratação validada com a procuradoria","DFD aberto e dossiê de contratação entregue","ETP e TR escritos pela prefeitura, com a data registrada"]],
+ c3:["Quando duas secretarias reconheceram a dor e o champion convocou a reunião de proposta com os papéis do comitê de compra.",
+  ["Dor reconhecida por pelo menos 2 secretarias (ata ou e-mail)","Resultado esperado com uma métrica e linha de base hipotética","Evento crítico com data","Rota de contratação hipotética e fonte de recurso provável","Champion testado: já fez algo por nós","Reunião de proposta de escopo agendada com o comitê de compra"]],
+ c4:["Quando a prefeitura validou explicitamente o escopo e os valores da proposta.",
+  ["Proposta de escopo e proposta de valores apresentadas em reunião","Escopo recomendado aceito pelo comitê de compra","Investimento anual e vigência aceitos pelo decisor econômico","Validação por escrito (e-mail ou ofício)","Comitê de compra indicado pela prefeitura, com 5 ou mais papéis","Risco percebido (FOMU) mapeado e mitigado"]],
+ c5:["Quando a prefeitura escreveu o ETP e o TR.",
+  ["Rota de contratação validada com a procuradoria","DFD aberto e dossiê de contratação entregue","ETP e TR escritos pela prefeitura, com a data registrada"]],
  cs:["Quando o ato foi publicado, o contrato assinado e o empenho emitido.",
   ["Reserva orçamentária e parecer jurídico favorável","Ato de contratação publicado (PNCP e diário oficial)","Contrato assinado","Empenho emitido","Passagem de bastão feita e kickoff agendado em até 15 dias"]]
 };
@@ -655,12 +658,12 @@ const TEC = {
   p:{n:"Abordagem por gatilho",c:"Abrir com um evento específico e datado da cidade, nomear o problema provável daquele papel e fechar com uma pergunta fácil. Gatilhos com prazo respondem melhor que mensagens só sobre o problema.",q:["\"Vi que a revisão do plano diretor de [cidade] está prevista para [ano]. Como a secretaria está organizando a base de dados urbanos para isso?\"","\"A Prefeitura de [cidade parecida] reduziu o prazo de [processo]. Esse tema é prioridade aí também, ou o foco hoje é outro?\"","\"Quem na prefeitura cuida hoje de [tema]?\""],qt:"Exemplos de abertura"},
   a:{n:"Multithreading por papel",c:"3 ou mais papéis em paralelo, com mensagem diferente para cada um: técnico fala de rotina, secretário de resultado de gestão, Fazenda de arrecadação."},
   sinal:"Responde com conteúdo: faz uma pergunta, indica alguém ou explica por que não agora.",
-  kr:"% de contas com resposta explícita em até 30 dias de cadência."},
+  kr:"% de contas com resposta explícita em até 35 dias de cadência."},
  s1:{obj:"Validar o gatilho, achar o dono da dor e ganhar a reunião de diagnóstico.",
   p:{n:"SPIN: Situação e Problema",c:"Só perguntas para entender como funciona hoje e onde trava. Nada de vender ou demonstrar ainda.",q:["\"Como vocês fazem hoje [consulta de parâmetros urbanísticos, análise de viabilidade]?\"","\"Quanto tempo leva, em média, do pedido até a resposta?\"","\"Onde isso mais trava: na informação, nas pessoas ou no sistema?\"","\"Quem mais sente esse problema além da sua equipe?\""],qt:"Perguntas-modelo"},
   a:{n:"CTA de baixo atrito",c:"Pedir 45 minutos para aprofundar a dor que a pessoa acabou de citar, e não para \"apresentar a OSPA Place\"."},
   sinal:"Aceita o diagnóstico com data e indica mais alguém sem que a gente peça.",
-  kr:"% de contas em MQA interação que viram SQA em até 45 dias."},
+  kr:"% de contas em MQA interação que viram SQA em até 35 dias."},
  s2:{obj:"Garantir que a reunião aconteça com as pessoas certas e com expectativa alinhada.",
   p:{n:"Combinado prévio (Sandler)",c:"Confirmar antes o objetivo, o tempo, os participantes e o que se decide no fim da reunião.",q:["\"Na reunião de quinta, a ideia é entender como funciona hoje [processo] e ver se faz sentido aprofundar. No fim, combinamos juntos se vale um próximo passo. Faz sentido?\"","\"Além de você, quem mais deveria estar para essa conversa valer a pena?\""],qt:"Exemplos de mensagem"},
   a:{n:"Pré-leitura curta",c:"Um case de prefeitura parecida ou um vídeo de até 2 minutos. Nada além disso."},
@@ -676,16 +679,16 @@ const TEC = {
   a:{n:"Demo \"fala, mostra, fala\"",c:"Antes de cada fluxo, lembrar a dor dita; mostrar; depois, perguntar o que aquilo significa para eles. 2 ou 3 fluxos, no ambiente de referência."},
   sinal:"As secretarias quantificam o impacto, e o champion age sozinho: convoca colegas, consegue um dado, defende internamente.",
   kr:"% de oportunidades com métrica de sucesso aceita e workshop agendado."},
- c3:{obj:"Transformar interesse de pessoas em decisão da instituição, com rota e plano acordados.",
-  p:{n:"MEDDPICC: processo, rito, decisor e champion",c:"Mapear como a decisão acontece, qual o rito de contratação, quem ordena a despesa e quem defende a compra. Tudo registrado no scorecard.",q:["\"Como a prefeitura contratou a última solução parecida? Quem participou?\"","\"Quem assina e quem ordena a despesa?\"","\"O que a procuradoria vai precisar ver para se sentir segura?\"","\"Existe dotação neste exercício ou isso precisa entrar na LOA?\"","\"O que poderia fazer isso parar no meio do caminho?\""],qt:"Perguntas-modelo"},
-  a:{n:"Plano de trabalho conjunto",c:"Construído junto no workshop, com etapas do rito, responsáveis dos dois lados e datas. É o que mantém o comitê andando depois da reunião."},
-  sinal:"A prefeitura indica o comitê formalmente e assume datas no plano.",
-  kr:"Cobertura de 5 ou mais papéis e % de planos de trabalho aceitos."},
- c4:{obj:"Obter o sim do decisor econômico para uma proposta única, sem abrir cardápio.",
-  p:{n:"JOLT",c:"Julgar o nível de indecisão; Oferecer uma recomendação; Limitar a exploração de opções; Tirar o risco da mesa. Medo de errar trava mais negócios que falta de interesse.",q:["\"Pelo que vocês nos disseram, nossa recomendação é começar por [escopo], porque resolve [dor] até [evento crítico].\"","\"[Módulo Y] faz sentido numa segunda fase, depois que [resultado] estiver comprovado.\"","\"Para reduzir o risco, a implantação é faseada, e vocês podem conversar com a Prefeitura de [cidade], que passou pelo mesmo processo.\""],qt:"Exemplos de fala"},
-  a:{n:"Troca por alavancas",c:"Só ajustar prazo, fases, número de usuários ou capacitação, e sempre em troca de algo: data do DFD, presença do decisor, aval por escrito."},
-  sinal:"Dá o aval por escrito sem pedir mais opções.",
-  kr:"% de aval por escrito em até 30 dias, com no máximo 2 rodadas de ajuste."},
+ c3:{obj:"Sair com escopo e valores validados explicitamente, sem abrir cardápio.",
+  p:{n:"JOLT",c:"Julgar o nível de indecisão; Oferecer uma recomendação; Limitar a exploração de opções; Tirar o risco da mesa. Medo de errar trava mais negócios que falta de interesse.",q:["\"Pelo que vocês nos disseram, nossa recomendação é começar por [escopo], porque resolve [dor] até [evento crítico].\"","\"[Módulo Y] faz sentido numa segunda fase, depois que [resultado] estiver comprovado.\"","\"Para reduzir o risco, a implantação é faseada, e vocês podem conversar com a Prefeitura de [cidade], que passou pelo mesmo processo.\"","\"Com isso, podemos considerar escopo e valores validados para seguir com o processo?\""],qt:"Exemplos de fala"},
+  a:{n:"MEDDPICC e plano de trabalho",c:"Antes da reunião de valores: processo de decisão, critérios e decisor econômico mapeados; plano de trabalho com datas e responsáveis dos dois lados."},
+  sinal:"Valida escopo e valores por escrito sem pedir mais opções.",
+  kr:"% de propostas com validação explícita em até 25 dias, com no máximo 2 rodadas de ajuste."},
+ c4:{obj:"Levar a prefeitura até escrever o ETP e o TR sem reabrir a proposta.",
+  p:{n:"MEDDPICC: rito de contratação (paper process)",c:"Rota, documentos, responsáveis e prazos de cada passo do processo administrativo até o ETP e o TR.",q:["\"Quem na prefeitura vai escrever o ETP e o TR, e até quando?\"","\"O que a procuradoria precisa ver para validar a rota?\"","\"O DFD já pode ser aberto? Quem abre?\""],qt:"Perguntas-modelo"},
+  a:{n:"Troca por alavancas",c:"Ajuste fino só em prazo, fases, usuários ou capacitação, e sempre em troca de algo: data do DFD, data do ETP/TR."},
+  sinal:"A prefeitura escreve o ETP e o TR nas datas combinadas.",
+  kr:"ETP e TR escritos em até 40 dias da validação."},
  c5:{obj:"Conduzir o rito até o empenho sem perder o comitê e entregar ao CS tudo o que foi prometido.",
   p:{n:"Buyer enablement",c:"Entregar o que ajuda a prefeitura a concluir a compra: respostas à procuradoria, documentos do rito, minuta de contrato. Material sobre o processo, não sobre o produto.",q:["\"Qual o próximo passo do processo e quem é o responsável?\"","\"Que documento está faltando para a procuradoria?\"","\"Há algum risco de calendário (fim do exercício, LOA) que a gente precise antecipar?\""],qt:"Perguntas-modelo"},
   a:{n:"Gestão do plano e passagem estruturada",c:"Rito quinzenal com o champion conferindo datas; no empenho, passagem para CS com SPICED, promessas, métrica de sucesso, linha de base e mapa do comitê."},
@@ -698,8 +701,8 @@ const RULES = [
  ["Uma reunião, um objetivo, um CTA","Combinar no início o que se decide no fim. Sem CTA definido, a reunião não acontece.","Up-front contract; Gartner sense making"],
  ["Revelar na velocidade da conta","Mostrar só o que a conta já consegue reconhecer como valor. Use a escada de revelação.","Gartner: excesso de informação leva a compras menores ou a nenhuma compra"],
  ["Recomendar, nunca oferecer cardápio","O closer chega com um escopo de parceria fechado e ajusta junto. Opções demais aumentam o medo de errar.","JOLT: ofereça sua recomendação e limite a exploração"],
- ["Proposta só depois do comitê","Pedido de proposta antes de SQA intenção é respondido com o resumo do diagnóstico e a próxima reunião.","Gartner: consenso antes da seleção de fornecedor"],
- ["Proposta apresentada ao vivo","A proposta é apresentada ao decisor econômico e enviada depois. Nunca só por e-mail.","Prática enterprise de proposta"],
+ ["Proposta na SQA intenção, sempre em reunião","Faixa de investimento desde o diagnóstico; proposta de escopo e de valores apresentadas em reunião na SQA intenção. Pedido de proposta antes disso é respondido com a faixa, o resumo do diagnóstico e a próxima reunião.","Gartner: consenso antes da seleção de fornecedor"],
+ ["NGC começa com a proposta validada","Em NGC não se apresenta proposta: escopo e valores já entram validados por escrito. Isso evita o vai e volta de margem durante o rito.","Critério de saída com evidência do comprador"],
  ["Ajustar por alavancas, não por módulos","Ajustes só em fases, prazo de implantação, número de usuários e capacitação. Até 2 rodadas.","JOLT: limite a exploração"],
  ["Tirar o risco da mesa","Implantação faseada, referências, plano de capacitação e dossiê jurídico respondem ao medo de errar.","JOLT: take risk off the table; Bain: redução de risco é valor individual"],
  ["Material que ajuda a comprar","Resumo do diagnóstico, plano de trabalho e dossiê de contratação valem mais que material sobre o produto.","Gartner buyer enablement: 3 vezes mais compras de alta qualidade"],
@@ -715,11 +718,11 @@ const MATRIX = [
  ["Resumo do diagnóstico (1 página, palavras do cliente)",["n","n","y","y","y","y","y"]],
  ["Demo de referência online, no ambiente tester ou de cliente semelhante (2 ou 3 fluxos ligados à dor)",["n","n","n","l","l","y","y"]],
  ["Estimativa de impacto com a métrica do cliente",["n","n","n","y","y","y","y"]],
- ["Faixa de investimento verbal (ordem de grandeza)",["n","n","n","o","y","y","y"]],
+ ["Faixa de investimento verbal (ordem de grandeza)",["n","n","y","y","y","y","y"],"Desde o diagnóstico: mostra que não são R$ 80 mil nem R$ 8 milhões"],
  ["Rota de contratação",["n","n","n","y","y","y","y"],"Hipótese em SQA consideração, definida em SQA intenção"],
  ["Plano de trabalho conjunto",["n","n","n","n","l","y","y"]],
- ["Escopo recomendado em alto nível (uma opção)",["n","n","n","n","l","y","y"]],
- ["Proposta formal com preço",["n","n","n","n","n","l","y"],"Apresentada ao vivo, enviada depois"],
+ ["Escopo recomendado em alto nível (uma opção)",["n","n","n","l","l","y","y"]],
+ ["Proposta formal com preço",["n","n","n","n","l","y","y"],"Apresentada em reunião na SQA intenção (escopo, depois valores); em NGC ela já chega validada"],
  ["Dossiê de contratação (minutas de ETP e TR, atestados, justificativa de preço)",["n","n","n","n","n","y","y"]],
  ["Minuta de contrato",["n","n","n","n","n","n","y"]],
  ["Cardápio de módulos ou várias opções de escopo",["x","x","x","x","x","x","x"],"Use fases futuras da parceria"],
@@ -742,7 +745,7 @@ function tagHtml(t){
 
 function renderBoard(){
   const b = $("#board");
-  const DAYS={s0:[30,30],s1:[45,45],s2:[14,14],c1:[21,21],c2:[30,30],c3:[45,45],c4:[60,60],c5:[60,90]};
+  const DAYS={s0:[35,35],s1:[35,35],s2:[10,10],c1:[15,15],c2:[20,20],c3:[25,25],c4:[40,40],c5:[60,60]};
   const tot=l=>{let a=0,b=0;STAGES.filter(s=>s.lane===l&&DAYS[s.id]).forEach(s=>{a+=DAYS[s.id][0];b+=DAYS[s.id][1]});const mo=d=>(d/30).toFixed(1).replace('.',',').replace(',0','');return a===b?`${a} dias · ~${mo(a)} meses`:`${a} a ${b} dias · ~${mo(a)} a ${mo(b)} meses`;};
   let h = `<div class="lane-label sdr"><span>SDR · board de contas ABM</span><b class="ltot">${tot("sdr")}</b></div><div class="lane-label closer"><span>Closer · pipeline de vendas</span><b class="ltot">${tot("closer")}</b></div><div class="lane-label cs">CS</div>`;
   h += `<div class="mband fit" style="grid-row:2;grid-column:1/3">Fit da conta · Cities (ICP score)<small>medido no MQA Prospect e no MQA</small></div>`
@@ -752,7 +755,7 @@ function renderBoard(){
   let col = 1;
   STAGES.forEach((s,i)=>{
     if(s.id==="c2"||s.id==="cs"){h+=`<div class="handoff" style="grid-column:${col}" aria-hidden="true"><i></i></div>`;col++;}
-    const gate = s.gate?'<span class="tag gate">trava da proposta</span>':"";
+    const gate = s.gate?'<span class="tag gate">proposta em reunião</span>':"";
     h+=`<button class="stage" style="grid-column:${col}" data-lane="${s.lane}" data-id="${s.id}" aria-pressed="false">
       <span class="code"><span>${s.code==="CS"?"CS":"Etapa "+s.code}</span><span>${s.sla?("SLA "+s.sla):""}</span></span>
       <span class="ttl"><span class="name">${s.name}</span><span class="alias">${s.alias||""}</span><span style="display:flex;gap:4px;flex-wrap:wrap">${tagHtml(s.tag)}${gate}</span></span>
@@ -944,10 +947,10 @@ const FIELDS = [
    {t:"Critérios de decisão mapeados",st:"c4",c:2,v:"mover",n:"Veio do Opportunity forecasting."},
    {t:"Processo de decisão mapeado (quem aprova e quem conduz)",st:"c4",c:3,v:"mover",n:"Veio do Opportunity forecasting. O rito de contratação fica no item \"modo de contratação\"."},
    {t:"Postura de resistência mapeada, com plano (ou nenhuma identificada)",st:"c4",c:1,v:"mover",n:"Era \"blocker identificado\", no Opportunity forecasting."},
-   {t:"Escopo completo (software + serviços) validado",st:"c5",c:2,v:"ajustar",n:"Na planilha: \"solução + features\" (2). Reescrever como \"escopo recomendado aceito (uma opção)\"."},
-   {t:"Prefeitura validou o LTV e MRR",st:"c5",c:3,v:"ajustar",n:"Na planilha: \"LTV + tipo de contrato\" (3). Reescrever como \"investimento anual e vigência aceitos\"."},
+   {t:"Escopo completo (software + serviços) validado",st:"c4",c:2,v:"ajustar",n:"Na planilha: \"solução + features\" (2). Reescrever como \"escopo recomendado aceito (uma opção)\"."},
+   {t:"Prefeitura validou o LTV e MRR",st:"c4",c:3,v:"ajustar",n:"Na planilha: \"LTV + tipo de contrato\" (3). Reescrever como \"investimento anual e vigência aceitos\"."},
    {t:"Prefeitura validou o modo de contratação",st:"c5",c:3,v:"manter",n:"Na planilha: \"modo contrato\" (3). Depende do precedente validado com a procuradoria."},
-   {t:"Risco percebido pelo prospect mapeado e mitigado (FOMU)",st:"c5",c:2,v:"mover",n:"Veio do Opportunity forecasting. É o T do JOLT, obrigatório para o aval."},
+   {t:"Risco percebido pelo prospect mapeado e mitigado (FOMU)",st:"c4",c:2,v:"mover",n:"Veio do Opportunity forecasting. É o T do JOLT, obrigatório para o aval."},
    {t:"Prefeitura escreveu o ETP e TR",st:"c5",c:5,v:"manter",n:"Na planilha: 5 pts. Pré-requisito do commit. Registrar a data: a data prevista de fechamento é calculada a partir dela."},
    {t:"Prefeitura definiu uma previsão de data para fechamento",st:"x",c:0,v:"remover",n:"Sai do score: a prefeitura não se compromete com a data. A data prevista é calculada (ETP/TR + mediana histórica até o empenho, por rota)."},
    {t:"Reserva orçamentária confirmada",st:"cs",c:3,v:"novo",n:"Sem dotação o processo para no fim do exercício."},
