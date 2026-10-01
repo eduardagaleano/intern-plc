@@ -337,6 +337,8 @@ a{color:var(--closer)}
       <li><a href="https://www.pandadoc.com/blog/whats-the-difference-between-a-sales-pipeline-and-a-sales-funnel/" target="_blank" rel="noopener">PandaDoc, pipeline x funil</a></li>
       <li><a href="https://close.com/guides-content/sales-pipeline-funnel" target="_blank" rel="noopener">Close, pipeline x funil</a></li>
       <li><a href="https://www.freshworks.com/crm/sales/sales-pipeline/" target="_blank" rel="noopener">Freshworks, sales pipeline no CRM</a></li>
+      <li><a href="https://thedigitalbloom.com/learn/cold-outbound-reply-rate-benchmarks/" target="_blank" rel="noopener">The Digital Bloom, benchmarks de resposta em prospecção 2025</a></li>
+      <li><a href="https://instantly.ai/blog/cold-email-reply-rate-benchmarks/" target="_blank" rel="noopener">Instantly, benchmarks de resposta a e-mail frio</a></li>
       <li>Lei 14.133/2021 (arts. 23, 72, 74, 86); LC 182/2021 (CPSI). Leituras jurídicas a validar com o jurídico.</li>
       <li>Documento base: vendas/VE-01, Benchmarking Enterprise e Revisão da Esteira B2G.</li>
     </ul>
@@ -372,24 +374,48 @@ const STAGES = [
    <div><h4>Rebalanceamento trimestral</h4><p>O ABM tem capacidade fixa (168 contas), definida pelo tamanho do time. A cada trimestre, as contas do ABM que passaram 2 trimestres sem interação de mão dupla e sem sinal descem para o subgrupo B, e as contas do subgrupo A com maior score sobem. Uma conta entra, uma conta sai.</p></div>
    <div><h4>Quem é dono</h4><p>Marketing cuida da reserva: score, enriquecimento, régua 1:muitos e alertas. O SDR só entra quando a conta é promovida ou quando um alerta de mão levantada chega. A revisão trimestral é feita por marketing, liderança comercial e RevOps.</p></div>
   </div></div>`},
-{id:"s0",lane:"sdr",code:"1",name:"MQA",alias:"conta-alvo mapeada",board:"Contas ABM",short:"Mapa de 6 a 8 papéis, gatilho e hipótese de dor registrados",
- job:"Antes da compra: a prefeitura ainda não nomeou o problema",sla:"livre",
- objetivo:"Deixar a conta pronta para ser ativada: saber por que ela deveria se importar agora e com quem falar.",
- entrada:"Conta entre as 168 do ABM, com ICP score acima do corte e tier definido.",
- exit:["Mapa do grupo comprador com 6 a 8 nomes e papel hipotético (usuário, champion, decisor econômico, técnico, gatekeeper jurídico ou de controle, fazenda, gabinete)","Gatilho registrado: sinal público ou contato de evento (revisão do plano diretor, LOA, novo secretário, financiamento, contratação similar no PNCP)","Hipótese de dor e de evento crítico em uma frase","Canal e abordagem definidos por papel: evento ou prospecção ativa"],
- kr:"Todas as contas Tier 1 com plano de conta mínimo e sinal atualizado nos últimos 90 dias.",
- kpis:["% das 168 contas com mapa de 6 a 8 papéis","Idade do último sinal por conta","Contas ativadas por canal (evento x prospecção ativa)"],
- crm:"Campos obrigatórios: tier, ICP score, gatilho, hipótese de dor, mapa de papéis. Alerta automático quando surge sinal novo (PNCP, diário oficial, câmara).",
- meeting:null,
- noMeeting:"Sem reunião. É trabalho de inteligência: plano de conta e lista de contas-alvo presentes em cada evento, com quem vai abordar quem.",
- roles:"Hipótese de 6 a 8 papéis mapeados. Ninguém precisa estar engajado ainda.",
- alerts:["Mapa com nomes de uma secretaria só","Conta sem gatilho: a abordagem vira apresentação institucional genérica","Prefeito como único nome conhecido"],
- ref:"Forrester B2B Revenue Waterfall: estágios de conta (alvo, detectada). Govtech: sinais anteriores ao edital, como orçamento, plano estratégico e troca de liderança, valem mais que o edital publicado (Starbridge).",
- old:"Parte do antigo MQA, agora com mapa e gatilho"},
+{id:"s0",lane:"sdr",code:"1",name:"MQA",alias:"conta qualificada, em cadência",board:"Contas ABM",short:"Contatos mapeados e cadência rodando com 3 ou mais papéis; sai na primeira resposta explícita",
+ job:"Antes da compra: a prefeitura ainda não nomeou o problema",sla:"30 dias de cadência",
+ objetivo:"Qualificar a conta, mapear os contatos e conseguir a primeira resposta explícita de alguém da prefeitura.",
+ entrada:"Conta entre as 168 do ABM (já estava lá ou foi promovida da reserva), com ICP score acima do corte.",
+ exit:["Mapa do grupo comprador com 6 a 8 nomes e papel hipotético (usuário, champion, decisor econômico, técnico, gatekeeper jurídico ou de controle, fazenda, gabinete)","Gatilho e hipótese de dor registrados em uma frase","Cadência iniciada com pelo menos 3 papéis em paralelo, com mensagem diferente por papel","Primeira resposta explícita registrada e classificada (ver tipos de resposta abaixo): a conta passa para MQA interação"],
+ kr:"Contas em cadência que chegam à primeira resposta explícita em até 30 dias.",
+ kpis:["Dias da 1ª tentativa até a 1ª resposta explícita (mediana e faixas)","Contatos acionados por conta e % de contas com 3 ou mais papéis","Taxa de entrega por canal (e-mail sem bounce, WhatsApp entregue, telefone válido)","Taxa de resposta explícita por contato, por conta, por SDR e por modelo de mensagem","Toques até a primeira resposta explícita"],
+ crm:"Sub-status no card: <b>mapeada</b> (sem tentativa) · <b>em cadência</b> (dia X de 30) · <b>cadência encerrada sem resposta</b>. Toda tentativa é registrada com contato, papel, canal e versão do modelo de mensagem. O card mostra \"dias desde a 1ª tentativa\" e \"contatos acionados / respondidos\". Alerta para o SDR e para a liderança quando a conta passa de 30 dias sem resposta explícita.",
+ meeting:{name:"Primeira abordagem (cadência)",dur:"até 30 dias · 8 a 12 toques · 3 ou mais canais",who:"SDR e 3 ou mais papéis da conta em paralelo",
+  pauta:["Abrir com o gatilho específico da cidade, de preferência com prazo (revisão do plano diretor, LOA, programa com data)","Nomear o problema provável para aquele papel, com as palavras dele","Uma prova curta: o que uma prefeitura parecida resolveu","Fechar com uma pergunta fácil de responder"],
+  cta:"Uma resposta explícita: confirmar ou corrigir a hipótese, dizer quem cuida do tema, ou aceitar uma conversa curta.",
+  show:["Um case curto de prefeitura semelhante","Conteúdo ligado ao gatilho"],
+  dont:["Abrir só com \"Oi, tudo bem?\": gera resposta cordial sem conteúdo","Mesma mensagem para todos os papéis","Mandar link de apresentação institucional ou deck","Pedir reunião para \"apresentar a OSPA Place\" no primeiro toque","Seguir mandando para o mesmo contato por semanas sem mudar canal, ângulo ou pessoa"],
+  after:"Quando a cadência termina sem resposta explícita: trocar o ângulo e os papéis e fazer uma segunda cadência depois de 60 a 90 dias, ou rebaixar a conta para a reserva (MQA Prospect, subgrupo B) no próximo rebalanceamento. A conta não fica parada \"mandando mensagem há semanas\"."},
+ roles:"6 a 8 papéis mapeados; 3 ou mais acionados em paralelo.",
+ alerts:["Mais de 30 dias de cadência sem resposta explícita","Só 1 contato acionado na conta","Muitas respostas cordiais e nenhuma com conteúdo: problema na abertura da mensagem","Mesmo modelo de mensagem com resposta baixa em várias contas: problema de copy, não de conta"],
+ ref:"Benchmarks de prospecção (majoritariamente e-mail frio nos EUA, servem como ordem de grandeza): resposta média de 3% a 5%, quartil superior acima de 10%; cerca de metade das respostas são positivas; sequências com 3 ou mais canais respondem bem mais que canal único; abordagens com gatilho de prazo convertem em reunião mais que abordagens só de problema (The Digital Bloom, Instantly). Ebsta e Pavilion: multithreading aumenta a conversão em negócios grandes.",
+ old:"MQA (qualificamos a conta, os contatos e fizemos tentativa de contato)",
+ extra:`<div class="extra"><h3>Tipos de resposta</h3>
+  <div class="tbl-wrap"><table><thead><tr><th>Tipo</th><th>Exemplo</th><th>Conta como resposta explícita?</th><th>Próximo passo</th></tr></thead><tbody>
+  <tr><td class="stagecell">Interesse ou pergunta</td><td>"Como funcionou em [cidade]?"</td><td><span class="cell c-yes">sim</span></td><td>MQA interação; propor conversa de conexão</td></tr>
+  <tr><td class="stagecell">Indicação</td><td>"Quem cuida disso é a secretária X"</td><td><span class="cell c-yes">sim</span></td><td>MQA interação; acionar a pessoa indicada citando quem indicou</td></tr>
+  <tr><td class="stagecell">Objeção com conteúdo</td><td>"Agora não, estamos na revisão da LOA"</td><td><span class="cell c-yes">sim</span></td><td>MQA interação com gatilho registrado, ou reserva com data de reativação</td></tr>
+  <tr><td class="stagecell">Cordial sem conteúdo</td><td>"Oi, tudo bem?", "Recebido", "Obrigado"</td><td><span class="cell c-no">não</span></td><td>Continua em MQA; responder com a pergunta fácil</td></tr>
+  <tr><td class="stagecell">Negativa ou descadastro</td><td>"Não temos interesse", "Pare de enviar"</td><td><span class="cell c-no">não</span></td><td>Encerrar com o contato; respeitar o opt-out</td></tr>
+  <tr><td class="stagecell">Automática</td><td>Ausência, e-mail inválido</td><td><span class="cell c-no">não</span></td><td>Corrigir o dado ou trocar o contato</td></tr>
+  </tbody></table></div>
+  <h3>Onde está o gap: leitura dos números</h3>
+  <div class="tbl-wrap"><table><thead><tr><th>O que o CRM mostra</th><th>Causa provável</th><th>Ação</th></tr></thead><tbody>
+  <tr><td>Muito bounce, WhatsApp não entregue, telefone inválido</td><td>Qualidade da base de contatos</td><td>Enriquecimento e validação antes da cadência</td></tr>
+  <tr><td>Entregue e lido, quase sem resposta, em várias contas</td><td>Copy e relevância da abordagem</td><td>Capacitação; reescrever modelos por papel e por gatilho; teste A/B</td></tr>
+  <tr><td>Mesmo modelo funciona com um SDR e não com outro</td><td>Execução (personalização, horário, canal, insistência)</td><td>Revisão de mensagens enviadas e coaching individual</td></tr>
+  <tr><td>Muitas respostas cordiais sem conteúdo</td><td>Abertura sem pergunta clara</td><td>Abrir com gatilho e pergunta fácil, nunca só cumprimento</td></tr>
+  <tr><td>Respostas explícitas, mas poucas viram diagnóstico</td><td>CTA ou oferta da reunião fraca</td><td>Oferecer diagnóstico sobre a dor dita, não "apresentação da OSPA"</td></tr>
+  <tr><td>Respostas só de cargos sem relação com a dor</td><td>Mapa de papéis errado</td><td>Revisar o mapa e pedir indicação do dono da dor</td></tr>
+  </tbody></table></div>
+  <p class="note">Ritual sugerido: revisão semanal de 15 min com a liderança, olhando contas em cadência há mais de 30 dias e a taxa de resposta explícita por modelo e por SDR. É ali que a impressão de "ninguém responde há semanas" vira um diagnóstico.</p>
+  </div>`},
 {id:"s1",lane:"sdr",code:"2",name:"MQA interação",alias:"conta ativada",board:"Contas ABM",short:"2 ou mais pessoas com interação de mão dupla e diagnóstico aceito pelo dono da dor",
  job:"Identificação do problema",sla:"45 dias",
  objetivo:"Abrir conversa real com a conta e chegar ao dono da dor.",
- entrada:"Primeiro toque com resposta: conversa em evento, resposta à prospecção ativa ou levantada de mão.",
+ entrada:"Primeira resposta explícita (interesse, indicação ou objeção com conteúdo) vinda da cadência, conversa com conteúdo em evento, ou mão levantada.",
  exit:["Pelo menos 2 pessoas da conta, de preferência de secretarias diferentes, com interação de mão dupla (responderam, conversaram, pediram algo)","Ou: o dono da dor levantou a mão explicitamente (atalho)","Dono da dor identificado por nome e cargo","Reunião de diagnóstico aceita pelo dono da dor, com data"],
  kr:"Contas ativadas que viram diagnóstico com o dono da dor em até 45 dias.",
  kpis:["# contas ativadas por canal","Termômetro da conta (pessoas, papéis e recência)","Taxa MQA interação para SQA interação","Tempo de follow-up pós evento (meta: 48 h)"],
