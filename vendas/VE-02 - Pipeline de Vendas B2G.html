@@ -68,10 +68,12 @@ section.view>*{min-width:0}
 .stage[data-lane="cs"]{border-top:4px solid var(--cs);background:var(--surface-2)}
 .stage:hover{border-color:var(--muted)}
 .stage[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:-1px}
-.stage .code{font-family:var(--f-mono);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:6px}
+.stage .code{font-family:var(--f-mono);font-size:11px;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 6px}
+.stage .code span{white-space:nowrap}
 .stage .name{font-family:var(--f-display);font-weight:700;font-size:16px;line-height:1.2}
 .alias{font-size:12.5px;color:var(--muted);font-style:italic;font-family:var(--f-body);font-weight:400}
-.stage .ms{font-size:12.5px;color:var(--muted);line-height:1.4}
+.stage .ms{font-size:12.5px;color:var(--ink);line-height:1.4}
+.msq{font-family:var(--f-display);font-weight:600;font-size:16px;line-height:1.35;border-left:4px solid var(--closer);padding:4px 0 4px 12px}
 .stage .meet{font-size:12px;border-top:1px dashed var(--line);padding-top:8px}
 .stage .meet b{display:block;font-weight:600}
 .tag{display:inline-flex;align-items:center;gap:4px;font-family:var(--f-mono);font-size:10.5px;padding:2px 6px;border-radius:3px;white-space:nowrap}
@@ -185,7 +187,7 @@ a{color:var(--closer)}
   <header class="top">
     <div class="eyebrow">OSPA Place · Revenue Operations · proposta v1 · out/2026</div>
     <h1>Pipeline de vendas B2G</h1>
-    <p class="lede">Proposta de revisão do quadro "PLC | esteira de vendas B2G", do primeiro contato com a conta até a passagem para o onboarding de CS. Cada etapa tem dono, critério de saída verificável pelo comprador, KR, KPIs, reunião com pauta e CTA, e o que pode ou não ser revelado naquele momento. Clique em uma etapa para ver o detalhe.</p>
+    <p class="lede">Proposta de revisão do quadro "PLC | esteira de vendas B2G", do primeiro contato com a conta até a passagem para o onboarding de CS. Cada etapa tem dono, um milestone escrito como o evento que fez a conta entrar nela, KR, KPIs, reunião com pauta e CTA, e o que pode ou não ser revelado naquele momento. Clique em uma etapa para ver o detalhe.</p>
     <div class="legend">
       <span><i class="dot" style="background:var(--sdr)"></i>SDR · board de contas ABM</span>
       <span><i class="dot" style="background:var(--closer)"></i>Closer · pipeline de oportunidades</span>
@@ -560,6 +562,33 @@ const STAGES = [
  meeting:null,noMeeting:"Kickoff conduzido por CS.",roles:"",alerts:[],ref:"",old:"CX / CS (6 + 24 meses)"}
 ];
 
+
+const MS = {
+ p0:["Quando a prefeitura teve o ICP score calculado e ficou fora do ABM, por ter 1 ou 2 pessoas que converteram em algo do grupo, por ter sido descoberta pelo time ou por ter voltado do pipeline por timing.",
+  ["ICP score calculado","Origem registrada: conversão no grupo, descoberta ou ex-oportunidade","Subgrupo definido (A, B, C ou D) e data da próxima revisão"]],
+ s0:["Quando a conta entrou no ABM, teve os contatos mapeados e recebeu a primeira tentativa de contato.",
+  ["Conta entre as 168 do ABM, com ICP score acima do corte","Mapa do grupo comprador com 6 a 8 nomes e papel hipotético","Gatilho e hipótese de dor registrados em uma frase","Cadência iniciada com 3 ou mais papéis em paralelo, com mensagem diferente por papel"]],
+ s1:["Quando alguém da conta deu a primeira resposta explícita: interesse, indicação ou objeção com conteúdo.",
+  ["Resposta registrada e classificada no CRM (\"Oi, tudo bem?\" não conta)","Ou: conversa com conteúdo em evento, registrada em até 48 h","Ou: alguém da conta levantou a mão"]],
+ s2:["Quando o dono da dor aceitou a reunião de diagnóstico, com data marcada.",
+  ["Pelo menos 2 pessoas da conta com interação de mão dupla, de preferência de secretarias diferentes (ou mão levantada do próprio dono da dor)","Dono da dor identificado por nome e cargo","Reunião de diagnóstico aceita, com data"]],
+ c1:["Quando a reunião de diagnóstico aconteceu com o dono da dor e o closer aceitou a oportunidade.",
+  ["Reunião realizada, não apenas agendada, com o dono da dor presente","Nota de passagem completa: gatilho, hipótese de dor, mapa de papéis e o que a conta disse","Closer aceitou a oportunidade em até 2 dias úteis"]],
+ c2:["Quando o cliente confirmou a dor com as próprias palavras e aceitou a sessão de valor com outra secretaria.",
+  ["Situação atual descrita e dor confirmada pelo cliente, com as palavras dele","Impacto registrado: o que acontece se nada mudar","Evento crítico candidato registrado","Champion candidato identificado","Sessão de valor agendada com pelo menos mais uma secretaria"]],
+ c3:["Quando duas secretarias reconheceram a dor e o champion convocou o workshop do comitê.",
+  ["Dor reconhecida por pelo menos 2 secretarias (ata ou e-mail)","Resultado esperado com uma métrica e linha de base hipotética","Evento crítico com data","Rota de contratação hipotética e fonte de recurso provável","Champion testado: já fez algo por nós","Workshop do comitê agendado"]],
+ c4:["Quando a prefeitura indicou o comitê, aprovou o plano de trabalho e agendou a proposta com o decisor econômico.",
+  ["Membros do comitê indicados pela prefeitura (e-mail, ofício ou portaria)","Pelo menos 5 dos 6 a 8 papéis cobertos, incluindo decisor econômico e procuradoria ou controle","Critérios de decisão declarados pelo comitê","Rota de contratação e fonte de recurso definidas, com ordenador de despesa identificado","Plano de trabalho conjunto aceito","Reunião de proposta agendada com o decisor econômico presente"]],
+ c5:["Quando o decisor econômico deu aval por escrito à proposta e a abertura do processo administrativo ganhou data.",
+  ["Proposta única apresentada ao vivo ao decisor econômico","Ajustes feitos só dentro das alavancas definidas","Aval por escrito (e-mail ou ofício)","Dossiê de contratação entregue","Abertura do processo (DFD) com data no plano de trabalho"]],
+ c6:["Quando o processo foi instruído e autorizado: ETP e TR aprovados, reserva orçamentária e parecer jurídico favorável.",
+  ["DFD aberto","ETP e TR protocolados e aprovados","Justificativa de preço e habilitação no processo","Reserva orçamentária feita","Parecer jurídico favorável"]],
+ cs:["Quando o ato foi publicado, o contrato assinado e o empenho emitido.",
+  ["Ato de contratação publicado (PNCP e diário oficial)","Contrato assinado","Empenho emitido","Passagem de bastão feita e kickoff agendado em até 15 dias"]]
+};
+STAGES.forEach(s=>{const m=MS[s.id]; s.milestone=m[0]; s.ms=m[1]; s.short=m[0];});
+
 const RULES = [
  ["Uma reunião, um objetivo, um CTA","Combinar no início o que se decide no fim. Sem CTA definido, a reunião não acontece.","Up-front contract; Gartner sense making"],
  ["Revelar na velocidade da conta","Mostrar só o que a conta já consegue reconhecer como valor. Use a escada de revelação.","Gartner: excesso de informação leva a compras menores ou a nenhuma compra"],
@@ -635,7 +664,7 @@ function renderBoard(){
       <span class="code"><span>${s.code==="CS"?"CS":"Etapa "+s.code}</span><span>${s.sla?("SLA "+s.sla):""}</span></span>
       <span class="name">${s.name}</span><span class="alias">${s.alias||""}</span>
       <span style="display:flex;gap:4px;flex-wrap:wrap">${tagHtml(s.tag)}${gate}</span>
-      <span class="ms">${s.short}</span>
+      <span class="ms"><b class="mono" style="font-size:10.5px;color:var(--muted);display:block;letter-spacing:.06em">MILESTONE</b>${s.short}</span>
       ${s.meeting?`<span class="meet"><b>${s.meeting.name}</b>CTA: ${s.meeting.cta}</span>`:""}
     </button>`;
     col++;
@@ -661,6 +690,7 @@ function select(id,scroll){
         <div class="two"><div class="blk do"><h4>Pode mostrar</h4>${list(m.show)}</div><div class="blk dont"><h4>Não fazer</h4>${list(m.dont)}</div></div>
         ${m.after?`<p class="after">${m.after}</p>`:""}
       </div></div>`:`<div class="meeting"><div class="mh"><h4>Reunião da etapa</h4><p>${s.noMeeting||""}</p></div></div>`;
+  const nxt = STAGES[STAGES.indexOf(s)+1];
   $("#detail").innerHTML = `
     <div class="detail-head">
       <div style="display:grid;gap:4px"><span class="eyebrow">${s.code==="CS"?"CS":"Etapa "+s.code} · ${s.board}</span><h2>${s.name}</h2><span class="alias">${s.alias||""}</span></div>
@@ -669,10 +699,10 @@ function select(id,scroll){
     <div class="cols">
       <div>
         <div class="blk"><h4>Objetivo</h4><p>${s.objetivo}</p></div>
-        <div class="blk"><h4>Entra quando</h4><p>${s.entrada}</p></div>
-        ${s.exitTitle?`<div class="blk"><h4>${s.exitTitle}</h4>${list(s.exit)}</div>`:`<div class="blk"><h4>Milestone · critérios de saída (evidência do comprador)</h4>
-          <ul class="checks">${s.exit.map((e,i)=>`<li><input type="checkbox" id="chk-${s.id}-${i}" data-i="${i}" ${checked.includes(i)?"checked":""}><label for="chk-${s.id}-${i}">${e}</label></li>`).join("")}</ul>
-          <span class="progress" id="prog"></span></div>`}
+        <div class="blk msblk"><h4>Milestone · a conta entrou nesta etapa</h4><p class="msq">${s.milestone}</p><h4 style="margin-top:6px">Evidências</h4>${list(s.ms)}</div>
+        ${s.exitTitle?`<div class="blk"><h4>${s.exitTitle}</h4>${list(s.exit)}</div>`:(nxt?`<div class="blk"><h4>Para avançar para ${nxt.name}</h4><p class="note" style="font-style:italic">${nxt.milestone}</p>
+          <ul class="checks">${nxt.ms.map((e,i)=>`<li><input type="checkbox" id="chk-${s.id}-${i}" data-i="${i}" ${checked.includes(i)?"checked":""}><label for="chk-${s.id}-${i}">${e}</label></li>`).join("")}</ul>
+          <span class="progress" id="prog"></span></div>`:"")}
         ${s.kr?`<div class="blk"><h4>KR</h4><p>${s.kr}</p></div>`:""}
         ${s.kpis.length?`<div class="blk"><h4>KPIs</h4>${list(s.kpis)}</div>`:""}
         ${s.roles?`<div class="blk"><h4>Grupo comprador</h4><p>${s.roles}</p></div>`:""}
@@ -690,7 +720,7 @@ function select(id,scroll){
     const on=boxes.filter(b=>b.checked).map(b=>+b.dataset.i);
     store.set("chk:"+id,on);
     const p=$("#prog"); if(!p) return; const done=on.length===boxes.length;
-    p.textContent = done?"Todos os critérios cumpridos: pode avançar.":`${on.length} de ${boxes.length} critérios cumpridos. Use como checklist de uma oportunidade real.`;
+    p.textContent = done?"Milestone da próxima etapa atingido: pode mover o card.":`${on.length} de ${boxes.length} critérios cumpridos. Use como checklist de uma oportunidade real.`;
     p.classList.toggle("done",done);
   };
   document.querySelectorAll('#detail .checks input').forEach(b=>b.addEventListener("change",upd)); upd();
