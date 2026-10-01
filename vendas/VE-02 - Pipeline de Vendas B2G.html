@@ -66,6 +66,7 @@ section.view>*{min-width:0}
 .stage[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:-1px}
 .stage .code{font-family:var(--f-mono);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:6px}
 .stage .name{font-family:var(--f-display);font-weight:700;font-size:16px;line-height:1.2}
+.alias{font-size:12.5px;color:var(--muted);font-style:italic;font-family:var(--f-body);font-weight:400}
 .stage .ms{font-size:12.5px;color:var(--muted);line-height:1.4}
 .stage .meet{font-size:12px;border-top:1px dashed var(--line);padding-top:8px}
 .stage .meet b{display:block;font-weight:600}
@@ -124,6 +125,7 @@ td.stagecell{font-family:var(--f-display);font-weight:700;white-space:nowrap}
 td ul{margin:0;padding-left:18px}
 .matrix td,.matrix th{text-align:center}
 .matrix td:first-child,.matrix th:first-child{text-align:left;min-width:260px}
+.matrix th{white-space:normal;min-width:92px}
 .cell{display:inline-block;font-family:var(--f-mono);font-size:11px;padding:3px 7px;border-radius:3px;white-space:nowrap}
 .c-no{color:var(--muted);opacity:.55}
 .c-yes{background:var(--ok-soft);color:var(--ok)}
@@ -219,7 +221,7 @@ a{color:var(--closer)}
   <section class="view" id="view-reunioes" hidden>
     <div class="callout">
       <h3>Por que o playbook não está sendo seguido</h3>
-      <p>Playbook em documento descreve o comportamento; o CRM é que faz o comportamento acontecer. Como o CRM agora é próprio, as regras abaixo podem virar travas: o botão de gerar proposta só aparece em C4 com scorecard mínimo, a proposta sai de modelo fechado por tier, cada etapa tem campos obrigatórios e cada reunião tem um modelo de pauta com CTA. A revisão semanal de pipeline passa a checar critério de saída, não opinião, e a passagem de C3 para C4 tem um deal review com a liderança.</p>
+      <p>Playbook em documento descreve o comportamento; o CRM é que faz o comportamento acontecer. Como o CRM agora é próprio, as regras abaixo podem virar travas: o botão de gerar proposta só aparece em NGC negociação com scorecard mínimo, a proposta sai de modelo fechado por tier, cada etapa tem campos obrigatórios e cada reunião tem um modelo de pauta com CTA. A revisão semanal de pipeline passa a checar critério de saída, não opinião, e a passagem de SQA intenção para NGC negociação tem um deal review com a liderança.</p>
     </div>
     <h2>Regras de condução</h2>
     <div class="rules" id="rules"></div>
@@ -263,13 +265,13 @@ a{color:var(--closer)}
         <span class="verdict v-merge">Aglutinar</span>
         <h3>MQA engajado</h3>
         <p>Com 168 contas no ABM e ICP calculado automaticamente, "engajado" deixa de ser uma etapa e vira um atributo da conta: um termômetro (frio, morno, quente) calculado pelo número de pessoas, papéis e recência das interações. A regra para criar uma coluna no kanban é que ela marque troca de dono ou um compromisso novo do comprador. "Engajado" não é nenhum dos dois, e a Forrester trata engajamento como status da conta, não da oportunidade.</p>
-        <p><b>Resultado:</b> MQA, MQA engajado e MQA interação viram uma etapa só (S1 MQA · Conta ativada).</p>
+        <p><b>Resultado:</b> MQA, MQA engajado e MQA interação viram uma etapa só: MQA interação.</p>
       </div>
       <div class="dcard">
         <span class="verdict v-keep">Manter, renomeada</span>
-        <h3>SQA intenção → Comitê e plano</h3>
+        <h3>SQA intenção</h3>
         <p>Essa etapa é a trava que impede a proposta antecipada, que é exatamente o comportamento que você quer corrigir. Se ela for aglutinada com a validação de valor, a proposta volta a aparecer antes do consenso. É também a etapa com mais evidência no benchmark: grupos que chegam a consenso têm 2,5 vezes mais chance de fechar um negócio de alta qualidade (Gartner), e é o que diferencia uma venda B2G.</p>
-        <p><b>Para enxugar sem perder a trava:</b> SQA apresentação foi absorvida pelo Diagnóstico.</p>
+        <p><b>Mudança de conteúdo, não de nome:</b> a reunião de SQA apresentação passa a ser de diagnóstico, sem demo completa e sem proposta preliminar.</p>
       </div>
       <div class="dcard">
         <span class="verdict v-keep">Resultado</span>
@@ -338,7 +340,7 @@ a{color:var(--closer)}
 
 <script>
 const STAGES = [
-{id:"s0",lane:"sdr",code:"S0",name:"Conta-alvo",board:"Contas ABM",short:"Mapa de 6 a 8 papéis, gatilho e hipótese de dor registrados",
+{id:"s0",lane:"sdr",code:"1",name:"MQA",alias:"conta-alvo mapeada",board:"Contas ABM",short:"Mapa de 6 a 8 papéis, gatilho e hipótese de dor registrados",
  job:"Antes da compra: a prefeitura ainda não nomeou o problema",sla:"livre",
  objetivo:"Deixar a conta pronta para ser ativada: saber por que ela deveria se importar agora e com quem falar.",
  entrada:"Conta entre as 168 do ABM, com ICP score acima do corte e tier definido.",
@@ -352,13 +354,13 @@ const STAGES = [
  alerts:["Mapa com nomes de uma secretaria só","Conta sem gatilho: a abordagem vira apresentação institucional genérica","Prefeito como único nome conhecido"],
  ref:"Forrester B2B Revenue Waterfall: estágios de conta (alvo, detectada). Govtech: sinais anteriores ao edital, como orçamento, plano estratégico e troca de liderança, valem mais que o edital publicado (Starbridge).",
  old:"Parte do antigo MQA, agora com mapa e gatilho"},
-{id:"s1",lane:"sdr",code:"S1",name:"MQA · Conta ativada",board:"Contas ABM",short:"2 ou mais pessoas com interação de mão dupla e diagnóstico aceito pelo dono da dor",
+{id:"s1",lane:"sdr",code:"2",name:"MQA interação",alias:"conta ativada",board:"Contas ABM",short:"2 ou mais pessoas com interação de mão dupla e diagnóstico aceito pelo dono da dor",
  job:"Identificação do problema",sla:"45 dias",
  objetivo:"Abrir conversa real com a conta e chegar ao dono da dor.",
  entrada:"Primeiro toque com resposta: conversa em evento, resposta à prospecção ativa ou levantada de mão.",
  exit:["Pelo menos 2 pessoas da conta, de preferência de secretarias diferentes, com interação de mão dupla (responderam, conversaram, pediram algo)","Ou: o dono da dor levantou a mão explicitamente (atalho)","Dono da dor identificado por nome e cargo","Reunião de diagnóstico aceita pelo dono da dor, com data"],
  kr:"Contas ativadas que viram diagnóstico com o dono da dor em até 45 dias.",
- kpis:["# contas ativadas por canal","Termômetro da conta (pessoas, papéis e recência)","Taxa S1 para S2","Tempo de follow-up pós evento (meta: 48 h)"],
+ kpis:["# contas ativadas por canal","Termômetro da conta (pessoas, papéis e recência)","Taxa MQA interação para SQA interação","Tempo de follow-up pós evento (meta: 48 h)"],
  crm:"Engajamento é atributo da conta (termômetro frio, morno, quente), não coluna. Cada interação fica vinculada à conta e à pessoa, com o papel dela.",
  meeting:{name:"Conversa de conexão",dur:"10 a 20 min · evento, telefone ou vídeo",who:"SDR e uma pessoa da conta",
   pauta:["Motivo do contato ligado ao gatilho da conta (ex.: revisão do plano diretor)","Uma ou duas perguntas de situação: como fazem hoje, quem participa","Um case de prefeitura semelhante, em uma frase","Quem mais cuida do tema e quem sente a dor"],
@@ -370,7 +372,7 @@ const STAGES = [
  alerts:["Só uma pessoa engajada há mais de 30 dias","Interação só com assessoria, sem acesso à área técnica","Conversa de evento sem follow-up em 48 h"],
  ref:"Ebsta e Pavilion: falar com várias pessoas da conta aumenta a conversão em 130% em negócios grandes. Forrester: engajamento é medido no grupo comprador, não no lead.",
  old:"MQA + MQA engajado + MQA interação"},
-{id:"s2",lane:"sdr",code:"S2",name:"SQA · Diagnóstico agendado",board:"Contas ABM",short:"Reunião realizada com o dono da dor e oportunidade aceita pelo closer",
+{id:"s2",lane:"sdr",code:"3",name:"SQA interação",alias:"diagnóstico agendado",board:"Contas ABM",short:"Reunião realizada com o dono da dor e oportunidade aceita pelo closer",
  job:"Identificação do problema",sla:"14 dias",
  objetivo:"Garantir que o diagnóstico aconteça com a pessoa certa e que o closer chegue preparado.",
  entrada:"Reunião de diagnóstico aceita pelo dono da dor.",
@@ -387,13 +389,13 @@ const STAGES = [
  alerts:["Reunião marcada com quem não sente a dor","Terceira remarcação"],
  ref:"Prática enterprise de SDR: a meta é reunião realizada e aceita pelo closer, não agendada.",
  old:"SQA interação"},
-{id:"c1",lane:"closer",code:"C1",name:"Diagnóstico",board:"Pipeline",short:"Dor confirmada nas palavras do cliente e sessão de valor agendada com mais uma secretaria",
+{id:"c1",lane:"closer",code:"4",name:"SQA apresentação",alias:"reunião de diagnóstico",board:"Pipeline",short:"Dor confirmada nas palavras do cliente e sessão de valor agendada com mais uma secretaria",
  job:"Identificação do problema e exploração de soluções",sla:"21 dias",
  objetivo:"Entender a situação e a dor nas palavras do cliente, e ganhar o direito de mostrar valor para mais gente.",
  entrada:"Oportunidade aceita pelo closer.",
  exit:["Situação atual descrita e dor confirmada pelo cliente (registro com as palavras dele)","Impacto: o que acontece se nada mudar","Evento crítico candidato (calendário de gestão, plano diretor, LOA, financiamento)","Champion candidato identificado","Sessão de valor agendada com pelo menos mais uma secretaria"],
  kr:"Diagnósticos que viram sessão de valor com 2 secretarias.",
- kpis:["Taxa C1 para C2","Tempo em etapa","% com evento crítico registrado"],
+ kpis:["Taxa SQA apresentação para SQA consideração","Tempo em etapa","% com evento crítico registrado"],
  crm:"SPICED (situação, dor, impacto, evento crítico, decisão) com campos obrigatórios para sair da etapa. Envio do resumo do diagnóstico registrado no card.",
  meeting:{name:"Reunião de diagnóstico",dur:"45 a 60 min",who:"Closer (SDR opcional), dono da dor e quem ele trouxer",
   pauta:["Combinado inicial: objetivo, tempo e o que se decide no final","Contexto da prefeitura e da área: como funciona hoje","Um insight com dado do próprio município: ensinar algo novo, não apresentar a empresa","Perguntas de problema e de implicação (SPIN): onde trava, quanto custa, quem sofre","Evento crítico: o que precisa estar pronto e até quando","Quem mais é afetado e quem decide","Resumo em voz alta, com as palavras do cliente"],
@@ -405,13 +407,13 @@ const STAGES = [
  alerts:["Cliente pede proposta no fim da primeira reunião: responda com o resumo e a sessão de valor","Nenhuma outra secretaria aceita participar"],
  ref:"Gartner (sense making): vendedores que ajudam o cliente a interpretar a informação fecham 80% de negócios de alta qualidade, contra 30% dos que só entregam informação. Winning by Design: SPICED.",
  old:"SQA apresentação, sem demo completa e sem proposta preliminar"},
-{id:"c2",lane:"closer",code:"C2",name:"Validação de valor",board:"Pipeline",tag:"pipe",short:"Dor reconhecida por 2 secretarias, métrica, evento crítico e workshop agendado",
+{id:"c2",lane:"closer",code:"5",name:"SQA consideração",alias:"validação de valor",board:"Pipeline",tag:"pipe",short:"Dor reconhecida por 2 secretarias, métrica, evento crítico e workshop agendado",
  job:"Exploração de soluções",sla:"30 dias",
  objetivo:"Fazer mais de uma secretaria reconhecer a dor como comum e ver, num ambiente real, como uma prefeitura parecida resolveu a mesma dor.",
  entrada:"Diagnóstico completo e sessão de valor agendada.",
  exit:["Dor reconhecida por pelo menos 2 secretarias (registro em ata ou e-mail)","Resultado esperado com uma métrica e linha de base hipotética","Evento crítico com data","Rota de contratação hipotética (inexigibilidade, CPSI, ata ou licitação) e fonte de recurso provável","Champion testado: já fez algo por nós (convidou alguém, conseguiu um dado)","Workshop do comitê agendado"],
  kr:"Pipeline qualificado criado no trimestre: oportunidades com dor validada e workshop agendado.",
- kpis:["# e valor de pipeline criado","Taxa C2 para C3","Scorecard mínimo: 8 de 27"],
+ kpis:["# e valor de pipeline criado","Taxa SQA consideração para SQA intenção","Scorecard mínimo: 8 de 27"],
  crm:"Entra no pipeline e no forecast (categoria pipeline). Valor estimado e data provável obrigatórios. Scorecard visível no card.",
  meeting:{name:"Sessão de valor",dur:"60 a 90 min · online",who:"Closer, especialista e 2 ou mais secretarias",
   pauta:["Recapitular a dor com as palavras do diagnóstico e confirmar com o grupo","Demo de referência (online), no ambiente tester ou de uma prefeitura cliente de porte parecido: 2 ou 3 fluxos ligados à dor declarada, sempre conectando ao caso deles","Rodada por papel: o que cada secretaria ganharia","Estimativa de impacto com a métrica deles","Como a prefeitura costuma contratar soluções assim, quem assina, se há dotação","Quem precisa estar no comitê para isso andar"],
@@ -423,13 +425,13 @@ const STAGES = [
  alerts:["Só uma secretaria engajada","Ninguém sabe dizer como a prefeitura contrata","Pedido de proposta para \"levar ao prefeito\" sem comitê"],
  ref:"Gartner: grupos que chegam a consenso têm 2,5 vezes mais chance de fechar negócio de alta qualidade. Bain B2B Elements of Value: valor por papel. MEDDPICC: dor e métrica.",
  old:"SQA consideração"},
-{id:"c3",lane:"closer",code:"C3",name:"Comitê e plano",board:"Pipeline",tag:"pipe",gate:true,short:"Comitê indicado pela prefeitura, rota e recurso definidos, plano de trabalho aceito",
+{id:"c3",lane:"closer",code:"6",name:"SQA intenção",alias:"comitê e plano de trabalho",board:"Pipeline",tag:"pipe",gate:true,short:"Comitê indicado pela prefeitura, rota e recurso definidos, plano de trabalho aceito",
  job:"Construção de requisitos e criação de consenso",sla:"45 dias",
  objetivo:"Transformar interesse de pessoas em decisão da instituição, com plano de trabalho e caminho de contratação acordados.",
  entrada:"Workshop agendado pelo champion.",
  exit:["Membros do comitê indicados pela prefeitura (e-mail, ofício ou portaria)","Pelo menos 5 dos 6 a 8 papéis cobertos, incluindo decisor econômico e procuradoria ou controle","Critérios de decisão declarados pelo comitê","Rota de contratação e fonte de recurso definidas, com ordenador de despesa identificado","Plano de trabalho conjunto aceito (etapas, responsáveis dos dois lados, datas)","Reunião de proposta agendada com o decisor econômico presente"],
  kr:"Planos de trabalho aceitos e cobertura do grupo comprador.",
- kpis:["Cobertura de papéis (engajados / necessários)","Taxa C3 para C4","Scorecard mínimo: 14 de 27"],
+ kpis:["Cobertura de papéis (engajados / necessários)","Taxa SQA intenção para NGC negociação","Scorecard mínimo: 14 de 27"],
  crm:"Mapa do comitê com papel e postura (apoia, neutro, resiste). Plano de trabalho anexado ao card. Trava: o botão de gerar proposta só fica disponível depois desta etapa, com deal review da liderança.",
  meeting:{name:"Workshop de parceria",dur:"90 a 120 min · online, com câmeras abertas",who:"Closer, especialista e comitê (6 a 8 papéis)",
   pauta:["Objetivo comum: cada secretaria diz o que precisa resolver","Resultado esperado compartilhado e como vamos medir","Critérios de decisão e preocupações: procuradoria e controle falam aqui, não no fim","Escopo recomendado em alto nível: o que entra agora e o que fica para fases futuras","Caminho de contratação: rota, documentos e quem faz o quê","Rascunho do plano de trabalho, preenchido junto"],
@@ -440,13 +442,13 @@ const STAGES = [
  alerts:["Comitê \"criado\" por nós, sem indicação da prefeitura","Procuradoria ou controle ausentes","Plano sem datas do lado da prefeitura"],
  ref:"Gartner: 74% dos grupos compradores têm conflito não saudável, e o consenso aumenta a qualidade do negócio. Mutual action plan (Highspot). Forrester: grupo comprador vinculado à oportunidade.",
  old:"SQA intenção"},
-{id:"c4",lane:"closer",code:"C4",name:"Proposta recomendada",board:"Pipeline",tag:"best",short:"Proposta única com aval por escrito do decisor econômico e DFD com data",
+{id:"c4",lane:"closer",code:"7",name:"NGC negociação",alias:"proposta recomendada",board:"Pipeline",tag:"best",short:"Proposta única com aval por escrito do decisor econômico e DFD com data",
  job:"Seleção de fornecedor e validação",sla:"30 dias",
  objetivo:"Obter o sim do decisor econômico para uma proposta única e iniciar o processo administrativo.",
  entrada:"Plano de trabalho aceito e reunião de proposta agendada com o decisor econômico.",
  exit:["Proposta única apresentada ao vivo ao decisor econômico","Ajustes feitos só dentro das alavancas definidas (fases, prazo de implantação, número de usuários, capacitação)","Aval por escrito (e-mail ou ofício) do decisor econômico","Dossiê de contratação entregue","Abertura do processo administrativo (DFD) com data no plano"],
  kr:"Propostas com aval por escrito em até 30 dias, com no máximo 2 rodadas de ajuste.",
- kpis:["Taxa C4 para C5","Valor médio por contrato","Rodadas de ajuste (meta: até 2)","Scorecard mínimo: 18 de 27"],
+ kpis:["Taxa NGC negociação para NGC pipeline","Valor médio por contrato","Rodadas de ajuste (meta: até 2)","Scorecard mínimo: 18 de 27"],
  crm:"Categoria de forecast: melhor cenário. Proposta gerada de modelo padrão por tier, sem edição livre de escopo. Ajustes registrados como alavancas.",
  meeting:{name:"Apresentação da proposta",dur:"60 min",who:"Closer, liderança comercial (Tier 1), decisor econômico e comitê",
   pauta:["Recapitular dor, resultado esperado e critérios de decisão, com as palavras do comitê","A recomendação: um escopo de parceria, e por que ele","O que fica para fases futuras e por quê","Investimento, cronograma e rota de contratação","Como tiramos o risco: implantação faseada, capacitação, referências, segurança jurídica","Próximos passos do plano de trabalho"],
@@ -457,13 +459,13 @@ const STAGES = [
  alerts:["Decisor econômico não comparece","Pedido de \"mais opções\"","Silêncio de mais de 15 dias após a proposta"],
  ref:"JOLT Effect (Dixon e McKenna): recomendar, limitar a exploração e tirar o risco da mesa. Em 56% das perdas por falta de decisão o cliente queria mudar, mas travou com medo de errar. Gartner: excesso de informação leva a compra menor ou a nenhuma compra.",
  old:"NGC negociação"},
-{id:"c5",lane:"closer",code:"C5",name:"Formalização",board:"Pipeline",tag:"commit",short:"ETP e TR aprovados, reserva orçamentária e parecer jurídico favorável",
+{id:"c5",lane:"closer",code:"8",name:"NGC pipeline",alias:"formalização (commit)",board:"Pipeline",tag:"commit",short:"ETP e TR aprovados, reserva orçamentária e parecer jurídico favorável",
  job:"Validação e consenso final",sla:"60 a 90 dias",
  objetivo:"Conduzir o rito administrativo até a autorização da contratação, sem perder o comitê.",
  entrada:"Aval por escrito e processo administrativo com data de abertura.",
  exit:["DFD aberto","ETP e TR protocolados e aprovados","Justificativa de preço e documentos de habilitação no processo","Reserva orçamentária feita","Parecer jurídico favorável"],
  kr:"Forecast de commit com acerto acima de 80%.",
- kpis:["Taxa C5 para C6","Tempo em etapa por rota de contratação","Acerto do forecast de commit"],
+ kpis:["Taxa NGC pipeline para NGC fechamento","Tempo em etapa por rota de contratação","Acerto do forecast de commit"],
  crm:"Categoria de forecast: commit. Checklist do rito por rota de contratação, com data de cada etapa. A data de fechamento é calculada pelo plano, não digitada.",
  meeting:{name:"Ritos de acompanhamento",dur:"30 min quinzenais e reuniões técnicas pontuais",who:"Closer e champion; jurídico da OSPA Place com a procuradoria quando necessário",
   pauta:["Status do plano de trabalho: o que andou e o que travou","Pendências documentais e quem resolve","Dúvidas da procuradoria e do controle","Riscos de calendário (LOA, fim de exercício, mandato)"],
@@ -474,13 +476,13 @@ const STAGES = [
  alerts:["Etapa do rito sem data há mais de 15 dias","Troca de secretário ou de procurador","Reserva orçamentária não confirmada perto do fim do exercício"],
  ref:"Winning by Design: Mutual Commit. Gartner buyer enablement: material que ajuda a comprar, e não sobre o produto, triplica a chance de compra de alta qualidade. Lei 14.133/2021, arts. 72 e 74.",
  old:"NGC pipeline (20 pts)"},
-{id:"c6",lane:"closer",code:"C6",name:"Contratado",board:"Pipeline",tag:"won",short:"Ato publicado, contrato assinado, empenho emitido e kickoff agendado",
+{id:"c6",lane:"closer",code:"9",name:"NGC fechamento",alias:"contratado (empenho)",board:"Pipeline",tag:"won",short:"Ato publicado, contrato assinado, empenho emitido e kickoff agendado",
  job:"Fim da compra e início do impacto",sla:"30 dias",
  objetivo:"Fechar com segurança de receita e passar o bastão sem perder o que foi prometido.",
  entrada:"Contratação autorizada.",
  exit:["Ato de contratação publicado (PNCP e diário oficial)","Contrato assinado","Empenho emitido","Passagem de bastão interna feita e kickoff agendado em até 15 dias"],
  kr:"Empenho em até 30 dias da autorização e kickoff agendado em 100% dos ganhos.",
- kpis:["Taxa de ganho (sem contar \"em espera\")","Ciclo C1 a C6 por rota e por tier","Valor contratado"],
+ kpis:["Taxa de ganho (sem contar \"em espera\")","Ciclo de SQA apresentação a NGC fechamento, por rota e por tier","Valor contratado"],
  crm:"Ganho = empenho emitido. Ao ganhar, o CRM cria a tarefa de passagem para CS com SPICED, plano de trabalho, mapa do comitê e métrica de sucesso.",
  meeting:{name:"Passagem de bastão",dur:"45 min interno",who:"Closer, CS e gestão de projeto",
   pauta:["O que foi prometido e para quem","Métrica de sucesso e linha de base","Mapa do comitê e postura de cada papel","Riscos e pendências do rito"],
@@ -491,10 +493,10 @@ const STAGES = [
  alerts:["Contrato assinado sem empenho","Kickoff sem data"],
  ref:"Winning by Design, Bowtie: o impacto prometido no fechamento é o que o CS precisa entregar e medir.",
  old:"NGC fechamento (ganho passa a ser empenho, não contrato no jurídico)"},
-{id:"cs",lane:"cs",code:"CS",name:"Onboarding",board:"CS",short:"Fora do escopo deste quadro: processo de CS documentado à parte",
+{id:"cs",lane:"cs",code:"CS",name:"Onboarding CS",alias:"fora do escopo",board:"CS",short:"Fora do escopo deste quadro: processo de CS documentado à parte",
  job:"Onboarding, primeiro impacto e expansão",sla:"",
  objetivo:"Etapa recebida pelo CS. Este quadro termina na passagem de bastão.",
- entrada:"Oportunidade em C6 com passagem completa.",
+ entrada:"Oportunidade em NGC fechamento com passagem completa.",
  exit:["Kickoff realizado","Primeira entrega de valor com data"],kr:"",kpis:[],
  crm:"Detalhamento, documentação e revisão do processo de CS ficam para um documento próprio.",
  meeting:null,noMeeting:"Kickoff conduzido por CS.",roles:"",alerts:[],ref:"",old:"CX / CS (6 + 24 meses)"}
@@ -504,7 +506,7 @@ const RULES = [
  ["Uma reunião, um objetivo, um CTA","Combinar no início o que se decide no fim. Sem CTA definido, a reunião não acontece.","Up-front contract; Gartner sense making"],
  ["Revelar na velocidade da conta","Mostrar só o que a conta já consegue reconhecer como valor. Use a escada de revelação.","Gartner: excesso de informação leva a compras menores ou a nenhuma compra"],
  ["Recomendar, nunca oferecer cardápio","O closer chega com um escopo de parceria fechado e ajusta junto. Opções demais aumentam o medo de errar.","JOLT: ofereça sua recomendação e limite a exploração"],
- ["Proposta só depois do comitê","Pedido de proposta antes de C3 é respondido com o resumo do diagnóstico e a próxima reunião.","Gartner: consenso antes da seleção de fornecedor"],
+ ["Proposta só depois do comitê","Pedido de proposta antes de SQA intenção é respondido com o resumo do diagnóstico e a próxima reunião.","Gartner: consenso antes da seleção de fornecedor"],
  ["Proposta apresentada ao vivo","A proposta é apresentada ao decisor econômico e enviada depois. Nunca só por e-mail.","Prática enterprise de proposta"],
  ["Ajustar por alavancas, não por módulos","Ajustes só em fases, prazo de implantação, número de usuários e capacitação. Até 2 rodadas.","JOLT: limite a exploração"],
  ["Tirar o risco da mesa","Implantação faseada, referências, plano de capacitação e dossiê jurídico respondem ao medo de errar.","JOLT: take risk off the table; Bain: redução de risco é valor individual"],
@@ -512,7 +514,7 @@ const RULES = [
  ["Preço consistente","Sem desconto improvisado: preço consistente entre prefeituras sustenta a justificativa de preço da inexigibilidade.","Lei 14.133/2021, art. 23"]
 ];
 
-const MATRIX_COLS = ["S1","S2","C1","C2","C3","C4","C5"];
+const MATRIX_COLS = ["MQA interação","SQA interação","SQA apresentação","SQA consideração","SQA intenção","NGC negociação","NGC pipeline"];
 const MATRIX = [
  ["Conteúdo de ponto de vista ligado ao gatilho",["y","y","y","y","y","y","y"]],
  ["Case de prefeitura semelhante (um por vez, escolhido pela dor)",["y","y","y","y","y","y","y"]],
@@ -522,7 +524,7 @@ const MATRIX = [
  ["Demo de referência online, no ambiente tester ou de cliente semelhante (2 ou 3 fluxos ligados à dor)",["n","n","n","l","l","y","y"]],
  ["Estimativa de impacto com a métrica do cliente",["n","n","n","y","y","y","y"]],
  ["Faixa de investimento verbal (ordem de grandeza)",["n","n","n","o","y","y","y"]],
- ["Rota de contratação",["n","n","n","y","y","y","y"],"Hipótese em C2, definida em C3"],
+ ["Rota de contratação",["n","n","n","y","y","y","y"],"Hipótese em SQA consideração, definida em SQA intenção"],
  ["Plano de trabalho conjunto",["n","n","n","n","l","y","y"]],
  ["Escopo recomendado em alto nível (uma opção)",["n","n","n","n","l","y","y"]],
  ["Proposta formal com preço",["n","n","n","n","n","l","y"],"Apresentada ao vivo, enviada depois"],
@@ -545,10 +547,10 @@ const SCORE = [
  ["G","Governo e calendário","Evento crítico, dotação e janela política",["Nada","Evento crítico identificado","Dotação ou fonte identificada","Evento e dotação confirmados"]]
 ];
 const GATES = [
- {stage:"C2 Validação de valor",min:8,extra:s=>s.I>=2,extraTxt:"I ≥ 2"},
- {stage:"C3 Comitê e plano",min:14,extra:s=>s.C1>=2,extraTxt:"C1 ≥ 2"},
- {stage:"C4 Proposta recomendada",min:18,extra:s=>s.P>=2&&s.G>=2&&s.E>=2,extraTxt:"P, G e E ≥ 2"},
- {stage:"C5 Formalização",min:22,extra:s=>s.P>=3,extraTxt:"P = 3"}
+ {stage:"SQA consideração",min:8,extra:s=>s.I>=2,extraTxt:"I ≥ 2"},
+ {stage:"SQA intenção",min:14,extra:s=>s.C1>=2,extraTxt:"C1 ≥ 2"},
+ {stage:"NGC negociação",min:18,extra:s=>s.P>=2&&s.G>=2&&s.E>=2,extraTxt:"P, G e E ≥ 2"},
+ {stage:"NGC pipeline",min:22,extra:s=>s.P>=3,extraTxt:"P = 3"}
 ];
 const SAMPLE = {M:2,E:1,D1:2,D2:1,P:1,I:2,C1:2,C2:1,G:1};
 
@@ -572,8 +574,8 @@ function renderBoard(){
     if(s.id==="c1"||s.id==="cs"){h+=`<div class="handoff" style="grid-column:${col}" aria-hidden="true"><i></i></div>`;col++;}
     const gate = s.gate?'<span class="tag gate">trava da proposta</span>':"";
     h+=`<button class="stage" style="grid-column:${col}" data-lane="${s.lane}" data-id="${s.id}" aria-pressed="false">
-      <span class="code"><span>${s.code}</span><span>${s.sla?("SLA "+s.sla):""}</span></span>
-      <span class="name">${s.name}</span>
+      <span class="code"><span>${s.code==="CS"?"CS":"Etapa "+s.code}</span><span>${s.sla?("SLA "+s.sla):""}</span></span>
+      <span class="name">${s.name}</span><span class="alias">${s.alias||""}</span>
       <span style="display:flex;gap:4px;flex-wrap:wrap">${tagHtml(s.tag)}${gate}</span>
       <span class="ms">${s.short}</span>
       ${s.meeting?`<span class="meet"><b>${s.meeting.name}</b>CTA: ${s.meeting.cta}</span>`:""}
@@ -603,7 +605,7 @@ function select(id,scroll){
       </div></div>`:`<div class="meeting"><div class="mh"><h4>Reunião da etapa</h4><p>${s.noMeeting||""}</p></div></div>`;
   $("#detail").innerHTML = `
     <div class="detail-head">
-      <div style="display:grid;gap:4px"><span class="eyebrow">${s.code} · ${s.board}</span><h2>${s.name}</h2></div>
+      <div style="display:grid;gap:4px"><span class="eyebrow">${s.code==="CS"?"CS":"Etapa "+s.code} · ${s.board}</span><h2>${s.name}</h2><span class="alias">${s.alias||""}</span></div>
       <div class="meta"><span class="pill ${s.lane}">${laneLabel(s.lane)}</span>${s.sla?`<span class="pill">SLA ${s.sla}</span>`:""}<span class="pill">job: ${s.job}</span></div>
     </div>
     <div class="cols">
@@ -640,7 +642,7 @@ function renderRules(){
   $("#rules").innerHTML = RULES.map((r,i)=>`<div class="rule"><span class="n">regra ${i+1}</span><h3>${r[0]}</h3><p>${r[1]}</p><small>${r[2]}</small></div>`).join("");
 }
 function renderMeetTable(){
-  const rows = STAGES.filter(s=>s.meeting).map(s=>`<tr><td class="stagecell">${s.code} ${s.name}<div class="mono" style="font-weight:400">${laneLabel(s.lane)}</div></td><td><b>${s.meeting.name}</b><div class="mono">${s.meeting.dur}</div></td><td><ol style="margin:0;padding-left:18px">${s.meeting.pauta.map(p=>`<li>${p}</li>`).join("")}</ol></td><td>${s.meeting.cta}</td><td>${list(s.meeting.dont)}</td></tr>`).join("");
+  const rows = STAGES.filter(s=>s.meeting).map(s=>`<tr><td class="stagecell">${s.name}<div class="alias">${s.alias||""}</div><div class="mono" style="font-weight:400">${laneLabel(s.lane)}</div></td><td><b>${s.meeting.name}</b><div class="mono">${s.meeting.dur}</div></td><td><ol style="margin:0;padding-left:18px">${s.meeting.pauta.map(p=>`<li>${p}</li>`).join("")}</ol></td><td>${s.meeting.cta}</td><td>${list(s.meeting.dont)}</td></tr>`).join("");
   $("#meet-table").innerHTML = `<thead><tr><th>Etapa</th><th>Reunião</th><th>Pauta</th><th>CTA</th><th>Não fazer</th></tr></thead><tbody>${rows}</tbody>`;
 }
 function renderMatrix(){
@@ -649,7 +651,7 @@ function renderMatrix(){
   $("#matrix").innerHTML = head+`<tbody>${body}</tbody>`;
 }
 function renderMap(){
-  const rows = STAGES.map(s=>`<tr><td>${s.old}</td><td class="stagecell">${s.code} ${s.name}</td><td>${laneLabel(s.lane)}</td><td>${s.short}</td></tr>`).join("");
+  const rows = STAGES.map(s=>`<tr><td>${s.old}</td><td class="stagecell">${s.name}<div class="alias">${s.alias||""}</div></td><td>${laneLabel(s.lane)}</td><td>${s.short}</td></tr>`).join("");
   $("#map-table").innerHTML = `<thead><tr><th>Quadro anterior</th><th>Novo</th><th>Dono</th><th>Milestone novo</th></tr></thead><tbody>${rows}</tbody>`;
 }
 
@@ -662,7 +664,7 @@ function renderScore(){
 }
 function renderResult(){
   const total = Object.values(scoreState).reduce((a,b)=>a+b,0);
-  let allowed = "C1 Diagnóstico";
+  let allowed = "SQA apresentação";
   const gates = GATES.map(g=>{const ok= total>=g.min && g.extra(scoreState); if(ok) allowed=g.stage; return `<div class="${ok?"pass":"fail"}"><span>${g.stage}</span><span class="mono">${g.min}+ · ${g.extraTxt} ${ok?"✓":""}</span></div>`;}).join("");
   const ticks = GATES.map(g=>`<span class="tick" style="left:${g.min/27*100}%" title="${g.stage}"></span>`).join("");
   $("#score-result").innerHTML = `<h4>Oportunidade simulada</h4>
