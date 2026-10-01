@@ -5,22 +5,15 @@
 <style>
 /* Layout: cabeçalho curto, abas; aba principal = quadro kanban em duas raias (SDR, Closer) + painel de detalhe da etapa selecionada */
 :root{
-  --bg:#F1F4F2; --surface:#FFFFFF; --surface-2:#E7ECE9; --ink:#16201C; --muted:#56635D; --line:#D3DBD7;
+  --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#F2F5F3; --ink:#16201C; --muted:#56635D; --line:#D3DBD7;
   --sdr:#A8661A; --sdr-soft:#F6EAD8; --closer:#0E6B66; --closer-soft:#DCEFEC; --cs:#1F4D3F; --cs-soft:#DDEBE4;
   --gate:#B0432C; --gate-soft:#F7E2DC; --ok:#2D7A4C; --ok-soft:#E0F0E6; --warn:#9A6B00; --warn-soft:#FAF0D2;
   --f-display:"Archivo","Helvetica Neue",Arial,sans-serif;
   --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
   --r:6px;
+  color-scheme:light;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0F1513; --surface:#161E1B; --surface-2:#1D2723; --ink:#E4EBE7; --muted:#9AA9A2; --line:#2B3632;
-  --sdr:#E3A552; --sdr-soft:#33281A; --closer:#4DB7AE; --closer-soft:#14302D; --cs:#72C29C; --cs-soft:#163026;
-  --gate:#E8826B; --gate-soft:#3A221C; --ok:#6CC28C; --ok-soft:#173022; --warn:#E2B54A; --warn-soft:#332A12; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#0F1513; --surface:#161E1B; --surface-2:#1D2723; --ink:#E4EBE7; --muted:#9AA9A2; --line:#2B3632;
-  --sdr:#E3A552; --sdr-soft:#33281A; --closer:#4DB7AE; --closer-soft:#14302D; --cs:#72C29C; --cs-soft:#163026;
-  --gate:#E8826B; --gate-soft:#3A221C; --ok:#6CC28C; --ok-soft:#173022; --warn:#E2B54A; --warn-soft:#332A12; color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55}
 .wrap{max-width:1280px;margin:0 auto;padding-inline:20px;padding-block:28px 64px}
@@ -51,10 +44,12 @@ section.view>*{min-width:0}
 
 /* quadro */
 .board-scroll{overflow-x:auto;padding-bottom:6px}
-.board{display:grid;grid-template-rows:auto repeat(6,auto) auto;grid-template-columns:repeat(4,minmax(170px,1fr)) 14px repeat(5,minmax(170px,1fr)) 14px minmax(150px,.8fr);gap:8px;min-width:1510px}
+.board{display:grid;grid-template-rows:auto repeat(6,auto) auto;grid-template-columns:repeat(5,minmax(170px,1fr)) 14px repeat(4,minmax(170px,1fr)) 14px minmax(150px,.8fr);gap:8px;min-width:1510px}
 .lane-label{grid-row:1;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 8px;border-radius:var(--r)}
-.lane-label.sdr{grid-column:1/5;background:var(--sdr-soft);color:var(--sdr)}
-.lane-label.closer{grid-column:6/11;background:var(--closer-soft);color:var(--closer)}
+.lane-label{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.ltot{font-weight:700;letter-spacing:.04em;padding:1px 7px;border-radius:3px;background:var(--surface)}
+.lane-label.sdr{grid-column:1/6;background:var(--sdr-soft);color:var(--sdr)}
+.lane-label.closer{grid-column:7/11;background:var(--closer-soft);color:var(--closer)}
 .lane-label.cs{grid-column:12/13;background:var(--cs-soft);color:var(--cs)}
 .handoff{grid-row:2 / span 6;align-self:stretch;display:flex;align-items:center;justify-content:center}
 .handoff i{width:2px;height:100%;background:repeating-linear-gradient(var(--muted) 0 6px,transparent 6px 10px)}
@@ -255,8 +250,8 @@ a{color:var(--closer)}
     <div class="flow">
       <b>Reserva (MQA Prospect)</b><span class="arrow">→</span>
       <b>Conta ABM</b><span class="arrow">→</span>
-      <span>SDR ativa e qualifica a conta</span><span class="arrow">→</span>
-      <b>Oportunidade criada no SQA</b><span class="arrow">→</span>
+      <span>SDR ativa a conta e faz o diagnóstico</span><span class="arrow">→</span>
+      <b>Closer assume na SQA consideração (início do pipeline qualificado)</b><span class="arrow">→</span>
       <span>Closer conduz o comitê até o empenho</span><span class="arrow">→</span>
       <b>CS assume no kickoff</b>
     </div>
@@ -355,7 +350,7 @@ a{color:var(--closer)}
       <div class="dcard">
         <span class="verdict v-keep">Resultado</span>
         <h3>De 10 para 8 colunas, em dois boards</h3>
-        <p>O SDR trabalha um board de contas com 3 etapas, mais a reserva (MQA Prospect), que fica com marketing e não tem cadência individual. O closer trabalha um pipeline de oportunidades com 5 etapas, dentro do padrão de 5 a 7 etapas de oportunidade usado em vendas enterprise. Cada time enxerga só o próprio board, e a oportunidade nasce no SQA.</p>
+        <p>O SDR trabalha 4 etapas, até o diagnóstico (SQA apresentação), mais a reserva (MQA Prospect), que fica com marketing e não tem cadência individual. O closer trabalha um pipeline de oportunidades com 4 etapas, a partir da SQA consideração, dentro do padrão de 5 a 7 etapas de oportunidade usado em vendas enterprise. Cada time enxerga só o próprio board, e a oportunidade nasce no SQA.</p>
       </div>
     </div>
     <h2>Mapa do quadro anterior para o novo</h2>
@@ -511,9 +506,9 @@ const STAGES = [
  exit:["Reunião realizada (não só agendada) com o dono da dor presente","Nota de passagem preenchida: gatilho, hipótese de dor, mapa de papéis e o que a conta disse, nas palavras dela","Closer aceita a oportunidade em até 2 dias úteis ou devolve com motivo"],
  kr:"Comparecimento acima de 80% e 100% das passagens com nota completa.",
  kpis:["# SQA realizadas e aceitas por SDR","Taxa de comparecimento","Taxa de devolução pelo closer e motivo"],
- crm:"A oportunidade é criada aqui, vinculada à conta. Trava: a oportunidade não muda de dono sem a nota de passagem completa.",
- meeting:{name:"Confirmação e passagem",dur:"5 min com a conta · 10 min interno",who:"SDR e closer",
-  pauta:["Confirmação com a conta: agenda de 3 tópicos, objetivo e participantes","Pré-leitura opcional: um case ou vídeo de até 2 min","Briefing interno do SDR para o closer, com as palavras da conta"],
+ crm:"A oportunidade é criada aqui, vinculada à conta, e continua com o SDR até o diagnóstico.",
+ meeting:{name:"Confirmação",dur:"5 min com a conta",who:"SDR e dono da dor",
+  pauta:["Confirmação com a conta: agenda de 3 tópicos, objetivo e participantes","Pré-leitura opcional: um case ou vídeo de até 2 min"],
   cta:"A conta confirma a presença do dono da dor e, se possível, de mais alguém.",
   show:["Agenda curta","Pré-leitura opcional de até 2 min"],
   dont:["Mandar material extenso antes da reunião","Remarcar sem nova data fixada"]},
@@ -521,20 +516,20 @@ const STAGES = [
  alerts:["Reunião marcada com quem não sente a dor","Terceira remarcação"],
  ref:"Prática enterprise de SDR: a meta é reunião realizada e aceita pelo closer, não agendada.",
  old:"SQA interação"},
-{id:"c1",lane:"closer",code:"4",name:"SQA apresentação",alias:"reunião de diagnóstico",board:"Pipeline",short:"Dor confirmada nas palavras do cliente e sessão de valor agendada com mais uma secretaria",
+{id:"c1",lane:"sdr",code:"4",name:"SQA apresentação",alias:"reunião de diagnóstico",board:"Contas ABM",short:"Dor confirmada nas palavras do cliente e sessão de valor agendada com mais uma secretaria",
  job:"Identificação do problema e exploração de soluções",sla:"21 dias",
  objetivo:"Entender a situação e a dor nas palavras do cliente, e ganhar o direito de mostrar valor para mais gente.",
  entrada:"Oportunidade aceita pelo closer.",
  exit:["Situação atual descrita e dor confirmada pelo cliente (registro com as palavras dele)","Impacto: o que acontece se nada mudar","Evento crítico candidato (calendário de gestão, plano diretor, LOA, financiamento)","Champion candidato identificado","Sessão de valor agendada com pelo menos mais uma secretaria"],
  kr:"Diagnósticos que viram sessão de valor com 2 secretarias.",
  kpis:["Taxa SQA apresentação para SQA consideração","Tempo em etapa","% com evento crítico registrado"],
- crm:"SPICED (situação, dor, impacto, evento crítico, decisão) com campos obrigatórios para sair da etapa. Envio do resumo do diagnóstico registrado no card.",
- meeting:{name:"Reunião de diagnóstico",dur:"45 a 60 min",who:"Closer (SDR opcional), dono da dor e quem ele trouxer",
+ crm:"SPICED (situação, dor, impacto, evento crítico, decisão) com campos obrigatórios para sair da etapa. Envio do resumo do diagnóstico registrado no card. Trava: a oportunidade só passa para o closer com a nota de passagem completa.",
+ meeting:{name:"Reunião de diagnóstico",dur:"45 a 60 min",who:"SDR (closer opcional em conta Tier 1), dono da dor e quem ele trouxer",
   pauta:["Combinado inicial: objetivo, tempo e o que se decide no final","Contexto da prefeitura e da área: como funciona hoje","Um insight com dado do próprio município: ensinar algo novo, não apresentar a empresa","Perguntas de problema e de implicação (SPIN): onde trava, quanto custa, quem sofre","Evento crítico: o que precisa estar pronto e até quando","Quem mais é afetado e quem decide","Resumo em voz alta, com as palavras do cliente"],
   cta:"Agendar a sessão de valor (online) com pelo menos mais uma secretaria, e saber quais dores cada uma quer ver resolvidas na demo.",
   show:["Um case de prefeitura semelhante (2 min)","Uma tela ou mapa que ilustre o insight, se ajudar"],
   dont:["Tour completo da plataforma","Proposta preliminar ou preço","Lista de módulos e funcionalidades","Perguntar orçamento: a LOA é pública, pesquise antes"],
-  after:"Enviar em até 24 h o Resumo do diagnóstico: uma página com a dor nas palavras do cliente, o impacto e o próximo passo. É esse documento que circula internamente na prefeitura, e não uma proposta."},
+  after:"Enviar em até 24 h o Resumo do diagnóstico: uma página com a dor nas palavras do cliente, o impacto e o próximo passo. É esse documento que circula internamente na prefeitura, e não uma proposta. Depois, briefing de 10 min do SDR para o closer, com as palavras da conta: o closer entra na sessão de valor."},
  roles:"Dono da dor e champion candidato.",
  alerts:["Cliente pede proposta no fim da primeira reunião: responda com o resumo e a sessão de valor","Nenhuma outra secretaria aceita participar"],
  ref:"Gartner (sense making): vendedores que ajudam o cliente a interpretar a informação fecham 80% de negócios de alta qualidade, contra 30% dos que só entregam informação. Winning by Design: SPICED.",
@@ -593,7 +588,7 @@ const STAGES = [
  ref:"JOLT Effect (Dixon e McKenna): recomendar, limitar a exploração e tirar o risco da mesa. Em 56% das perdas por falta de decisão o cliente queria mudar, mas travou com medo de errar. Gartner: excesso de informação leva a compra menor ou a nenhuma compra.",
  old:"NGC negociação"},
 {id:"c5",lane:"closer",code:"8",name:"NGC fechamento",alias:"ETP e TR escritos (commit)",board:"Pipeline",tag:"commit",short:"",
- job:"Validação final e contratação",sla:"mediana pós ETP/TR",
+ job:"Validação final e contratação",sla:"60 a 90 dias (calibrar pela mediana pós ETP/TR)",
  objetivo:"Conduzir o rito do ETP/TR até o empenho sem perder o comitê, e passar o bastão sem perder o que foi prometido.",
  entrada:"ETP e TR escritos pela prefeitura.",
  exit:[],
@@ -628,10 +623,10 @@ const MS = {
   ["Resposta registrada e classificada no CRM (\"Oi, tudo bem?\" não conta)","Ou: conversa com conteúdo em evento, registrada em até 48 h","Ou: alguém da conta levantou a mão"]],
  s2:["Quando o dono da dor aceitou a reunião de diagnóstico, com data marcada.",
   ["Pelo menos 2 pessoas da conta com interação de mão dupla, de preferência de secretarias diferentes (ou mão levantada do próprio dono da dor)","Dono da dor identificado por nome e cargo","Reunião de diagnóstico aceita, com data"]],
- c1:["Quando a reunião de diagnóstico aconteceu com o dono da dor e o closer aceitou a oportunidade.",
-  ["Reunião realizada, não apenas agendada, com o dono da dor presente","Nota de passagem completa: gatilho, hipótese de dor, mapa de papéis e o que a conta disse","Closer aceitou a oportunidade em até 2 dias úteis"]],
+ c1:["Quando a reunião de diagnóstico aconteceu com o dono da dor presente.",
+  ["Reunião realizada, não apenas agendada","Dono da dor presente"]],
  c2:["Quando o cliente confirmou a dor com as próprias palavras e aceitou a sessão de valor com outra secretaria.",
-  ["Situação atual descrita e dor confirmada pelo cliente, com as palavras dele","Impacto registrado: o que acontece se nada mudar","Evento crítico candidato registrado","Champion candidato identificado","Sessão de valor agendada com pelo menos mais uma secretaria"]],
+  ["Situação atual descrita e dor confirmada pelo cliente, com as palavras dele","Impacto registrado: o que acontece se nada mudar","Evento crítico candidato registrado","Champion candidato identificado","Sessão de valor agendada com pelo menos mais uma secretaria","Nota de passagem SDR para closer completa e aceita pelo closer em até 2 dias úteis"]],
  c3:["Quando duas secretarias reconheceram a dor e o champion convocou o workshop do comitê.",
   ["Dor reconhecida por pelo menos 2 secretarias (ata ou e-mail)","Resultado esperado com uma métrica e linha de base hipotética","Evento crítico com data","Rota de contratação hipotética e fonte de recurso provável","Champion testado: já fez algo por nós","Workshop do comitê agendado"]],
  c4:["Quando a prefeitura indicou o comitê, aprovou o plano de trabalho e agendou a proposta com o decisor econômico.",
@@ -739,10 +734,12 @@ function tagHtml(t){
 
 function renderBoard(){
   const b = $("#board");
-  let h = '<div class="lane-label sdr">SDR · board de contas ABM</div><div class="lane-label closer">Closer · pipeline de vendas</div><div class="lane-label cs">CS</div>';
+  const DAYS={s0:[30,30],s1:[45,45],s2:[14,14],c1:[21,21],c2:[30,30],c3:[45,45],c4:[60,60],c5:[60,90]};
+  const tot=l=>{let a=0,b=0;STAGES.filter(s=>s.lane===l&&DAYS[s.id]).forEach(s=>{a+=DAYS[s.id][0];b+=DAYS[s.id][1]});return a===b?`${a} dias`:`${a} a ${b} dias`;};
+  let h = `<div class="lane-label sdr"><span>SDR · board de contas ABM</span><b class="ltot">${tot("sdr")}</b></div><div class="lane-label closer"><span>Closer · pipeline de vendas</span><b class="ltot">${tot("closer")}</b></div><div class="lane-label cs">CS</div>`;
   let col = 1;
   STAGES.forEach((s,i)=>{
-    if(s.id==="c1"||s.id==="cs"){h+=`<div class="handoff" style="grid-column:${col}" aria-hidden="true"><i></i></div>`;col++;}
+    if(s.id==="c2"||s.id==="cs"){h+=`<div class="handoff" style="grid-column:${col}" aria-hidden="true"><i></i></div>`;col++;}
     const gate = s.gate?'<span class="tag gate">trava da proposta</span>':"";
     h+=`<button class="stage" style="grid-column:${col}" data-lane="${s.lane}" data-id="${s.id}" aria-pressed="false">
       <span class="code"><span>${s.code==="CS"?"CS":"Etapa "+s.code}</span><span>${s.sla?("SLA "+s.sla):""}</span></span>
