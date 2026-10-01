@@ -85,8 +85,8 @@ section.view>*{min-width:0}
 .forecast{grid-row:7;font-family:var(--f-mono);font-size:10.5px;color:var(--muted);padding:4px 6px;border-top:2px solid var(--line)}
 .forecast.f-pipe{grid-column:7/9;border-color:var(--closer)}
 .forecast.f-best{grid-column:9/10;border-color:var(--closer)}
-.forecast.f-commit{grid-column:10/11;border-color:var(--warn)}
-.forecast.f-won{grid-column:11/12;border-color:var(--ok)}
+.forecast.f-commit{grid-column:10/12;border-color:var(--warn)}
+.forecast.f-won{grid-column:13/14;border-color:var(--ok)}
 .side-exits{display:flex;flex-wrap:wrap;gap:10px}
 .side-exits div{flex:1 1 240px;border:1px dashed var(--line);border-radius:var(--r);padding:10px 12px;font-size:13px;background:var(--surface)}
 .side-exits b{font-family:var(--f-display)}
@@ -136,6 +136,25 @@ section.view>*{min-width:0}
 .tcard.kr{background:var(--surface-2);border-color:transparent}
 .tec-table td:nth-child(3){min-width:200px}
 @media (max-width:860px){.tec-grid{grid-template-columns:1fr}}
+.crmreq{display:grid;gap:8px;font-size:13.5px}
+.crmreq ul{margin:2px 0 0;padding-left:18px}
+.pts{font-family:var(--f-mono);font-size:10.5px;padding:1px 5px;border-radius:3px;background:var(--closer-soft);color:var(--closer);white-space:nowrap}
+.pts.c{background:var(--warn-soft);color:var(--warn)}
+.fgrp + .fgrp{margin-top:8px}
+.fgrp ul{margin:2px 0 0;padding-left:18px}
+.fcards{display:grid;gap:16px}
+.fcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:12px;min-width:0}
+.fcard td:first-child{min-width:240px}
+.fcard td:last-child{min-width:280px}
+.v-adj{background:var(--warn-soft);color:var(--warn)}
+.v-auto{background:var(--closer-soft);color:var(--closer)}
+.v-new{background:var(--sdr-soft);color:var(--sdr)}
+.sccol{display:grid;gap:6px;align-content:start;padding:12px 0}
+.sccol + .sccol{border-top:1px solid var(--line);margin-top:8px;padding-top:16px}
+.scitem{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:start;padding:7px 0;border-bottom:1px dashed var(--line);cursor:pointer;font-size:14px}
+.scitem input{margin-top:4px;accent-color:var(--closer)}
+.scitem small{display:block;color:var(--muted);font-size:12px}
+.scitem b{color:var(--closer)}
 .ref{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
 .crm{font-size:13.5px;background:var(--surface-2);padding:10px 12px;border-radius:var(--r)}
 .alerts li::marker{content:"! ";color:var(--gate);font-weight:700}
@@ -217,6 +236,7 @@ a{color:var(--closer)}
   <nav class="tabs" role="tablist" aria-label="Seções">
     <button role="tab" id="tab-quadro" data-view="quadro" aria-selected="true">Quadro</button>
     <button role="tab" id="tab-tecnicas" data-view="tecnicas" aria-selected="false">Técnicas por etapa</button>
+    <button role="tab" id="tab-campos" data-view="campos" aria-selected="false">Campos do CRM</button>
     <button role="tab" id="tab-reunioes" data-view="reunioes" aria-selected="false">Reuniões: pauta e CTA</button>
     <button role="tab" id="tab-revelar" data-view="revelar" aria-selected="false">O que revelar e quando</button>
     <button role="tab" id="tab-score" data-view="score" aria-selected="false">Scorecard</button>
@@ -242,6 +262,24 @@ a{color:var(--closer)}
       <div><b>Perdida</b> · motivo padronizado: sem dor, sem rota de contratação, sem recurso, concorrente, solução interna, decisão política.</div>
     </div>
     <article class="detail" id="detail" aria-live="polite"></article>
+  </section>
+
+  <!-- CAMPOS -->
+  <section class="view" id="view-campos" hidden>
+    <div class="callout">
+      <h3>Campos personalizados por etapa</h3>
+      <p>Os três campos de forecasting já seguem a lógica do grupo, um por camada: <b>Demand forecasting</b> é o portão de entrada no pipeline qualificado (início das etapas SQA), <b>Opportunity forecasting</b> qualifica a oportunidade dentro das etapas SQA, e <b>Pipeline forecasting</b> mede o compromisso da prefeitura nas etapas NGC. Qualificação B2G, Mapeamento de Stakeholders e Papel no Comitê descrevem a conta e as pessoas. A Trilha de fechamento lista as nossas entregas de buyer enablement. Cada opção abaixo está ligada à etapa em que passa a ser obrigatória para o card entrar.</p>
+    </div>
+    <h2>O que é obrigatório para entrar em cada etapa</h2>
+    <div class="tbl-wrap"><table id="fields-stage"></table></div>
+    <h2>Engajamento da conta: uma pessoa ou várias</h2>
+    <div class="callout">
+      <p>Campo automático na conta, calculado pelos contatos com resposta explícita nos últimos 30 dias e pela frente e papel de cada um. Ele separa "um lead interagiu" de "a conta está interagindo", define o que cada etapa exige e muda a forma de conversar e de fazer follow-up. Oportunidade em SQA consideração ou depois com nível 2 ou menor recebe a marca de risco e fica fora do commit. Referências: Ebsta e Pavilion (multithreading aumenta a conversão em 130% em negócios grandes), Gartner (consenso do grupo comprador).</p>
+    </div>
+    <div class="tbl-wrap"><table id="eng-table"></table></div>
+    <p class="note">Para medir: % de oportunidades por nível em cada etapa e o tempo entre o nível 1 e o nível 2 de cada conta. Esse tempo mostra quanto demora para sair de uma conversa isolada.</p>
+    <h2>Avaliação campo a campo</h2>
+    <div class="fcards" id="fields-cards"></div>
   </section>
 
   <!-- REUNIÕES -->
@@ -284,8 +322,8 @@ a{color:var(--closer)}
   <!-- SCORE -->
   <section class="view" id="view-score" hidden>
     <div class="callout">
-      <h3>Scorecard de qualificação (substitui os 20 pts)</h3>
-      <p>MEDDPICC adaptado a governo, com um elemento a mais para governo e calendário (G). Cada elemento vale de 0 a 3 pontos e só pontua com evidência registrada no CRM. Simule uma oportunidade abaixo para ver até que etapa ela pode avançar.</p>
+      <h3>Scorecard híbrido: a sua planilha de pontos + MEDDPICC</h3>
+      <p>Dois scores, ligados aos campos que já existem no CRM. O <b>score de qualificação</b> (Demand + Opportunity forecasting) governa as etapas SQA. O <b>score de compromisso</b> (Pipeline forecasting) mantém a lógica de pontos da sua planilha e governa as etapas NGC. Cada check vale pontos, mas a etapa só avança quando os itens obrigatórios dela estão marcados: assim, uma oportunidade não chega a 20 pontos sem o que mais importa. Marque abaixo para simular.</p>
     </div>
     <div class="score-grid">
       <div class="tbl-wrap" style="padding:4px 16px" id="score-rows"></div>
@@ -502,7 +540,7 @@ const STAGES = [
  entrada:"Diagnóstico completo e sessão de valor agendada.",
  exit:["Dor reconhecida por pelo menos 2 secretarias (registro em ata ou e-mail)","Resultado esperado com uma métrica e linha de base hipotética","Evento crítico com data","Rota de contratação hipotética (inexigibilidade, CPSI, ata ou licitação) e fonte de recurso provável","Champion testado: já fez algo por nós (convidou alguém, conseguiu um dado)","Workshop do comitê agendado"],
  kr:"Pipeline qualificado criado no trimestre: oportunidades com dor validada e workshop agendado.",
- kpis:["# e valor de pipeline criado","Taxa SQA consideração para SQA intenção","Scorecard mínimo: 8 de 27"],
+ kpis:["# e valor de pipeline criado","Taxa SQA consideração para SQA intenção","Score de qualificação: 12 de 36 (obrigatórios)"],
  crm:"Entra no pipeline e no forecast (categoria pipeline). Valor estimado e data provável obrigatórios. Scorecard visível no card.",
  meeting:{name:"Sessão de valor",dur:"60 a 90 min · online",who:"Closer, especialista e 2 ou mais secretarias",
   pauta:["Recapitular a dor com as palavras do diagnóstico e confirmar com o grupo","Demo de referência (online), no ambiente tester ou de uma prefeitura cliente de porte parecido: 2 ou 3 fluxos ligados à dor declarada, sempre conectando ao caso deles","Rodada por papel: o que cada secretaria ganharia","Estimativa de impacto com a métrica deles","Como a prefeitura costuma contratar soluções assim, quem assina, se há dotação","Quem precisa estar no comitê para isso andar"],
@@ -520,7 +558,7 @@ const STAGES = [
  entrada:"Workshop agendado pelo champion.",
  exit:["Membros do comitê indicados pela prefeitura (e-mail, ofício ou portaria)","Pelo menos 5 dos 6 a 8 papéis cobertos, incluindo decisor econômico e procuradoria ou controle","Critérios de decisão declarados pelo comitê","Rota de contratação e fonte de recurso definidas, com ordenador de despesa identificado","Plano de trabalho conjunto aceito (etapas, responsáveis dos dois lados, datas)","Reunião de proposta agendada com o decisor econômico presente"],
  kr:"Planos de trabalho aceitos e cobertura do grupo comprador.",
- kpis:["Cobertura de papéis (engajados / necessários)","Taxa SQA intenção para NGC negociação","Scorecard mínimo: 14 de 27"],
+ kpis:["Cobertura de papéis (engajados / necessários)","Taxa SQA intenção para NGC negociação","Score de qualificação: 20 de 36 (obrigatórios)"],
  crm:"Mapa do comitê com papel e postura (apoia, neutro, resiste). Plano de trabalho anexado ao card. Trava: o botão de gerar proposta só fica disponível depois desta etapa, com deal review da liderança.",
  meeting:{name:"Workshop de parceria",dur:"90 a 120 min · online, com câmeras abertas",who:"Closer, especialista e comitê (6 a 8 papéis)",
   pauta:["Objetivo comum: cada secretaria diz o que precisa resolver","Resultado esperado compartilhado e como vamos medir","Critérios de decisão e preocupações: procuradoria e controle falam aqui, não no fim","Escopo recomendado em alto nível: o que entra agora e o que fica para fases futuras","Caminho de contratação: rota, documentos e quem faz o quê","Rascunho do plano de trabalho, preenchido junto"],
@@ -537,7 +575,7 @@ const STAGES = [
  entrada:"Plano de trabalho aceito e reunião de proposta agendada com o decisor econômico.",
  exit:["Proposta única apresentada ao vivo ao decisor econômico","Ajustes feitos só dentro das alavancas definidas (fases, prazo de implantação, número de usuários, capacitação)","Aval por escrito (e-mail ou ofício) do decisor econômico","Dossiê de contratação entregue","Abertura do processo administrativo (DFD) com data no plano"],
  kr:"Propostas com aval por escrito em até 30 dias, com no máximo 2 rodadas de ajuste.",
- kpis:["Taxa NGC negociação para NGC pipeline","Valor médio por contrato","Rodadas de ajuste (meta: até 2)","Scorecard mínimo: 18 de 27"],
+ kpis:["Taxa NGC negociação para NGC pipeline","Valor médio por contrato","Rodadas de ajuste (meta: até 2)","Qualificação 33 de 36 e compromisso 7 de 30 (obrigatórios)"],
  crm:"Categoria de forecast: melhor cenário. Proposta gerada de modelo padrão por tier, sem edição livre de escopo. Ajustes registrados como alavancas.",
  meeting:{name:"Apresentação da proposta",dur:"60 min",who:"Closer, liderança comercial (Tier 1), decisor econômico e comitê",
   pauta:["Recapitular dor, resultado esperado e critérios de decisão, com as palavras do comitê","A recomendação: um escopo de parceria, e por que ele","O que fica para fases futuras e por quê","Investimento, cronograma e rota de contratação","Como tiramos o risco: implantação faseada, capacitação, referências, segurança jurídica","Próximos passos do plano de trabalho"],
@@ -565,7 +603,7 @@ const STAGES = [
  alerts:["Etapa do rito sem data há mais de 15 dias","Troca de secretário ou de procurador","Reserva orçamentária não confirmada perto do fim do exercício"],
  ref:"Winning by Design: Mutual Commit. Gartner buyer enablement: material que ajuda a comprar, e não sobre o produto, triplica a chance de compra de alta qualidade. Lei 14.133/2021, arts. 72 e 74.",
  old:"NGC pipeline (20 pts)"},
-{id:"c6",lane:"closer",code:"9",name:"NGC fechamento",alias:"contratado (empenho)",board:"Pipeline",tag:"won",short:"Ato publicado, contrato assinado, empenho emitido e kickoff agendado",
+{id:"c6",lane:"closer",code:"9",name:"NGC fechamento",alias:"contratado (empenho)",board:"Pipeline",tag:"commit",short:"Ato publicado, contrato assinado, empenho emitido e kickoff agendado",
  job:"Fim da compra e início do impacto",sla:"30 dias",
  objetivo:"Fechar com segurança de receita e passar o bastão sem perder o que foi prometido.",
  entrada:"Contratação autorizada.",
@@ -704,24 +742,6 @@ const MATRIX = [
 ];
 const CELL = {y:["c-yes","sim"],n:["c-no","·"],l:["c-live","ao vivo"],o:["c-opt","se pedirem"],x:["c-never","nunca"]};
 
-const SCORE = [
- ["M","Métrica","Resultado mensurável (tempo de licenciamento, arrecadação, atendimento)",["Nada","Genérico","Citada pelo cliente","Com linha de base e meta aceitas"]],
- ["E","Decisor econômico","Ordenador de despesa e, quando aplicável, gabinete",["Desconhecido","Identificado","Já ouviu a proposta","Apoia explicitamente"]],
- ["D1","Critérios de decisão","O que o comitê vai avaliar",["Desconhecidos","Supostos","Declarados","Declarados e favoráveis"]],
- ["D2","Processo de decisão","Quem participa e em que ordem até o sim",["Desconhecido","Parcial","Mapeado","Validado com o champion"]],
- ["P","Rito de contratação","Rota, documentos, parecer, publicação",["Desconhecido","Rota hipotética","Rota definida com a prefeitura","Processo aberto e andando"]],
- ["I","Dor","Dor explícita com consequência para a gestão",["Hipótese nossa","Dor de uma pessoa","2 ou mais secretarias","Priorizada pelo gabinete"]],
- ["C1","Champion","Quem vende por nós quando não estamos na sala",["Nenhum","Simpatizante","Defende internamente","Já moveu algo a nosso favor"]],
- ["C2","Concorrência","Outro fornecedor, solução interna ou não fazer nada",["Desconhecida","Conhecida","Mapeada com estratégia","Neutralizada"]],
- ["G","Governo e calendário","Evento crítico, dotação e janela política",["Nada","Evento crítico identificado","Dotação ou fonte identificada","Evento e dotação confirmados"]]
-];
-const GATES = [
- {stage:"SQA consideração",min:8,extra:s=>s.I>=2,extraTxt:"I ≥ 2"},
- {stage:"SQA intenção",min:14,extra:s=>s.C1>=2,extraTxt:"C1 ≥ 2"},
- {stage:"NGC negociação",min:18,extra:s=>s.P>=2&&s.G>=2&&s.E>=2,extraTxt:"P, G e E ≥ 2"},
- {stage:"NGC pipeline",min:22,extra:s=>s.P>=3,extraTxt:"P = 3"}
-];
-const SAMPLE = {M:2,E:1,D1:2,D2:1,P:1,I:2,C1:2,C2:1,G:1};
 
 const $ = s => document.querySelector(s);
 const store = {get(k){try{return JSON.parse(localStorage.getItem("pvb2g:"+k))}catch(e){return null}},set(k,v){try{localStorage.setItem("pvb2g:"+k,JSON.stringify(v))}catch(e){}}};
@@ -751,7 +771,7 @@ function renderBoard(){
     </button>`;
     col++;
   });
-  h+='<div class="forecast f-pipe">forecast: pipeline</div><div class="forecast f-best">melhor cenário</div><div class="forecast f-commit">commit</div><div class="forecast f-won">ganho</div>';
+  h+='<div class="forecast f-pipe">forecast: pipeline</div><div class="forecast f-best">melhor cenário</div><div class="forecast f-commit">commit</div><div class="forecast f-won">ganho = empenho</div>';
   b.innerHTML = h;
   b.querySelectorAll(".stage").forEach(el=>el.addEventListener("click",()=>select(el.dataset.id,true)));
 }
@@ -789,6 +809,7 @@ function select(id,scroll){
         ${s.kpis.length?`<div class="blk"><h4>KPIs</h4>${list(s.kpis)}</div>`:""}
         ${s.roles?`<div class="blk"><h4>Grupo comprador</h4><p>${s.roles}</p></div>`:""}
         <div class="blk"><h4>No CRM</h4><p class="crm">${s.crm}</p></div>
+        ${crmBlock(s)}
       </div>
       <div>
         ${meet}
@@ -839,26 +860,176 @@ function renderMap(){
   $("#map-table").innerHTML = `<thead><tr><th>Quadro anterior</th><th>Novo</th><th>Dono</th><th>Milestone novo</th></tr></thead><tbody>${rows}</tbody>`;
 }
 
-let scoreState = store.get("score") || {...SAMPLE};
+const SNAME = {p0:"MQA Prospect",s0:"MQA",s1:"MQA interação",s2:"SQA interação",c1:"SQA apresentação",c2:"SQA consideração",c3:"SQA intenção",c4:"NGC negociação",c5:"NGC pipeline",c6:"NGC fechamento",cs:"Onboarding",x:"fora do gate"};
+const VERD = {manter:["v-keep","manter"],ajustar:["v-adj","ajustar"],automatizar:["v-auto","automatizar"],mover:["v-adj","mover"],juntar:["v-adj","juntar"],novo:["v-new","novo"]};
+// st = etapa em que o item passa a ser obrigatório para ENTRAR; q = pontos no score de qualificação; c = pontos no score de compromisso
+const FIELDS = [
+ {id:"cities",label:"PLC | Cities (ICP score)",nivel:"Conta",papel:"Fit da conta. Decide quem entra no ABM e quem fica na reserva.",
+  ref:"Forrester: lista de contas-alvo antes de qualquer abordagem. Score de fit não é score de intenção: os dois precisam existir separados.",
+  opts:[
+   {t:"Score calculado (população, maturidade de mercado, PIB per capita, status PDM)",st:"p0",v:"manter",n:"Já é automático. É o critério de entrada na reserva e no ABM."},
+   {t:"Maturidade de mercado sem \"Não sei\" (Secretaria de Tecnologia/Inovação; PPA ou plano de governo menciona smart cities)",st:"s0",v:"ajustar",n:"Hoje \"Não sei\" vale zero e derruba o score (ex.: Abaetetuba 0/16 em maturidade). A qualificação do MQA precisa resolver esses dois indicadores manuais."},
+   {t:"Status PDM",st:"p0",v:"ajustar",n:"Manter no fit (peso 2), e criar o campo \"data prevista da revisão do PDM\". A revisão do plano diretor é o gatilho mais forte de compra e precisa aparecer como urgência, não só como fit."}
+  ]},
+ {id:"qualif",label:"PLC | Qualificação B2G",nivel:"Conta",papel:"Pesquisa da conta antes da cadência. Produz o gatilho e a hipótese de dor que abrem a primeira mensagem.",
+  ref:"Prática enterprise de account planning: pesquisa curta, com saída estruturada. Checagens de duplicidade e de relacionamento do grupo devem ser automáticas.",
+  opts:[
+   {t:"Revisada a clusterização em 'Cidades BR'",st:"p0",v:"automatizar",n:"O CRM recalcula e mostra o cluster. Vendedor não deveria marcar isso."},
+   {t:"Verificado se a prefeitura já existe na base de negociações",st:"p0",v:"automatizar",n:"Deduplicação automática na criação da conta."},
+   {t:"Verificado se existem outros contatos na base desta conta",st:"p0",v:"automatizar",n:"O CRM lista os contatos vinculados à conta."},
+   {t:"Verificado se outra vertical OSPA já tem relacionamento com a conta",st:"p0",v:"automatizar",n:"Alerta automático entre unidades de negócio. Relacionamento do grupo é ativo de entrada (indicação interna)."},
+   {t:"Qualificadas as notícias sobre o mercado imobiliário local",st:"s0",v:"manter",n:"Alimenta a hipótese de dor e o indicador \"mercado aquecido\"."},
+   {t:"Análise do partido do atual prefeito e identificação dos nossos clientes filiados a ele",st:"s0",v:"ajustar",n:"Reescrever como \"contexto político da gestão e clientes com agenda parecida (referências)\", registrado na conta, nunca como atributo de pessoa. Filiação partidária é dado pessoal sensível na LGPD: validar com o jurídico."},
+   {t:"Qualificadas as notícias sobre a atual gestão municipal",st:"s0",v:"manter",n:"Fonte de gatilho (troca de secretário, programa novo, financiamento)."},
+   {t:"Qualificadas as redes sociais da prefeitura, da secretaria e dos secretários",st:"s0",v:"manter",n:"Opcional para Tier 2. Serve para tom e gatilho."},
+   {t:"Qualificado o plano de governo do atual prefeito",st:"s0",v:"manter",n:"Resolve o indicador \"PPA/plano de governo menciona smart cities\" do ICP."},
+   {t:"Qualificadas as palavras-chave do plano de governo (inovação x eficiência)",st:"s0",v:"manter",n:"Define o ângulo da copy: inovação ou eficiência."},
+   {t:"Qualificação documentada na 'descrição' da negociação",st:"s0",v:"ajustar",n:"Trocar texto livre por dois campos estruturados: \"gatilho\" e \"hipótese de dor (1 frase)\". Descrição livre não é auditável nem comparável."}
+  ]},
+ {id:"stake",label:"PLC | Mapeamento de Stakeholders",nivel:"Contato (função)",papel:"Diz de que frente da prefeitura é cada contato. Com o papel no comitê, forma o mapa de 6 a 8 pessoas.",
+  ref:"Gartner: grupos compradores de até 16 pessoas em até 4 funções. Ebsta e Pavilion: negócios ganhos têm cerca de 2 vezes mais contatos que os perdidos.",
+  frentes:[
+   ["Urbanismo e licenciamento","aprovar/analisar projetos; tirar dúvidas sobre o PDM; planejamento urbano geral"],
+   ["Geo / GIS","dados geoespaciais"],
+   ["Inovação e TI","governo digital e smart city; infraestrutura de TI e sistemas"],
+   ["Gabinete","assessoria das estratégias do prefeito"],
+   ["Desenvolvimento econômico","atração e retenção de negócios"],
+   ["Fazenda e orçamento","arrecadação e orçamento; planejamento orçamentário da gestão"],
+   ["Procuradoria e controle","viabilidade jurídica da contratação; sugestão: incluir \"controle interno\""],
+   ["Externo","mercado imobiliário local (associação, sindicato)"]
+  ],
+  opts:[
+   {t:"6 ou mais contatos com função preenchida, cobrindo pelo menos 4 frentes",st:"s0",v:"manter",n:"É o mapa mínimo para começar a cadência em paralelo."},
+   {t:"Contatos engajados em pelo menos 2 frentes diferentes",st:"c2",v:"manter",n:"Base do multithreading: a dor precisa ser de mais de uma secretaria."},
+   {t:"Procuradoria e Fazenda mapeadas e com contato",st:"c4",v:"manter",n:"Quem pode vetar entra antes da proposta, não depois."},
+   {t:"Agrupar as 12 opções em 8 frentes no relatório",st:"x",v:"ajustar",n:"As opções continuam no contato; o agrupamento serve para medir cobertura por frente. \"Arrecadação e orçamento\" e \"planejamento orçamentário\" se sobrepõem: definir se é Fazenda ou Planejamento."}
+  ]},
+ {id:"papel",label:"PLC | Papel no Comitê de Compra",nivel:"Contato (papel)",papel:"Diz o que cada pessoa faz na decisão. É a base de cobertura do comitê e do teste de champion.",
+  ref:"Papéis clássicos de venda complexa (economic, user, technical buyer e coach) mais champion e blocker do MEDDPICC.",
+  opts:[
+   {t:"Contato que respondeu com papel definido (diferente de \"ainda não mapeado\")",st:"s1",v:"manter",n:""},
+   {t:"Todos os contatos engajados com papel definido",st:"s2",v:"manter",n:""},
+   {t:"Um contato marcado como Champion e testado",st:"c3",v:"manter",n:"Champion é quem já agiu por nós; quem só passa informação é Coach. A distinção do campo está certa."},
+   {t:"Cobertura de 5 papéis: Economic, Technical, User, Champion e Gatekeeper jurídico",st:"c4",v:"manter",n:""},
+   {t:"Separar \"Blocker\" em um campo de postura (apoia, neutro, resiste)",st:"x",v:"ajustar",n:"Blocker é postura, não papel: um procurador pode ser Gatekeeper e resistir ao mesmo tempo. Com o campo de postura, a pessoa mantém o papel real."}
+  ]},
+ {id:"demand",label:"PLC | Demand Forecasting",nivel:"Oportunidade",papel:"Portão de entrada no pipeline qualificado. Sem os três itens, a oportunidade não conta no coverage.",
+  ref:"Winning by Design, SPICED: dor e evento crítico. Salesloft/Clari: pipeline qualificado exige necessidade identificada, prazo e engajamento ativo.",
+  opts:[
+   {t:"Conversa efetiva com pelo menos 1 stakeholder da prefeitura realizada",st:"s1",q:2,v:"ajustar",n:"Reescrever como \"resposta explícita de pelo menos 1 stakeholder (interesse, indicação ou objeção com conteúdo)\". É o milestone de MQA interação."},
+   {t:"Dor explícita identificada e validada",st:"c2",q:4,v:"ajustar",n:"Acrescentar \"pelo cliente, com as próprias palavras, e reconhecida por 2 secretarias\"."},
+   {t:"Urgência real identificada por um evento ou gatilho que justifica agir agora",st:"c2",q:4,v:"ajustar",n:"Exigir a data do evento (revisão do PDM, LOA, programa, fim de mandato). Urgência sem data não serve para forecast."}
+  ]},
+ {id:"opp",label:"PLC | Opportunity forecasting",nivel:"Oportunidade",papel:"Qualificação MEDDPICC da oportunidade. Decide se ela avança dentro das etapas SQA e se pode chegar à proposta.",
+  ref:"MEDDPICC com critérios de saída verificáveis. JOLT para o risco percebido (FOMU). Ebsta e Pavilion: decisor envolvido cedo aumenta a conversão em 55%.",
+  opts:[
+   {t:"Implicação/custo do problema reconhecido pelo prospect",st:"c2",q:2,v:"manter",n:"Sai da pergunta de implicação do SPIN na reunião de diagnóstico."},
+   {t:"Impacto/valor quantificado e reconhecido pelo prospect",st:"c3",q:3,v:"ajustar",n:"Acrescentar \"com métrica e linha de base\". É o que o CS vai medir depois."},
+   {t:"Comparação com casos de outros municípios similares apresentada",st:"c3",q:1,v:"ajustar",n:"É atividade nossa, não evidência do comprador: peso baixo. A evidência seria \"prospect pediu referência ou conversou com cliente\"."},
+   {t:"Validador técnico identificado (technical buyer)",st:"c3",q:1,v:"manter",n:""},
+   {t:"Champion interno identificado",st:"c3",q:3,v:"manter",n:"Obrigatório para entrar em SQA intenção: é ele quem convoca o comitê."},
+   {t:"Decisor com poder orçamentário identificado (economic buyer)",st:"c4",q:3,v:"manter",n:"Obrigatório antes da proposta."},
+   {t:"Critérios de decisão mapeados",st:"c4",q:2,v:"manter",n:""},
+   {t:"Processo de decisão mapeado (quem aprova e quem conduz, incluindo ETP/TR)",st:"c4",q:3,v:"ajustar",n:"Separar decisão (quem aprova) de rito de contratação (rota, ETP/TR, parecer). O MEDDPICC trata como dois itens; o rito vai para o Pipeline forecasting."},
+   {t:"Concorrência mapeada (outro fornecedor ou risco de não subcontratação)",st:"c4",q:1,v:"ajustar",n:"Incluir \"não fazer nada\" e \"solução interna\", que são os concorrentes mais comuns em prefeitura."},
+   {t:"Blocker identificado (alguém no comitê que resiste)",st:"c4",q:1,v:"ajustar",n:"Vira \"postura de resistência mapeada, com plano\", ou \"nenhuma identificada\"."},
+   {t:"Orçamento para inovação/transformação digital validado",st:"c4",q:3,v:"ajustar",n:"Reescrever como \"fonte de recurso identificada: dotação, LOA ou financiamento\". É o G do scorecard."},
+   {t:"Risco percebido pelo prospect mapeado e mitigado (FOMU)",st:"c5",q:2,v:"manter",n:"Excelente item: é o T do JOLT (tirar o risco da mesa). Obrigatório para o aval."},
+   {t:"Champion externo identificado (mercado imobiliário/urbanismo local)",st:"x",q:1,v:"manter",n:"Diferencial B2G: pressão externa legítima. Pontua como bônus, não trava etapa."}
+  ]},
+ {id:"trilha",label:"PLC | Trilha de fechamento",nivel:"Oportunidade (entregas nossas)",papel:"Buyer enablement: o que entregamos para a prefeitura conseguir comprar. Não pontua, porque é atividade nossa; trava etapa, porque sem isso o comprador não anda.",
+  ref:"Gartner buyer enablement: material que ajuda a comprar triplica a chance de compra de alta qualidade. Mutual action plan (Highspot).",
+  opts:[
+   {t:"Documentos de tira-dúvidas do PDM antecipados e enviados",st:"c3",v:"manter",n:"Insight e buyer enablement na fase de valor."},
+   {t:"Workshop de diagnóstico realizado (acelerador opcional quando aplicável)",st:"c4",v:"ajustar",n:"Renomear para \"Workshop de parceria\", porque diagnóstico é a reunião da SQA apresentação. Obrigatório para Tier 1; opcional para Tier 2."},
+   {t:"Documento de brainstorming das camadas de dados realizado",st:"c4",v:"manter",n:"Co-criado no workshop; alimenta o escopo recomendado. Não é tratamento de dados, que segue sendo serviço contratado."},
+   {t:"Portal do cliente compartilhado criado",st:"c4",v:"juntar",n:"É o plano de trabalho conjunto. Juntar com a timeline num item só: \"plano de trabalho no portal, com datas e responsáveis dos dois lados\"."},
+   {t:"Timeline de compra e implementação enviados",st:"c4",v:"juntar",n:"Juntar com o portal do cliente."},
+   {t:"Business case por stakeholder apresentado",st:"c5",v:"manter",n:"Vai na apresentação da proposta: valor por papel (Bain, Command of the Message)."},
+   {t:"Planilha de documentos jurídicos enviada",st:"c5",v:"manter",n:"Parte do dossiê de contratação."},
+   {t:"Precedente de inexigibilidade/CPSI validado com a procuradoria",st:"c5",v:"manter",n:"Item crítico: sem ele a rota de contratação é hipótese."}
+  ]},
+ {id:"pipe",label:"PLC | Pipeline forecasting",nivel:"Oportunidade",papel:"Escada de compromisso da prefeitura nas etapas NGC. Mantém a lógica de pontos da sua planilha e define a categoria de forecast.",
+  ref:"Categorias de forecast (Salesforce: pipeline, best case, commit). Evidência do comprador, não atividade do vendedor.",
+  opts:[
+   {t:"Prefeitura definiu as secretarias envolvidas + foi criado relacionamento multi-secretaria",st:"c4",c:7,v:"juntar",n:"Na planilha: \"próx. equipes\" (7 pts). Juntar os dois itens em \"comitê multi-secretaria ativo\". Mantém o maior peso: é o consenso."},
+   {t:"Escopo completo (software + serviços) validado",st:"c5",c:2,v:"ajustar",n:"Na planilha: \"solução + features\" (2). Reescrever como \"escopo recomendado aceito (uma opção)\", sem features."},
+   {t:"Prefeitura validou o LTV e MRR",st:"c5",c:3,v:"ajustar",n:"Na planilha: \"LTV + tipo de contrato\" (3). A prefeitura não valida LTV nem MRR, que são métricas nossas. Reescrever como \"investimento anual e vigência aceitos\"."},
+   {t:"Prefeitura validou o modo de contratação",st:"c5",c:3,v:"manter",n:"Na planilha: \"modo contrato\" (3). Depende do precedente validado com a procuradoria (Trilha)."},
+   {t:"Prefeitura escreveu o ETP e TR",st:"c6",c:5,v:"manter",n:"Na planilha: 5 pts. É o marco mais preditivo: registrar a data, porque a data prevista de fechamento passa a ser data do ETP/TR + mediana histórica até o contrato, por rota."},
+   {t:"Prefeitura definiu uma previsão de data para fechamento",st:"c6",c:5,v:"manter",n:"Na planilha: 5 pts. A data vem do plano de trabalho e é conferida contra a mediana pós ETP/TR."},
+   {t:"Reserva orçamentária confirmada",st:"c6",c:3,v:"novo",n:"Não existia. Sem dotação o processo para no fim do exercício."},
+   {t:"Foi agendado o pré-kickoff para o projeto",st:"cs",c:2,v:"manter",n:"Fecha a escada e conecta com a passagem para CS."}
+  ]}
+];
+const ENG = [
+ {n:"0 · Sem resposta",d:"Nenhum contato com resposta explícita nos últimos 30 dias.",st:"MQA",com:"Cadência fria por papel, com início escalonado entre os contatos."},
+ {n:"1 · Contato único",d:"Uma pessoa com resposta explícita.",st:"entra em MQA interação",com:"Conversa 1:1, resposta em até 1 dia útil. Objetivo da conversa: conseguir a indicação de quem mais sente a dor e o aceite do diagnóstico. Os outros contatos seguem em cadência, com mensagem mais quente (citar o tema, sem expor a pessoa que respondeu sem autorização). Sem resposta depois de 3 follow-ups em 10 dias, a conta volta à cadência."},
+ {n:"2 · Multi-contato",d:"Duas ou mais pessoas com resposta explícita.",st:"exigido para SQA interação (ou mão levantada do dono da dor)",com:"Um dono da conta e um fio condutor: a mesma hipótese de dor para todos, com ângulo por papel. Um próximo passo da conta e um por contato. Depois de cada conversa, resumo escrito para quem participou. Ainda sem grupo."},
+ {n:"3 · Multi-secretaria",d:"Pessoas engajadas em 2 ou mais frentes, incluindo o dono da dor.",st:"exigido para SQA consideração",com:"Convites conjuntos para a sessão de valor, por e-mail, com o resumo do diagnóstico. Registro de \"quem sabe o quê\" para não haver mensagens contraditórias. Ritmo semanal por conta."},
+ {n:"4 · Comitê",d:"5 ou mais papéis engajados, com Economic Buyer e Gatekeeper jurídico.",st:"exigido para NGC negociação",com:"Comunicação em grupo, com o portal do cliente e o plano de trabalho como fonte única. Grupo de WhatsApp só se o champion criar ou concordar. Conversas 1:1 continuam com o champion (preparação) e com quem resiste. Ritmo do plano: quinzenal."}
+];
+const ORDER = ["p0","s0","s1","s2","c1","c2","c3","c4","c5","c6","cs"];
+const ENG_BY_STAGE = {s1:"Engajamento da conta: nível 1 (contato único)",s2:"Engajamento da conta: nível 2 (multi-contato) ou mão levantada do dono da dor",c2:"Engajamento da conta: nível 3 (multi-secretaria)",c4:"Engajamento da conta: nível 4 (comitê)"};
+const FORECAST = {c2:"pipeline",c3:"pipeline",c4:"melhor cenário",c5:"commit",c6:"commit (data pelo ETP/TR)",cs:"ganho"};
+function itemsFor(st){
+  const out=[];
+  FIELDS.forEach(f=>f.opts.forEach(o=>{ if(o.st===st) out.push({f:f.label,t:o.t,q:o.q,c:o.c}); }));
+  return out;
+}
+function crmBlock(s){
+  const it=itemsFor(s.id); const eng=ENG_BY_STAGE[s.id];
+  if(!it.length && !eng) return "";
+  const by={}; it.forEach(i=>{(by[i.f]=by[i.f]||[]).push(i)});
+  return `<div class="blk"><h4>No CRM · obrigatório para entrar nesta etapa</h4><div class="crmreq">${Object.entries(by).map(([f,arr])=>`<div><b>${f}</b><ul>${arr.map(i=>`<li>${i.t}${i.q?` <span class="pts">+${i.q} qualif.</span>`:""}${i.c?` <span class="pts c">+${i.c} compr.</span>`:""}</li>`).join("")}</ul></div>`).join("")}${eng?`<div><b>Conta</b><ul><li>${eng}</li></ul></div>`:""}</div></div>`;
+}
+function renderFields(){
+  const rows = ORDER.map(id=>{const it=itemsFor(id); const eng=ENG_BY_STAGE[id]; if(!it.length&&!eng) return "";
+    const by={}; it.forEach(i=>{(by[i.f]=by[i.f]||[]).push(i)});
+    return `<tr><td class="stagecell">${SNAME[id]}${FORECAST[id]?`<div class="mono" style="font-weight:400">forecast: ${FORECAST[id]}</div>`:""}</td><td>${Object.entries(by).map(([f,arr])=>`<div class="fgrp"><b>${f.replace("PLC | ","")}</b><ul>${arr.map(i=>`<li>${i.t}</li>`).join("")}</ul></div>`).join("")}${eng?`<div class="fgrp"><b>Conta</b><ul><li>${eng}</li></ul></div>`:""}</td></tr>`;}).join("");
+  $("#fields-stage").innerHTML = `<thead><tr><th>Para entrar em</th><th>Campos e opções obrigatórios</th></tr></thead><tbody>${rows}</tbody>`;
+  $("#fields-cards").innerHTML = FIELDS.map(f=>`<article class="fcard"><header><div><span class="eyebrow">${f.nivel}</span><h3>${f.label}</h3></div></header><p>${f.papel}</p>
+    ${f.frentes?`<div class="tbl-wrap"><table><thead><tr><th>Frente</th><th>Opções do campo que entram nela</th></tr></thead><tbody>${f.frentes.map(r=>`<tr><td class="stagecell">${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</tbody></table></div>`:""}
+    <div class="tbl-wrap"><table><thead><tr><th>Opção</th><th>Obrigatória para entrar em</th><th>Pontos</th><th>Decisão</th><th>Por quê</th></tr></thead><tbody>${f.opts.map(o=>`<tr><td>${o.t}</td><td class="stagecell">${SNAME[o.st]}</td><td class="mono">${o.q?`qualif. ${o.q}`:o.c?`compr. ${o.c}`:"·"}</td><td><span class="verdict ${VERD[o.v][0]}">${VERD[o.v][1]}</span></td><td>${o.n||""}</td></tr>`).join("")}</tbody></table></div>
+    <p class="ref"><b>Referência:</b> ${f.ref}</p></article>`).join("");
+  $("#eng-table").innerHTML = `<thead><tr><th>Nível</th><th>Definição</th><th>Onde no pipeline</th><th>Como conversar e fazer follow-up</th></tr></thead><tbody>${ENG.map(e=>`<tr><td class="stagecell">${e.n}</td><td>${e.d}</td><td>${e.st}</td><td>${e.com}</td></tr>`).join("")}</tbody>`;
+}
+
+/* scorecard híbrido */
+const SC_ITEMS = [];
+FIELDS.forEach(f=>f.opts.forEach((o,i)=>{ if(o.q||o.c) SC_ITEMS.push({id:f.id+i,f:f.id,t:o.t,st:o.st,q:o.q||0,c:o.c||0}); }));
+SC_ITEMS.push({id:"empenho",f:"pipe",t:"Empenho emitido",st:"cs",q:0,c:0});
+const Q_MAX = SC_ITEMS.reduce((a,i)=>a+i.q,0), C_MAX = SC_ITEMS.reduce((a,i)=>a+i.c,0);
+const SC_SAMPLE = ["demand0","demand1","demand2","opp0","opp1","opp2","opp3","opp4","pipe0"];
+let scState = new Set(store.get("sc2") || SC_SAMPLE);
 function renderScore(){
-  $("#score-rows").innerHTML = SCORE.map(([k,n,d,lv])=>`<div class="score-row"><div><b>${k} · ${n}</b><small>${d}</small></div>
-    <select id="sc-${k}" data-k="${k}" aria-label="${n}">${lv.map((t,i)=>`<option value="${i}" ${scoreState[k]===i?"selected":""}>${i} · ${t}</option>`).join("")}</select></div>`).join("");
-  document.querySelectorAll("#score-rows select").forEach(el=>el.addEventListener("change",()=>{scoreState[el.dataset.k]=+el.value;store.set("score",scoreState);renderResult();}));
+  const col = (fid,title,sub) => `<div class="sccol"><h3>${title}</h3><p class="note">${sub}</p>${SC_ITEMS.filter(i=>fid.includes(i.f)).map(i=>`<label class="scitem"><input type="checkbox" data-id="${i.id}" ${scState.has(i.id)?"checked":""}><span>${i.t}<small>${SNAME[i.st]==="fora do gate"?"bônus":"obrigatório para "+SNAME[i.st]}</small></span><b class="mono">${i.q?"+"+i.q:i.c?"+"+i.c:""}</b></label>`).join("")}</div>`;
+  $("#score-rows").innerHTML = col(["demand","opp"],"Score de qualificação","Demand forecasting + Opportunity forecasting. Governa as etapas SQA.") + col(["pipe"],"Score de compromisso","Pipeline forecasting, na lógica de pontos da sua planilha. Governa as etapas NGC.");
+  document.querySelectorAll("#score-rows input").forEach(el=>el.addEventListener("change",()=>{el.checked?scState.add(el.dataset.id):scState.delete(el.dataset.id);store.set("sc2",[...scState]);renderResult();}));
   renderResult();
 }
 function renderResult(){
-  const total = Object.values(scoreState).reduce((a,b)=>a+b,0);
-  let allowed = "SQA apresentação";
-  const gates = GATES.map(g=>{const ok= total>=g.min && g.extra(scoreState); if(ok) allowed=g.stage; return `<div class="${ok?"pass":"fail"}"><span>${g.stage}</span><span class="mono">${g.min}+ · ${g.extraTxt} ${ok?"✓":""}</span></div>`;}).join("");
-  const ticks = GATES.map(g=>`<span class="tick" style="left:${g.min/27*100}%" title="${g.stage}"></span>`).join("");
+  const q = SC_ITEMS.filter(i=>scState.has(i.id)).reduce((a,i)=>a+i.q,0);
+  const c = SC_ITEMS.filter(i=>scState.has(i.id)).reduce((a,i)=>a+i.c,0);
+  let allowed="SQA apresentação", missing=[];
+  const gateStages=["s1","c2","c3","c4","c5","c6","cs"];
+  const rows = gateStages.map(st=>{
+    const idx=ORDER.indexOf(st);
+    const req=SC_ITEMS.filter(i=>i.st!=="x" && ORDER.indexOf(i.st)<=idx && ORDER.indexOf(i.st)>=0);
+    const miss=req.filter(i=>!scState.has(i.id));
+    const qmin=req.reduce((a,i)=>a+i.q,0), cmin=req.reduce((a,i)=>a+i.c,0);
+    const ok=!miss.length; if(ok) allowed=SNAME[st]; else if(!missing.length) missing=miss;
+    return `<div class="${ok?"pass":"fail"}"><span>${SNAME[st]}</span><span class="mono">${qmin} q · ${cmin} c ${ok?"✓":""}</span></div>`;
+  }).join("");
+  const stId=Object.keys(SNAME).find(k=>SNAME[k]===allowed);
   $("#score-result").innerHTML = `<h4>Oportunidade simulada</h4>
-    <div><span class="big">${total}</span><span class="mono"> / 27</span></div>
-    <div class="bar"><i style="width:${total/27*100}%"></i>${ticks}</div>
-    <p>Pode estar no máximo em <b>${allowed}</b>.</p>
-    <div class="gates">${gates}</div>
+    <div style="display:flex;gap:22px;flex-wrap:wrap"><div><span class="big">${q}</span><span class="mono"> / ${Q_MAX} qualificação</span></div><div><span class="big">${c}</span><span class="mono"> / ${C_MAX} compromisso</span></div></div>
+    <p>Pode estar no máximo em <b>${allowed}</b>${FORECAST[stId]?` · forecast: <b>${FORECAST[stId]}</b>`:" · fora do pipeline qualificado"}.</p>
+    <div class="gates">${rows}</div>
+    ${missing.length?`<div><h4>Falta para a próxima etapa</h4><ul style="margin:6px 0 0;padding-left:18px">${missing.map(i=>`<li>${i.t}</li>`).join("")}</ul></div>`:""}
     <button class="btn" id="reset">Voltar ao exemplo</button>
-    <p class="note">O exemplo inicial é ilustrativo. Os mínimos são ponto de partida para calibrar com o histórico do CRM.</p>`;
-  $("#reset").addEventListener("click",()=>{scoreState={...SAMPLE};store.set("score",scoreState);renderScore();});
+    <p class="note">Regra: a etapa só avança com todos os itens obrigatórios marcados. Os pontos medem a saúde dentro da etapa e ordenam prioridades. Os mínimos de cada etapa são a soma dos obrigatórios até ela.</p>`;
+  $("#reset").addEventListener("click",()=>{scState=new Set(SC_SAMPLE);store.set("sc2",[...scState]);renderScore();});
 }
 
 function showView(v){
@@ -868,8 +1039,8 @@ function showView(v){
 }
 document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 
-renderBoard(); renderTec(); renderRules(); renderMeetTable(); renderMatrix(); renderMap(); renderScore();
+renderBoard(); renderTec(); renderFields(); renderRules(); renderMeetTable(); renderMatrix(); renderMap(); renderScore();
 select(store.get("stage")||"c3",false);
 const hv = (location.hash||"").slice(1);
-showView(["quadro","tecnicas","reunioes","revelar","score","mudancas","nome","fontes"].includes(hv)?hv:(store.get("view")||"quadro"));
+showView(["quadro","tecnicas","campos","reunioes","revelar","score","mudancas","nome","fontes"].includes(hv)?hv:(store.get("view")||"quadro"));
 </script>
