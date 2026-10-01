@@ -51,11 +51,11 @@ section.view>*{min-width:0}
 
 /* quadro */
 .board-scroll{overflow-x:auto;padding-bottom:6px}
-.board{display:grid;grid-template-rows:auto repeat(6,auto) auto;grid-template-columns:repeat(4,minmax(170px,1fr)) 14px repeat(6,minmax(170px,1fr)) 14px minmax(150px,.8fr);gap:8px;min-width:1680px}
+.board{display:grid;grid-template-rows:auto repeat(6,auto) auto;grid-template-columns:repeat(4,minmax(170px,1fr)) 14px repeat(5,minmax(170px,1fr)) 14px minmax(150px,.8fr);gap:8px;min-width:1510px}
 .lane-label{grid-row:1;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 8px;border-radius:var(--r)}
 .lane-label.sdr{grid-column:1/5;background:var(--sdr-soft);color:var(--sdr)}
-.lane-label.closer{grid-column:6/12;background:var(--closer-soft);color:var(--closer)}
-.lane-label.cs{grid-column:13/14;background:var(--cs-soft);color:var(--cs)}
+.lane-label.closer{grid-column:6/11;background:var(--closer-soft);color:var(--closer)}
+.lane-label.cs{grid-column:12/13;background:var(--cs-soft);color:var(--cs)}
 .handoff{grid-row:2 / span 6;align-self:stretch;display:flex;align-items:center;justify-content:center}
 .handoff i{width:2px;height:100%;background:repeating-linear-gradient(var(--muted) 0 6px,transparent 6px 10px)}
 .stage{grid-row:2 / span 6;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;display:grid;grid-template-rows:subgrid;row-gap:12px;align-content:start;cursor:pointer;font:inherit;color:inherit;position:relative}
@@ -85,8 +85,8 @@ section.view>*{min-width:0}
 .forecast{grid-row:8;font-family:var(--f-mono);font-size:10.5px;color:var(--muted);padding:4px 6px;border-top:2px solid var(--line)}
 .forecast.f-pipe{grid-column:7/9;border-color:var(--closer)}
 .forecast.f-best{grid-column:9/10;border-color:var(--closer)}
-.forecast.f-commit{grid-column:10/12;border-color:var(--warn)}
-.forecast.f-won{grid-column:13/14;border-color:var(--ok)}
+.forecast.f-commit{grid-column:10/11;border-color:var(--warn)}
+.forecast.f-won{grid-column:12/13;border-color:var(--ok)}
 .side-exits{display:flex;flex-wrap:wrap;gap:10px}
 .side-exits div{flex:1 1 240px;border:1px dashed var(--line);border-radius:var(--r);padding:10px 12px;font-size:13px;background:var(--surface)}
 .side-exits b{font-family:var(--f-display)}
@@ -152,6 +152,7 @@ section.view>*{min-width:0}
 .fcard td:last-child{min-width:280px}
 .v-adj{background:var(--warn-soft);color:var(--warn)}
 .v-auto{background:var(--closer-soft);color:var(--closer)}
+.v-rem{background:var(--gate-soft);color:var(--gate)}
 .v-new{background:var(--sdr-soft);color:var(--sdr)}
 .sccol{display:grid;gap:6px;align-content:start;padding:12px 0}
 .sccol + .sccol{border-top:1px solid var(--line);margin-top:8px;padding-top:16px}
@@ -353,8 +354,8 @@ a{color:var(--closer)}
       </div>
       <div class="dcard">
         <span class="verdict v-keep">Resultado</span>
-        <h3>De 10 para 9 colunas, em dois boards</h3>
-        <p>O SDR trabalha um board de contas com 3 etapas, mais a reserva (MQA Prospect), que fica com marketing e não tem cadência individual. O closer trabalha um pipeline de oportunidades com 6 etapas, dentro do padrão de 5 a 7 etapas de oportunidade usado em vendas enterprise. Cada time enxerga só o próprio board, e a oportunidade nasce no SQA.</p>
+        <h3>De 10 para 8 colunas, em dois boards</h3>
+        <p>O SDR trabalha um board de contas com 3 etapas, mais a reserva (MQA Prospect), que fica com marketing e não tem cadência individual. O closer trabalha um pipeline de oportunidades com 5 etapas, dentro do padrão de 5 a 7 etapas de oportunidade usado em vendas enterprise. Cada time enxerga só o próprio board, e a oportunidade nasce no SQA.</p>
       </div>
     </div>
     <h2>Mapa do quadro anterior para o novo</h2>
@@ -574,56 +575,40 @@ const STAGES = [
  ref:"Gartner: 74% dos grupos compradores têm conflito não saudável, e o consenso aumenta a qualidade do negócio. Mutual action plan (Highspot). Forrester: grupo comprador vinculado à oportunidade.",
  old:"SQA intenção"},
 {id:"c4",lane:"closer",code:"7",name:"NGC negociação",alias:"proposta recomendada",board:"Pipeline",tag:"best",short:"Proposta única com aval por escrito do decisor econômico e DFD com data",
- job:"Seleção de fornecedor e validação",sla:"30 dias",
- objetivo:"Obter o sim do decisor econômico para uma proposta única e iniciar o processo administrativo.",
+ job:"Seleção de fornecedor e validação",sla:"60 dias",
+ objetivo:"Obter o sim do decisor econômico para uma proposta única e levar a prefeitura até escrever o ETP e o TR.",
  entrada:"Plano de trabalho aceito e reunião de proposta agendada com o decisor econômico.",
  exit:["Proposta única apresentada ao vivo ao decisor econômico","Ajustes feitos só dentro das alavancas definidas (fases, prazo de implantação, número de usuários, capacitação)","Aval por escrito (e-mail ou ofício) do decisor econômico","Dossiê de contratação entregue","Abertura do processo administrativo (DFD) com data no plano"],
- kr:"Propostas com aval por escrito em até 30 dias, com no máximo 2 rodadas de ajuste.",
- kpis:["Taxa NGC negociação para NGC pipeline","Valor médio por contrato","Rodadas de ajuste (meta: até 2)","Qualificação 33 de 36 e compromisso 7 de 30 (obrigatórios)"],
+ kr:"Aval por escrito em até 30 dias, com no máximo 2 rodadas de ajuste, e ETP e TR escritos em até 60 dias.",
+ kpis:["Taxa NGC negociação para NGC fechamento","Valor médio por contrato","Rodadas de ajuste (meta: até 2)","Qualificação 33 de 36 e compromisso 7 de 25 (obrigatórios)"],
  crm:"Categoria de forecast: melhor cenário. Proposta gerada de modelo padrão por tier, sem edição livre de escopo. Ajustes registrados como alavancas.",
  meeting:{name:"Apresentação da proposta",dur:"60 min",who:"Closer, liderança comercial (Tier 1), decisor econômico e comitê",
   pauta:["Recapitular dor, resultado esperado e critérios de decisão, com as palavras do comitê","A recomendação: um escopo de parceria, e por que ele","O que fica para fases futuras e por quê","Investimento, cronograma e rota de contratação","Como tiramos o risco: implantação faseada, capacitação, referências, segurança jurídica","Próximos passos do plano de trabalho"],
-  cta:"Aval por escrito da proposta e data de abertura do processo administrativo (DFD).",
+  cta:"Aval por escrito da proposta e data de abertura do processo administrativo (DFD), com o ETP e o TR como próximos passos do plano.",
   show:["Proposta formal, apresentada ao vivo e enviada depois","Dossiê de contratação","Referência de prefeitura cliente"],
+  after:"Depois do aval, a etapa continua até a prefeitura escrever o ETP e o TR: abertura do DFD, entrega do dossiê de contratação (minutas, atestados, justificativa de preço) e validação da rota com a procuradoria. É a pré-condição para entrar no forecast de commit.",
   dont:["Enviar a proposta só por e-mail","Cardápio de módulos ou várias versões de preço","Desconto não planejado: preço consistente entre prefeituras sustenta a justificativa de preço","Reabrir o escopo do zero"]},
  roles:"Decisor econômico presente; champion e procuradoria alinhados.",
  alerts:["Decisor econômico não comparece","Pedido de \"mais opções\"","Silêncio de mais de 15 dias após a proposta"],
  ref:"JOLT Effect (Dixon e McKenna): recomendar, limitar a exploração e tirar o risco da mesa. Em 56% das perdas por falta de decisão o cliente queria mudar, mas travou com medo de errar. Gartner: excesso de informação leva a compra menor ou a nenhuma compra.",
  old:"NGC negociação"},
-{id:"c5",lane:"closer",code:"8",name:"NGC pipeline",alias:"formalização (commit)",board:"Pipeline",tag:"commit",short:"ETP e TR aprovados, reserva orçamentária e parecer jurídico favorável",
- job:"Validação e consenso final",sla:"60 a 90 dias",
- objetivo:"Conduzir o rito administrativo até a autorização da contratação, sem perder o comitê.",
- entrada:"Aval por escrito e processo administrativo com data de abertura.",
- exit:["DFD aberto","ETP e TR protocolados e aprovados","Justificativa de preço e documentos de habilitação no processo","Reserva orçamentária feita","Parecer jurídico favorável"],
- kr:"Forecast de commit com acerto acima de 80%.",
- kpis:["Taxa NGC pipeline para NGC fechamento","Tempo em etapa por rota de contratação","Acerto do forecast de commit"],
- crm:"Categoria de forecast: commit. Checklist do rito por rota de contratação, com data de cada etapa. A data de fechamento é calculada pelo plano, não digitada.",
- meeting:{name:"Ritos de acompanhamento",dur:"30 min quinzenais e reuniões técnicas pontuais",who:"Closer e champion; jurídico da OSPA Place com a procuradoria quando necessário",
-  pauta:["Status do plano de trabalho: o que andou e o que travou","Pendências documentais e quem resolve","Dúvidas da procuradoria e do controle","Riscos de calendário (LOA, fim de exercício, mandato)"],
-  cta:"Cada etapa do rito com responsável e data confirmados.",
-  show:["Minutas de ETP e TR","Atestados e justificativa de preço","Minuta de contrato"],
-  dont:["Sumir até o contrato chegar","Reabrir preço ou escopo","Criar urgência artificial: o rito não acelera por pressão comercial"]},
- roles:"Procuradoria, controle e fazenda ativos; champion conduzindo internamente.",
- alerts:["Etapa do rito sem data há mais de 15 dias","Troca de secretário ou de procurador","Reserva orçamentária não confirmada perto do fim do exercício"],
- ref:"Winning by Design: Mutual Commit. Gartner buyer enablement: material que ajuda a comprar, e não sobre o produto, triplica a chance de compra de alta qualidade. Lei 14.133/2021, arts. 72 e 74.",
- old:"NGC pipeline (20 pts)"},
-{id:"c6",lane:"closer",code:"9",name:"NGC fechamento",alias:"contratado (empenho)",board:"Pipeline",tag:"commit",short:"Ato publicado, contrato assinado, empenho emitido e kickoff agendado",
- job:"Fim da compra e início do impacto",sla:"30 dias",
- objetivo:"Fechar com segurança de receita e passar o bastão sem perder o que foi prometido.",
- entrada:"Contratação autorizada.",
- exit:["Ato de contratação publicado (PNCP e diário oficial)","Contrato assinado","Empenho emitido","Passagem de bastão interna feita e kickoff agendado em até 15 dias"],
- kr:"Empenho em até 30 dias da autorização e kickoff agendado em 100% dos ganhos.",
- kpis:["Taxa de ganho (sem contar \"em espera\")","Ciclo de SQA apresentação a NGC fechamento, por rota e por tier","Valor contratado"],
- crm:"Ganho = empenho emitido. Ao ganhar, o CRM cria a tarefa de passagem para CS com SPICED, plano de trabalho, mapa do comitê e métrica de sucesso.",
- meeting:{name:"Passagem de bastão",dur:"45 min interno",who:"Closer, CS e gestão de projeto",
-  pauta:["O que foi prometido e para quem","Métrica de sucesso e linha de base","Mapa do comitê e postura de cada papel","Riscos e pendências do rito"],
-  cta:"Kickoff com o comitê agendado, conduzido por CS, com data da primeira entrega de valor.",
-  show:["Plano de implantação","Comunicado conjunto aprovado pela Secom da prefeitura"],
-  dont:["Closer sair antes do kickoff","Divulgar a parceria sem aprovação da prefeitura ou em período eleitoral"]},
- roles:"Comitê convidado para o kickoff.",
- alerts:["Contrato assinado sem empenho","Kickoff sem data"],
- ref:"Winning by Design, Bowtie: o impacto prometido no fechamento é o que o CS precisa entregar e medir.",
- old:"NGC fechamento (ganho passa a ser empenho, não contrato no jurídico)"},
+{id:"c5",lane:"closer",code:"8",name:"NGC fechamento",alias:"ETP e TR escritos (commit)",board:"Pipeline",tag:"commit",short:"",
+ job:"Validação final e contratação",sla:"mediana pós ETP/TR",
+ objetivo:"Conduzir o rito do ETP/TR até o empenho sem perder o comitê, e passar o bastão sem perder o que foi prometido.",
+ entrada:"ETP e TR escritos pela prefeitura.",
+ exit:[],
+ kr:"",
+ kpis:["Taxa de ganho (sem contar \"em espera\")","Dias entre ETP/TR e empenho, por rota (mediana histórica)","Acerto do forecast de commit","Ciclo de SQA apresentação a empenho, por rota e por tier"],
+ crm:"Categoria de forecast: commit. A data prevista de fechamento é calculada: data do ETP/TR + mediana histórica até o empenho para aquela rota de contratação. Não é digitada pelo vendedor nem prometida pela prefeitura. Checklist do rito com data de cada passo. Ganho = empenho emitido; ao ganhar, o CRM cria a tarefa de passagem para CS.",
+ meeting:{name:"Ritos de acompanhamento e passagem de bastão",dur:"30 min quinzenais; 45 min de passagem interna no fim",who:"Closer e champion; jurídico da OSPA Place com a procuradoria quando necessário; CS e gestão de projeto na passagem",
+  pauta:["Status do rito: parecer jurídico, reserva orçamentária, autorização, publicação","Pendências documentais e quem resolve","Dúvidas da procuradoria e do controle","Riscos de calendário (LOA, fim de exercício, mandato)","No fim: passagem interna com o que foi prometido, métrica de sucesso, linha de base e mapa do comitê"],
+  cta:"Cada passo do rito com responsável e data; no empenho, kickoff agendado com o comitê, conduzido por CS.",
+  show:["Minuta de contrato","Atestados e justificativa de preço","Plano de implantação","Comunicado conjunto aprovado pela Secom da prefeitura"],
+  dont:["Sumir até o contrato chegar","Reabrir preço ou escopo","Criar urgência artificial: o rito não acelera por pressão comercial","Closer sair antes do kickoff"]},
+ roles:"Procuradoria, controle e Fazenda ativos; champion conduzindo internamente; comitê convidado para o kickoff.",
+ alerts:["Passo do rito sem data há mais de 15 dias","Tempo desde o ETP/TR acima da mediana da rota","Troca de secretário ou de procurador","Reserva orçamentária não confirmada perto do fim do exercício","Contrato assinado sem empenho"],
+ ref:"Winning by Design: Mutual Commit e passagem para o impacto. Gartner buyer enablement. Categorias de forecast com evidência do comprador: o ETP/TR escrito pela prefeitura é o sinal mais preditivo de contrato.",
+ old:"NGC pipeline (20 pts) + NGC fechamento, aglutinadas"},
 {id:"cs",lane:"cs",code:"CS",name:"Onboarding CS",alias:"fora do escopo",board:"CS",short:"Fora do escopo deste quadro: processo de CS documentado à parte",
  job:"Onboarding, primeiro impacto e expansão",sla:"",
  objetivo:"Etapa recebida pelo CS. Este quadro termina na passagem de bastão.",
@@ -651,12 +636,10 @@ const MS = {
   ["Dor reconhecida por pelo menos 2 secretarias (ata ou e-mail)","Resultado esperado com uma métrica e linha de base hipotética","Evento crítico com data","Rota de contratação hipotética e fonte de recurso provável","Champion testado: já fez algo por nós","Workshop do comitê agendado"]],
  c4:["Quando a prefeitura indicou o comitê, aprovou o plano de trabalho e agendou a proposta com o decisor econômico.",
   ["Membros do comitê indicados pela prefeitura (e-mail, ofício ou portaria)","Pelo menos 5 dos 6 a 8 papéis cobertos, incluindo decisor econômico e procuradoria ou controle","Critérios de decisão declarados pelo comitê","Rota de contratação e fonte de recurso definidas, com ordenador de despesa identificado","Plano de trabalho conjunto aceito","Reunião de proposta agendada com o decisor econômico presente"]],
- c5:["Quando o decisor econômico deu aval por escrito à proposta e a abertura do processo administrativo ganhou data.",
-  ["Proposta única apresentada ao vivo ao decisor econômico","Ajustes feitos só dentro das alavancas definidas","Aval por escrito (e-mail ou ofício)","Dossiê de contratação entregue","Abertura do processo (DFD) com data no plano de trabalho"]],
- c6:["Quando o processo foi instruído e autorizado: ETP e TR aprovados, reserva orçamentária e parecer jurídico favorável.",
-  ["DFD aberto","ETP e TR protocolados e aprovados","Justificativa de preço e habilitação no processo","Reserva orçamentária feita","Parecer jurídico favorável"]],
+ c5:["Quando a prefeitura escreveu o ETP e o TR, depois de dar aval por escrito à proposta.",
+  ["Aval por escrito do decisor econômico (e-mail ou ofício)","Escopo recomendado e investimento anual com vigência aceitos","Rota de contratação validada com a procuradoria","DFD aberto e dossiê de contratação entregue","ETP e TR escritos pela prefeitura, com a data registrada"]],
  cs:["Quando o ato foi publicado, o contrato assinado e o empenho emitido.",
-  ["Ato de contratação publicado (PNCP e diário oficial)","Contrato assinado","Empenho emitido","Passagem de bastão feita e kickoff agendado em até 15 dias"]]
+  ["Reserva orçamentária e parecer jurídico favorável","Ato de contratação publicado (PNCP e diário oficial)","Contrato assinado","Empenho emitido","Passagem de bastão feita e kickoff agendado em até 15 dias"]]
 };
 STAGES.forEach(s=>{const m=MS[s.id]; s.milestone=m[0]; s.ms=m[1]; s.short=m[0];});
 const TEC = {
@@ -700,16 +683,11 @@ const TEC = {
   a:{n:"Troca por alavancas",c:"Só ajustar prazo, fases, número de usuários ou capacitação, e sempre em troca de algo: data do DFD, presença do decisor, aval por escrito."},
   sinal:"Dá o aval por escrito sem pedir mais opções.",
   kr:"% de aval por escrito em até 30 dias, com no máximo 2 rodadas de ajuste."},
- c5:{obj:"Conduzir o rito administrativo sem perder o comitê nem o prazo.",
-  p:{n:"Buyer enablement",c:"Entregar o que ajuda a prefeitura a comprar: dossiê de contratação, minutas, respostas à procuradoria. Material sobre o processo, não sobre o produto.",q:["\"Qual o próximo passo do processo e quem é o responsável?\"","\"Que documento está faltando para a procuradoria?\"","\"Há algum risco de calendário (fim do exercício, LOA) que a gente precise antecipar?\""],qt:"Perguntas-modelo"},
-  a:{n:"Gestão do plano de trabalho",c:"Rito quinzenal com o champion, conferindo datas e pendências de cada etapa do processo."},
-  sinal:"A prefeitura cumpre as próprias datas do rito.",
-  kr:"Acerto do forecast de commit acima de 80%."},
- c6:{obj:"Fechar com segurança de receita e entregar ao CS tudo o que foi prometido.",
-  p:{n:"Passagem estruturada",c:"SPICED completo, promessas feitas, métrica de sucesso e linha de base, mapa do comitê com a postura de cada papel.",q:["\"O que prometemos e para quem?\"","\"Qual a métrica de sucesso e a linha de base?\"","\"Quem no comitê apoia, quem é neutro e quem resiste?\""],qt:"Perguntas da passagem (internas)"},
-  a:{n:"Kickoff com o comitê",c:"Conduzido por CS, com o closer presente, objetivos e primeira entrega de valor com data."},
-  sinal:"O comitê participa do kickoff.",
-  kr:"Kickoff agendado em 100% dos ganhos."}
+ c5:{obj:"Conduzir o rito até o empenho sem perder o comitê e entregar ao CS tudo o que foi prometido.",
+  p:{n:"Buyer enablement",c:"Entregar o que ajuda a prefeitura a concluir a compra: respostas à procuradoria, documentos do rito, minuta de contrato. Material sobre o processo, não sobre o produto.",q:["\"Qual o próximo passo do processo e quem é o responsável?\"","\"Que documento está faltando para a procuradoria?\"","\"Há algum risco de calendário (fim do exercício, LOA) que a gente precise antecipar?\""],qt:"Perguntas-modelo"},
+  a:{n:"Gestão do plano e passagem estruturada",c:"Rito quinzenal com o champion conferindo datas; no empenho, passagem para CS com SPICED, promessas, métrica de sucesso, linha de base e mapa do comitê."},
+  sinal:"A prefeitura cumpre as próprias datas do rito e o comitê participa do kickoff.",
+  kr:"Acerto do forecast de commit acima de 80% e kickoff agendado em 100% dos ganhos."}
 };
 STAGES.forEach(s=>{const t=TEC[s.id]; if(t){s.tec=t; s.kr=t.kr;}});
 
@@ -725,7 +703,7 @@ const RULES = [
  ["Preço consistente","Sem desconto improvisado: preço consistente entre prefeituras sustenta a justificativa de preço da inexigibilidade.","Lei 14.133/2021, art. 23"]
 ];
 
-const MATRIX_COLS = ["MQA interação","SQA interação","SQA apresentação","SQA consideração","SQA intenção","NGC negociação","NGC pipeline"];
+const MATRIX_COLS = ["MQA interação","SQA interação","SQA apresentação","SQA consideração","SQA intenção","NGC negociação","NGC fechamento"];
 const MATRIX = [
  ["Conteúdo de ponto de vista ligado ao gatilho",["y","y","y","y","y","y","y"]],
  ["Case de prefeitura semelhante (um por vez, escolhido pela dor)",["y","y","y","y","y","y","y"]],
@@ -865,8 +843,8 @@ function renderMap(){
   $("#map-table").innerHTML = `<thead><tr><th>Quadro anterior</th><th>Novo</th><th>Dono</th><th>Milestone novo</th></tr></thead><tbody>${rows}</tbody>`;
 }
 
-const SNAME = {p0:"MQA Prospect",s0:"MQA",s1:"MQA interação",s2:"SQA interação",c1:"SQA apresentação",c2:"SQA consideração",c3:"SQA intenção",c4:"NGC negociação",c5:"NGC pipeline",c6:"NGC fechamento",cs:"Onboarding",x:"fora do gate"};
-const VERD = {manter:["v-keep","manter"],ajustar:["v-adj","ajustar"],automatizar:["v-auto","automatizar"],mover:["v-adj","mover"],juntar:["v-adj","juntar"],novo:["v-new","novo"]};
+const SNAME = {p0:"MQA Prospect",s0:"MQA",s1:"MQA interação",s2:"SQA interação",c1:"SQA apresentação",c2:"SQA consideração",c3:"SQA intenção",c4:"NGC negociação",c5:"NGC fechamento",cs:"Onboarding",x:"fora do gate"};
+const VERD = {remover:["v-rem","remover"],manter:["v-keep","manter"],ajustar:["v-adj","ajustar"],automatizar:["v-auto","automatizar"],mover:["v-adj","mover"],juntar:["v-adj","juntar"],novo:["v-new","novo"]};
 // st = etapa em que o item passa a ser obrigatório para ENTRAR; q = pontos no score de qualificação; c = pontos no score de compromisso
 const FIELDS = [
  {id:"cities",label:"PLC | Cities (ICP score)",nivel:"Conta",papel:"Fit da conta. Decide quem entra no ABM e quem fica na reserva.",
@@ -961,9 +939,9 @@ const FIELDS = [
    {t:"Escopo completo (software + serviços) validado",st:"c5",c:2,v:"ajustar",n:"Na planilha: \"solução + features\" (2). Reescrever como \"escopo recomendado aceito (uma opção)\", sem features."},
    {t:"Prefeitura validou o LTV e MRR",st:"c5",c:3,v:"ajustar",n:"Na planilha: \"LTV + tipo de contrato\" (3). A prefeitura não valida LTV nem MRR, que são métricas nossas. Reescrever como \"investimento anual e vigência aceitos\"."},
    {t:"Prefeitura validou o modo de contratação",st:"c5",c:3,v:"manter",n:"Na planilha: \"modo contrato\" (3). Depende do precedente validado com a procuradoria (Trilha)."},
-   {t:"Prefeitura escreveu o ETP e TR",st:"c6",c:5,v:"manter",n:"Na planilha: 5 pts. É o marco mais preditivo: registrar a data, porque a data prevista de fechamento passa a ser data do ETP/TR + mediana histórica até o contrato, por rota."},
-   {t:"Prefeitura definiu uma previsão de data para fechamento",st:"c6",c:5,v:"manter",n:"Na planilha: 5 pts. A data vem do plano de trabalho e é conferida contra a mediana pós ETP/TR."},
-   {t:"Reserva orçamentária confirmada",st:"c6",c:3,v:"novo",n:"Não existia. Sem dotação o processo para no fim do exercício."},
+   {t:"Prefeitura escreveu o ETP e TR",st:"c5",c:5,v:"manter",n:"Na planilha: 5 pts. Pré-requisito para o forecast de commit: é a entrada em NGC fechamento. Registrar a data, porque a data prevista de fechamento é calculada a partir dela."},
+   {t:"Prefeitura definiu uma previsão de data para fechamento",st:"x",c:0,v:"remover",n:"Na planilha: 5 pts. Sai do score: na prática a prefeitura não se compromete com a data. A data prevista passa a ser calculada (data do ETP/TR + mediana histórica até o empenho, por rota)."},
+   {t:"Reserva orçamentária confirmada",st:"cs",c:3,v:"novo",n:"Não existia. Sem dotação o processo para no fim do exercício."},
    {t:"Foi agendado o pré-kickoff para o projeto",st:"cs",c:2,v:"manter",n:"Fecha a escada e conecta com a passagem para CS."}
   ]}
 ];
@@ -974,9 +952,9 @@ const ENG = [
  {n:"3 · Multi-secretaria",d:"Pessoas engajadas em 2 ou mais frentes, incluindo o dono da dor.",st:"exigido para SQA consideração",com:"Convites conjuntos para a sessão de valor, por e-mail, com o resumo do diagnóstico. Registro de \"quem sabe o quê\" para não haver mensagens contraditórias. Ritmo semanal por conta."},
  {n:"4 · Comitê",d:"5 ou mais papéis engajados, com Economic Buyer e Gatekeeper jurídico.",st:"exigido para NGC negociação",com:"Comunicação em grupo, com o portal do cliente e o plano de trabalho como fonte única. Grupo de WhatsApp só se o champion criar ou concordar. Conversas 1:1 continuam com o champion (preparação) e com quem resiste. Ritmo do plano: quinzenal."}
 ];
-const ORDER = ["p0","s0","s1","s2","c1","c2","c3","c4","c5","c6","cs"];
+const ORDER = ["p0","s0","s1","s2","c1","c2","c3","c4","c5","cs"];
 const ENG_BY_STAGE = {s1:"Engajamento da conta: nível 1 (contato único)",s2:"Engajamento da conta: nível 2 (multi-contato) ou mão levantada do dono da dor",c2:"Engajamento da conta: nível 3 (multi-secretaria)",c4:"Engajamento da conta: nível 4 (comitê)"};
-const FORECAST = {c2:"pipeline",c3:"pipeline",c4:"melhor cenário",c5:"commit",c6:"commit (data pelo ETP/TR)",cs:"ganho"};
+const FORECAST = {c2:"pipeline",c3:"pipeline",c4:"melhor cenário",c5:"commit (data pelo ETP/TR)",cs:"ganho"};
 function itemsFor(st){
   const out=[];
   FIELDS.forEach(f=>f.opts.forEach(o=>{ if(o.st===st) out.push({f:f.label,t:o.t,q:o.q,c:o.c}); }));
@@ -1023,7 +1001,7 @@ function renderResult(){
   const q = SC_ITEMS.filter(i=>scState.has(i.id)).reduce((a,i)=>a+i.q,0);
   const c = SC_ITEMS.filter(i=>scState.has(i.id)).reduce((a,i)=>a+i.c,0);
   let allowed="SQA apresentação", missing=[];
-  const gateStages=["s1","c2","c3","c4","c5","c6","cs"];
+  const gateStages=["s1","c2","c3","c4","c5","cs"];
   const rows = gateStages.map(st=>{
     const idx=ORDER.indexOf(st);
     const req=SC_ITEMS.filter(i=>i.st!=="x" && ORDER.indexOf(i.st)<=idx && ORDER.indexOf(i.st)>=0);
