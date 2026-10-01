@@ -117,8 +117,13 @@ section.view>*{min-width:0}
 .do h4{color:var(--ok)} .dont h4{color:var(--gate)}
 .dont li::marker{color:var(--gate)} .do li::marker{color:var(--ok)}
 .after{font-size:13.5px;background:var(--warn-soft);padding:10px 12px;border-radius:var(--r)}
-.tecline{font-size:12px;color:var(--muted)}
-.tecline b{color:var(--ink);font-weight:600}
+.tecbox{display:grid;gap:5px;border-top:1px dashed var(--line);padding-top:8px}
+.tecbox .lbl{font-size:10.5px;color:var(--muted);letter-spacing:.06em}
+.tchip{font-size:12px;line-height:1.35;padding:4px 7px;border-radius:4px;background:var(--surface-2);color:var(--ink)}
+.tchip.main{background:var(--closer-soft);color:var(--closer);font-weight:600}
+.stage[data-lane="sdr"] .tchip.main{background:var(--sdr-soft);color:var(--sdr)}
+.tsig{font-size:12px;color:var(--muted);line-height:1.4}
+.tsig b{color:var(--ok);font-weight:600}
 .tec{display:grid;gap:12px;border-top:1px solid var(--line);padding-top:16px}
 .tec-head{display:grid;gap:4px;max-width:80ch}
 .tec-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:12px}
@@ -741,7 +746,7 @@ function renderBoard(){
       <span class="name">${s.name}</span><span class="alias">${s.alias||""}</span>
       <span style="display:flex;gap:4px;flex-wrap:wrap">${tagHtml(s.tag)}${gate}</span>
       <span class="ms"><b class="mono" style="font-size:10.5px;color:var(--muted);display:block;letter-spacing:.06em">MILESTONE</b>${s.short}</span>
-      ${s.tec?`<span class="tecline"><b>Técnica:</b> ${s.tec.p.n}</span>`:""}
+      ${s.tec?`<span class="tecbox"><b class="mono lbl">TÉCNICAS</b><span class="tchip main">${s.tec.p.n}</span><span class="tchip">apoio: ${s.tec.a.n}</span><span class="tsig"><b>Sinal de valor:</b> ${s.tec.sinal}</span></span>`:""}
       ${s.meeting?`<span class="meet"><b>${s.meeting.name}</b>CTA: ${s.meeting.cta}</span>`:""}
     </button>`;
     col++;
