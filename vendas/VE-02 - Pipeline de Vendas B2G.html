@@ -117,6 +117,19 @@ section.view>*{min-width:0}
 .do h4{color:var(--ok)} .dont h4{color:var(--gate)}
 .dont li::marker{color:var(--gate)} .do li::marker{color:var(--ok)}
 .after{font-size:13.5px;background:var(--warn-soft);padding:10px 12px;border-radius:var(--r)}
+.tecline{font-size:12px;color:var(--muted)}
+.tecline b{color:var(--ink);font-weight:600}
+.tec{display:grid;gap:12px;border-top:1px solid var(--line);padding-top:16px}
+.tec-head{display:grid;gap:4px;max-width:80ch}
+.tec-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:12px}
+.tcard{border:1px solid var(--line);border-radius:var(--r);padding:14px;display:grid;gap:8px;align-content:start}
+.tcard ul{margin:0;padding-left:18px;display:grid;gap:4px}
+.tcard.main{border-top:4px solid var(--closer)}
+.tcard.sig{background:var(--ok-soft);border-color:transparent}
+.tcard.sig .eyebrow{color:var(--ok)}
+.tcard.kr{background:var(--surface-2);border-color:transparent}
+.tec-table td:nth-child(3){min-width:200px}
+@media (max-width:860px){.tec-grid{grid-template-columns:1fr}}
 .ref{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
 .crm{font-size:13.5px;background:var(--surface-2);padding:10px 12px;border-radius:var(--r)}
 .alerts li::marker{content:"! ";color:var(--gate);font-weight:700}
@@ -197,6 +210,7 @@ a{color:var(--closer)}
 
   <nav class="tabs" role="tablist" aria-label="Seções">
     <button role="tab" id="tab-quadro" data-view="quadro" aria-selected="true">Quadro</button>
+    <button role="tab" id="tab-tecnicas" data-view="tecnicas" aria-selected="false">Técnicas por etapa</button>
     <button role="tab" id="tab-reunioes" data-view="reunioes" aria-selected="false">Reuniões: pauta e CTA</button>
     <button role="tab" id="tab-revelar" data-view="revelar" aria-selected="false">O que revelar e quando</button>
     <button role="tab" id="tab-score" data-view="score" aria-selected="false">Scorecard</button>
@@ -234,6 +248,15 @@ a{color:var(--closer)}
     <div class="rules" id="rules"></div>
     <h2>Reuniões por etapa</h2>
     <div class="tbl-wrap"><table id="meet-table"></table></div>
+  </section>
+
+  <!-- TÉCNICAS -->
+  <section class="view" id="view-tecnicas" hidden>
+    <div class="callout">
+      <h3>Processo diz o que acontece; técnica diz como</h3>
+      <p>Cada etapa tem uma técnica principal e, no máximo, uma de apoio. Um cardápio de técnicas tem o mesmo efeito de um cardápio de escopo: ninguém aplica nenhuma. O sinal de valor é observado em cada conta pelo vendedor e vira um campo sim ou não no card; o KR é a métrica do time. No coaching, a reunião gravada é comparada com a técnica da etapa.</p>
+    </div>
+    <div class="tbl-wrap"><table class="tec-table" id="tec-table"></table></div>
   </section>
 
   <!-- REVELAR -->
@@ -588,6 +611,59 @@ const MS = {
   ["Ato de contratação publicado (PNCP e diário oficial)","Contrato assinado","Empenho emitido","Passagem de bastão feita e kickoff agendado em até 15 dias"]]
 };
 STAGES.forEach(s=>{const m=MS[s.id]; s.milestone=m[0]; s.ms=m[1]; s.short=m[0];});
+const TEC = {
+ p0:{obj:"Manter a marca presente nas contas que ainda não estão comprando e detectar quando entram no mercado.",
+  p:{n:"ABM 1:muitos por cluster",c:"Conteúdo por grupo de cidades parecidas (porte, região, gatilho), feito por marketing. Sem cadência individual.",q:["Cases de prefeituras do mesmo porte ou da mesma região","Conteúdo ligado aos gatilhos do calendário (plano diretor, LOA, início de gestão)","Convites para eventos e webinars do cluster"],qt:"Formatos"},
+  a:{n:"Monitoramento de sinais",c:"Alertas de PNCP, diário oficial e câmara ligados ao ICP score. Sinal forte promove a conta."},
+  sinal:"Alguém da conta interage com conteúdo ou evento, ou surge um sinal público forte.",
+  kr:"Contas promovidas da reserva convertem para SQA numa taxa parecida com a das contas que nasceram no ABM."},
+ s0:{obj:"Ganhar a primeira resposta com conteúdo de alguém da prefeitura.",
+  p:{n:"Abordagem por gatilho",c:"Abrir com um evento específico e datado da cidade, nomear o problema provável daquele papel e fechar com uma pergunta fácil. Gatilhos com prazo respondem melhor que mensagens só sobre o problema.",q:["\"Vi que a revisão do plano diretor de [cidade] está prevista para [ano]. Como a secretaria está organizando a base de dados urbanos para isso?\"","\"A Prefeitura de [cidade parecida] reduziu o prazo de [processo]. Esse tema é prioridade aí também, ou o foco hoje é outro?\"","\"Quem na prefeitura cuida hoje de [tema]?\""],qt:"Exemplos de abertura"},
+  a:{n:"Multithreading por papel",c:"3 ou mais papéis em paralelo, com mensagem diferente para cada um: técnico fala de rotina, secretário de resultado de gestão, Fazenda de arrecadação."},
+  sinal:"Responde com conteúdo: faz uma pergunta, indica alguém ou explica por que não agora.",
+  kr:"% de contas com resposta explícita em até 30 dias de cadência."},
+ s1:{obj:"Validar o gatilho, achar o dono da dor e ganhar a reunião de diagnóstico.",
+  p:{n:"SPIN: Situação e Problema",c:"Só perguntas para entender como funciona hoje e onde trava. Nada de vender ou demonstrar ainda.",q:["\"Como vocês fazem hoje [consulta de parâmetros urbanísticos, análise de viabilidade]?\"","\"Quanto tempo leva, em média, do pedido até a resposta?\"","\"Onde isso mais trava: na informação, nas pessoas ou no sistema?\"","\"Quem mais sente esse problema além da sua equipe?\""],qt:"Perguntas-modelo"},
+  a:{n:"CTA de baixo atrito",c:"Pedir 45 minutos para aprofundar a dor que a pessoa acabou de citar, e não para \"apresentar a OSPA Place\"."},
+  sinal:"Aceita o diagnóstico com data e indica mais alguém sem que a gente peça.",
+  kr:"% de contas em MQA interação que viram SQA em até 45 dias."},
+ s2:{obj:"Garantir que a reunião aconteça com as pessoas certas e com expectativa alinhada.",
+  p:{n:"Combinado prévio (Sandler)",c:"Confirmar antes o objetivo, o tempo, os participantes e o que se decide no fim da reunião.",q:["\"Na reunião de quinta, a ideia é entender como funciona hoje [processo] e ver se faz sentido aprofundar. No fim, combinamos juntos se vale um próximo passo. Faz sentido?\"","\"Além de você, quem mais deveria estar para essa conversa valer a pena?\""],qt:"Exemplos de mensagem"},
+  a:{n:"Pré-leitura curta",c:"Um case de prefeitura parecida ou um vídeo de até 2 minutos. Nada além disso."},
+  sinal:"Confirma presença e traz outra pessoa.",
+  kr:"Comparecimento acima de 80% e nota de passagem completa em 100% dos casos."},
+ c1:{obj:"Fazer o cliente formular a dor, o custo de não agir e o prazo, com as próprias palavras.",
+  p:{n:"SPIN completo: Implicação e Necessidade",c:"Depois de situação e problema, explorar consequência e valor da solução. É a pergunta de implicação que transforma incômodo em prioridade.",q:["\"O que acontece com [prazo de licenciamento, revisão do plano diretor] se isso continuar como está?\"","\"Quanto isso custa hoje em retrabalho, prazo ou arrecadação?\"","\"Se isso estivesse resolvido, o que mudaria para a secretaria e para a gestão?\"","\"Até quando isso precisa estar resolvido, e por que nessa data?\""],qt:"Perguntas-modelo"},
+  a:{n:"Challenger: um insight comercial",c:"Trazer um dado do município ou de cidades parecidas que o cliente não conhecia, ligado à dor (por exemplo, prazo de aprovação comparado ao de cidades do mesmo porte). Ensinar algo novo, não apresentar a empresa."},
+  sinal:"Descreve a dor com as próprias palavras e pede para envolver outra secretaria.",
+  kr:"% de diagnósticos que viram sessão de valor com 2 secretarias."},
+ c2:{obj:"Fazer cada secretaria enxergar o próprio ganho e aceitar uma métrica de sucesso.",
+  p:{n:"Venda por valor (Command of the Message)",c:"Para cada papel: cenário antes e depois, capacidade necessária e resultado para a gestão. A demo mostra só os fluxos que entregam esse resultado.",q:["\"Hoje, como a [secretaria] faz isso? E como seria se a informação estivesse num só lugar?\"","\"Para a Fazenda, o que [resultado] significaria em arrecadação?\"","\"Como vocês mediriam que deu certo daqui a 6 meses?\"","\"O que precisa ser verdade para isso entrar na prioridade da gestão?\""],qt:"Perguntas-modelo"},
+  a:{n:"Demo \"fala, mostra, fala\"",c:"Antes de cada fluxo, lembrar a dor dita; mostrar; depois, perguntar o que aquilo significa para eles. 2 ou 3 fluxos, no ambiente de referência."},
+  sinal:"As secretarias quantificam o impacto, e o champion age sozinho: convoca colegas, consegue um dado, defende internamente.",
+  kr:"% de oportunidades com métrica de sucesso aceita e workshop agendado."},
+ c3:{obj:"Transformar interesse de pessoas em decisão da instituição, com rota e plano acordados.",
+  p:{n:"MEDDPICC: processo, rito, decisor e champion",c:"Mapear como a decisão acontece, qual o rito de contratação, quem ordena a despesa e quem defende a compra. Tudo registrado no scorecard.",q:["\"Como a prefeitura contratou a última solução parecida? Quem participou?\"","\"Quem assina e quem ordena a despesa?\"","\"O que a procuradoria vai precisar ver para se sentir segura?\"","\"Existe dotação neste exercício ou isso precisa entrar na LOA?\"","\"O que poderia fazer isso parar no meio do caminho?\""],qt:"Perguntas-modelo"},
+  a:{n:"Plano de trabalho conjunto",c:"Construído junto no workshop, com etapas do rito, responsáveis dos dois lados e datas. É o que mantém o comitê andando depois da reunião."},
+  sinal:"A prefeitura indica o comitê formalmente e assume datas no plano.",
+  kr:"Cobertura de 5 ou mais papéis e % de planos de trabalho aceitos."},
+ c4:{obj:"Obter o sim do decisor econômico para uma proposta única, sem abrir cardápio.",
+  p:{n:"JOLT",c:"Julgar o nível de indecisão; Oferecer uma recomendação; Limitar a exploração de opções; Tirar o risco da mesa. Medo de errar trava mais negócios que falta de interesse.",q:["\"Pelo que vocês nos disseram, nossa recomendação é começar por [escopo], porque resolve [dor] até [evento crítico].\"","\"[Módulo Y] faz sentido numa segunda fase, depois que [resultado] estiver comprovado.\"","\"Para reduzir o risco, a implantação é faseada, e vocês podem conversar com a Prefeitura de [cidade], que passou pelo mesmo processo.\""],qt:"Exemplos de fala"},
+  a:{n:"Troca por alavancas",c:"Só ajustar prazo, fases, número de usuários ou capacitação, e sempre em troca de algo: data do DFD, presença do decisor, aval por escrito."},
+  sinal:"Dá o aval por escrito sem pedir mais opções.",
+  kr:"% de aval por escrito em até 30 dias, com no máximo 2 rodadas de ajuste."},
+ c5:{obj:"Conduzir o rito administrativo sem perder o comitê nem o prazo.",
+  p:{n:"Buyer enablement",c:"Entregar o que ajuda a prefeitura a comprar: dossiê de contratação, minutas, respostas à procuradoria. Material sobre o processo, não sobre o produto.",q:["\"Qual o próximo passo do processo e quem é o responsável?\"","\"Que documento está faltando para a procuradoria?\"","\"Há algum risco de calendário (fim do exercício, LOA) que a gente precise antecipar?\""],qt:"Perguntas-modelo"},
+  a:{n:"Gestão do plano de trabalho",c:"Rito quinzenal com o champion, conferindo datas e pendências de cada etapa do processo."},
+  sinal:"A prefeitura cumpre as próprias datas do rito.",
+  kr:"Acerto do forecast de commit acima de 80%."},
+ c6:{obj:"Fechar com segurança de receita e entregar ao CS tudo o que foi prometido.",
+  p:{n:"Passagem estruturada",c:"SPICED completo, promessas feitas, métrica de sucesso e linha de base, mapa do comitê com a postura de cada papel.",q:["\"O que prometemos e para quem?\"","\"Qual a métrica de sucesso e a linha de base?\"","\"Quem no comitê apoia, quem é neutro e quem resiste?\""],qt:"Perguntas da passagem (internas)"},
+  a:{n:"Kickoff com o comitê",c:"Conduzido por CS, com o closer presente, objetivos e primeira entrega de valor com data."},
+  sinal:"O comitê participa do kickoff.",
+  kr:"Kickoff agendado em 100% dos ganhos."}
+};
+STAGES.forEach(s=>{const t=TEC[s.id]; if(t){s.tec=t; s.kr=t.kr;}});
 
 const RULES = [
  ["Uma reunião, um objetivo, um CTA","Combinar no início o que se decide no fim. Sem CTA definido, a reunião não acontece.","Up-front contract; Gartner sense making"],
@@ -665,6 +741,7 @@ function renderBoard(){
       <span class="name">${s.name}</span><span class="alias">${s.alias||""}</span>
       <span style="display:flex;gap:4px;flex-wrap:wrap">${tagHtml(s.tag)}${gate}</span>
       <span class="ms"><b class="mono" style="font-size:10.5px;color:var(--muted);display:block;letter-spacing:.06em">MILESTONE</b>${s.short}</span>
+      ${s.tec?`<span class="tecline"><b>Técnica:</b> ${s.tec.p.n}</span>`:""}
       ${s.meeting?`<span class="meet"><b>${s.meeting.name}</b>CTA: ${s.meeting.cta}</span>`:""}
     </button>`;
     col++;
@@ -713,6 +790,15 @@ function select(id,scroll){
         ${s.alerts.length?`<div class="blk" style="margin-top:14px"><h4>Sinais de alerta</h4>${list(s.alerts,"alerts")}</div>`:""}
       </div>
     </div>
+    ${s.tec?`<div class="tec"><div class="tec-head"><h3>Como vender nesta etapa</h3><p><b>Objetivo:</b> ${s.tec.obj}</p></div>
+      <div class="tec-grid">
+        <div class="tcard main"><span class="eyebrow">Técnica principal</span><h3>${s.tec.p.n}</h3><p>${s.tec.p.c}</p><h4>${s.tec.p.qt}</h4>${list(s.tec.p.q)}</div>
+        <div class="tcard"><span class="eyebrow">Técnica de apoio</span><h3>${s.tec.a.n}</h3><p>${s.tec.a.c}</p></div>
+      </div>
+      <div class="tec-grid">
+        <div class="tcard sig"><span class="eyebrow">Sinal de que o lead viu valor · por conta</span><p>${s.tec.sinal}</p></div>
+        <div class="tcard kr"><span class="eyebrow">KR · do time</span><p>${s.tec.kr}</p></div>
+      </div></div>`:""}
     ${s.extra||""}
     ${s.ref?`<p class="ref"><b>Referência:</b> ${s.ref} <br><b>No quadro anterior:</b> ${s.old}</p>`:`<p class="ref"><b>No quadro anterior:</b> ${s.old}</p>`}`;
   const upd = ()=>{
@@ -733,6 +819,10 @@ function renderRules(){
 function renderMeetTable(){
   const rows = STAGES.filter(s=>s.meeting).map(s=>`<tr><td class="stagecell">${s.name}<div class="alias">${s.alias||""}</div><div class="mono" style="font-weight:400">${laneLabel(s.lane)}</div></td><td><b>${s.meeting.name}</b><div class="mono">${s.meeting.dur}</div></td><td><ol style="margin:0;padding-left:18px">${s.meeting.pauta.map(p=>`<li>${p}</li>`).join("")}</ol></td><td>${s.meeting.cta}</td><td>${list(s.meeting.dont)}</td></tr>`).join("");
   $("#meet-table").innerHTML = `<thead><tr><th>Etapa</th><th>Reunião</th><th>Pauta</th><th>CTA</th><th>Não fazer</th></tr></thead><tbody>${rows}</tbody>`;
+}
+function renderTec(){
+  const rows = STAGES.filter(s=>s.tec).map(s=>`<tr><td class="stagecell">${s.name}<div class="alias">${s.alias||""}</div></td><td>${s.tec.obj}</td><td><b>${s.tec.p.n}</b><div class="note">${s.tec.p.c}</div></td><td>${s.tec.a.n}</td><td>${s.tec.sinal}</td><td>${s.tec.kr}</td></tr>`).join("");
+  $("#tec-table").innerHTML = `<thead><tr><th>Etapa</th><th>Objetivo</th><th>Técnica principal</th><th>Apoio</th><th>Sinal de valor (por conta)</th><th>KR (do time)</th></tr></thead><tbody>${rows}</tbody>`;
 }
 function renderMatrix(){
   const head = `<thead><tr><th>Material ou informação</th>${MATRIX_COLS.map(c=>`<th>${c}</th>`).join("")}</tr></thead>`;
@@ -773,8 +863,8 @@ function showView(v){
 }
 document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 
-renderBoard(); renderRules(); renderMeetTable(); renderMatrix(); renderMap(); renderScore();
+renderBoard(); renderTec(); renderRules(); renderMeetTable(); renderMatrix(); renderMap(); renderScore();
 select(store.get("stage")||"c3",false);
 const hv = (location.hash||"").slice(1);
-showView(["quadro","reunioes","revelar","score","mudancas","nome","fontes"].includes(hv)?hv:(store.get("view")||"quadro"));
+showView(["quadro","tecnicas","reunioes","revelar","score","mudancas","nome","fontes"].includes(hv)?hv:(store.get("view")||"quadro"));
 </script>
