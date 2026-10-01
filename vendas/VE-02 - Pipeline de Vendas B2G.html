@@ -51,15 +51,19 @@ section.view>*{min-width:0}
 
 /* quadro */
 .board-scroll{overflow-x:auto;padding-bottom:6px}
-.board{display:grid;grid-template-columns:repeat(3,minmax(170px,1fr)) 14px repeat(6,minmax(170px,1fr)) 14px minmax(150px,.8fr);gap:8px;min-width:1500px}
+.board{display:grid;grid-template-columns:repeat(4,minmax(170px,1fr)) 14px repeat(6,minmax(170px,1fr)) 14px minmax(150px,.8fr);gap:8px;min-width:1680px}
 .lane-label{grid-row:1;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 8px;border-radius:var(--r)}
-.lane-label.sdr{grid-column:1/4;background:var(--sdr-soft);color:var(--sdr)}
-.lane-label.closer{grid-column:5/11;background:var(--closer-soft);color:var(--closer)}
-.lane-label.cs{grid-column:12/13;background:var(--cs-soft);color:var(--cs)}
+.lane-label.sdr{grid-column:1/5;background:var(--sdr-soft);color:var(--sdr)}
+.lane-label.closer{grid-column:6/12;background:var(--closer-soft);color:var(--closer)}
+.lane-label.cs{grid-column:13/14;background:var(--cs-soft);color:var(--cs)}
 .handoff{grid-row:2;align-self:stretch;display:flex;align-items:center;justify-content:center}
 .handoff i{width:2px;height:100%;background:repeating-linear-gradient(var(--muted) 0 6px,transparent 6px 10px)}
 .stage{grid-row:2;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px;display:grid;gap:8px;align-content:start;cursor:pointer;font:inherit;color:inherit;position:relative}
 .stage[data-lane="sdr"]{border-top:4px solid var(--sdr)}
+.stage[data-id="p0"]{border-top-style:dashed;background:var(--surface-2)}
+.extra{display:grid;gap:14px;border-top:1px solid var(--line);padding-top:16px}
+.extra-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.extra-grid>div{border:1px solid var(--line);border-radius:var(--r);padding:12px;display:grid;gap:6px;align-content:start;font-size:14px}
 .stage[data-lane="closer"]{border-top:4px solid var(--closer)}
 .stage[data-lane="cs"]{border-top:4px solid var(--cs);background:var(--surface-2)}
 .stage:hover{border-color:var(--muted)}
@@ -76,10 +80,10 @@ section.view>*{min-width:0}
 .tag.won{background:var(--ok-soft);color:var(--ok)}
 .tag.gate{background:var(--gate-soft);color:var(--gate)}
 .forecast{grid-row:3;font-family:var(--f-mono);font-size:10.5px;color:var(--muted);padding:4px 6px;border-top:2px solid var(--line)}
-.forecast.f-pipe{grid-column:6/8;border-color:var(--closer)}
-.forecast.f-best{grid-column:8/9;border-color:var(--closer)}
-.forecast.f-commit{grid-column:9/10;border-color:var(--warn)}
-.forecast.f-won{grid-column:10/11;border-color:var(--ok)}
+.forecast.f-pipe{grid-column:7/9;border-color:var(--closer)}
+.forecast.f-best{grid-column:9/10;border-color:var(--closer)}
+.forecast.f-commit{grid-column:10/11;border-color:var(--warn)}
+.forecast.f-won{grid-column:11/12;border-color:var(--ok)}
 .side-exits{display:flex;flex-wrap:wrap;gap:10px}
 .side-exits div{flex:1 1 240px;border:1px dashed var(--line);border-radius:var(--r);padding:10px 12px;font-size:13px;background:var(--surface)}
 .side-exits b{font-family:var(--f-display)}
@@ -202,7 +206,8 @@ a{color:var(--closer)}
   <!-- QUADRO -->
   <section class="view" id="view-quadro">
     <div class="flow">
-      <b>Conta</b><span class="arrow">→</span>
+      <b>Reserva (MQA Prospect)</b><span class="arrow">→</span>
+      <b>Conta ABM</b><span class="arrow">→</span>
       <span>SDR ativa e qualifica a conta</span><span class="arrow">→</span>
       <b>Oportunidade criada no SQA</b><span class="arrow">→</span>
       <span>Closer conduz o comitê até o empenho</span><span class="arrow">→</span>
@@ -276,7 +281,7 @@ a{color:var(--closer)}
       <div class="dcard">
         <span class="verdict v-keep">Resultado</span>
         <h3>De 10 para 9 colunas, em dois boards</h3>
-        <p>O SDR trabalha um board de contas com 3 etapas. O closer trabalha um pipeline de oportunidades com 6 etapas, dentro do padrão de 5 a 7 etapas de oportunidade usado em vendas enterprise. Cada time enxerga só o próprio board, e a oportunidade nasce no SQA.</p>
+        <p>O SDR trabalha um board de contas com 3 etapas, mais a reserva (MQA Prospect), que fica com marketing e não tem cadência individual. O closer trabalha um pipeline de oportunidades com 6 etapas, dentro do padrão de 5 a 7 etapas de oportunidade usado em vendas enterprise. Cada time enxerga só o próprio board, e a oportunidade nasce no SQA.</p>
       </div>
     </div>
     <h2>Mapa do quadro anterior para o novo</h2>
@@ -340,6 +345,33 @@ a{color:var(--closer)}
 
 <script>
 const STAGES = [
+{id:"p0",lane:"sdr",code:"0",name:"MQA Prospect",alias:"reserva de contas fora do ABM",board:"Contas (reserva)",short:"Conta com origem, subgrupo e ICP score; sobe para o MQA por gatilho ou por vaga no ABM",
+ job:"Fora do mercado agora: a maioria das prefeituras não está comprando neste momento",sla:"revisão trimestral",
+ objetivo:"Guardar com critério as prefeituras que podem virar alvo, sem consumir tempo do SDR, e promover as certas no momento certo.",
+ entrada:"Prefeitura com ICP score calculado que não está entre as 168 do ABM, por um destes motivos: tem 1 ou 2 pessoas que já converteram em algo do grupo; foi descoberta pelo time; ou voltou do pipeline por timing.",
+ exitTitle:"Saídas possíveis",
+ exit:["<b>Promoção para MQA</b> na vaga do rebalanceamento trimestral, com ICP score acima do corte e pelo menos 2 papéis identificados","<b>Promoção imediata para MQA</b> quando aparece um gatilho forte, trocando de lugar com a conta mais fria do ABM","<b>Atalho para MQA interação</b> quando alguém da conta levanta a mão: não espera vaga","<b>Arquivada</b> quando sai do ICP no recálculo ou fica 24 meses sem sinal nem interação"],
+ kr:"Contas promovidas da reserva convertem para SQA numa taxa parecida com a das contas que nasceram no ABM. É o sinal de que a fila está bem priorizada.",
+ kpis:["Contas por subgrupo (A, B, C, D)","% com ICP score recalculado no trimestre","Sinais detectados por trimestre","Promoções por trimestre e por motivo","Mãos levantadas vindas da reserva"],
+ crm:"Status de conta, não oportunidade. Campos obrigatórios: origem, subgrupo, ICP score, último sinal e data da próxima revisão. Automações: alerta ao SDR quando surge sinal forte ou alguém da conta interage; régua de conteúdo 1:muitos por cluster; recálculo do ICP score a cada trimestre.",
+ meeting:null,
+ noMeeting:"Sem reunião e sem cadência individual de SDR. O contato é 1:muitos e fica com marketing: newsletter, cases regionais, convites para eventos e webinars por cluster, sempre com base legal para a comunicação (LGPD).",
+ roles:"Nenhum mínimo para ficar na reserva. Para ser promovida, pelo menos 2 papéis identificados (o MQA completa os 6 a 8).",
+ alerts:["Conta sem revisão de score há mais de 12 meses","SDR fazendo cadência individual em conta da reserva: tira capacidade do ABM","Reserva crescendo sem promoções: revisar o corte do ICP ou o tamanho do ABM","Ex-oportunidade passando da data de reativação sem contato"],
+ ref:"Forrester B2B Revenue Waterfall: lista de contas-alvo separada das contas detectadas e engajadas. ABM em níveis (1:1, 1:poucos, 1:muitos). LinkedIn B2B Institute, regra 95-5: a maioria das contas não está comprando agora, e a marca precisa estar presente quando elas entrarem no mercado.",
+ old:"MQA Prospect (mantida, agora com subgrupos e regras de promoção, rebaixamento e arquivamento)",
+ extra:`<div class="extra"><h3>Subgrupos da reserva</h3>
+  <div class="tbl-wrap"><table><thead><tr><th>Subgrupo</th><th>Quem está aqui</th><th>O que fazer</th><th>Revisão</th></tr></thead><tbody>
+  <tr><td class="stagecell">A · Fila de promoção</td><td>ICP score alto, com contatos, aguardando vaga no ABM</td><td>Primeiras a subir quando abrir vaga; manter o mapa de papéis atualizado</td><td>mensal</td></tr>
+  <tr><td class="stagecell">B · Conhecida, sem momento</td><td>1 ou 2 pessoas que já converteram, ICP médio, sem gatilho; contas rebaixadas do ABM</td><td>Régua de conteúdo por cluster e convites para eventos; monitorar sinais</td><td>trimestral</td></tr>
+  <tr><td class="stagecell">C · Descoberta</td><td>Cidade identificada pelo time, sem nenhum contato</td><td>Enriquecer: calcular o ICP score e achar pelo menos 2 papéis</td><td>trimestral</td></tr>
+  <tr><td class="stagecell">D · Ex-oportunidade</td><td>Voltou do pipeline por timing (em espera ou perdida por calendário, troca de gestão, falta de dotação)</td><td>Reativar na data combinada, com o gatilho registrado; é o subgrupo de maior prioridade</td><td>na data de reativação</td></tr>
+  </tbody></table></div>
+  <div class="extra-grid">
+   <div><h4>Gatilhos fortes (promoção imediata)</h4><ul style="margin:0;padding-left:18px"><li>Revisão do plano diretor prevista para os próximos 18 meses</li><li>Item no PPA ou na LOA ligado ao tema</li><li>Novo secretário de planejamento, urbanismo, inovação ou fazenda</li><li>Contratação similar no PNCP ou contrato concorrente perto do fim</li><li>Financiamento com componente de modernização</li><li>Indicação de prefeitura cliente ou de consórcio vizinho</li></ul></div>
+   <div><h4>Rebalanceamento trimestral</h4><p>O ABM tem capacidade fixa (168 contas), definida pelo tamanho do time. A cada trimestre, as contas do ABM que passaram 2 trimestres sem interação de mão dupla e sem sinal descem para o subgrupo B, e as contas do subgrupo A com maior score sobem. Uma conta entra, uma conta sai.</p></div>
+   <div><h4>Quem é dono</h4><p>Marketing cuida da reserva: score, enriquecimento, régua 1:muitos e alertas. O SDR só entra quando a conta é promovida ou quando um alerta de mão levantada chega. A revisão trimestral é feita por marketing, liderança comercial e RevOps.</p></div>
+  </div></div>`},
 {id:"s0",lane:"sdr",code:"1",name:"MQA",alias:"conta-alvo mapeada",board:"Contas ABM",short:"Mapa de 6 a 8 papéis, gatilho e hipótese de dor registrados",
  job:"Antes da compra: a prefeitura ainda não nomeou o problema",sla:"livre",
  objetivo:"Deixar a conta pronta para ser ativada: saber por que ela deveria se importar agora e com quem falar.",
@@ -612,9 +644,9 @@ function select(id,scroll){
       <div>
         <div class="blk"><h4>Objetivo</h4><p>${s.objetivo}</p></div>
         <div class="blk"><h4>Entra quando</h4><p>${s.entrada}</p></div>
-        <div class="blk"><h4>Milestone · critérios de saída (evidência do comprador)</h4>
+        ${s.exitTitle?`<div class="blk"><h4>${s.exitTitle}</h4>${list(s.exit)}</div>`:`<div class="blk"><h4>Milestone · critérios de saída (evidência do comprador)</h4>
           <ul class="checks">${s.exit.map((e,i)=>`<li><input type="checkbox" id="chk-${s.id}-${i}" data-i="${i}" ${checked.includes(i)?"checked":""}><label for="chk-${s.id}-${i}">${e}</label></li>`).join("")}</ul>
-          <span class="progress" id="prog"></span></div>
+          <span class="progress" id="prog"></span></div>`}
         ${s.kr?`<div class="blk"><h4>KR</h4><p>${s.kr}</p></div>`:""}
         ${s.kpis.length?`<div class="blk"><h4>KPIs</h4>${list(s.kpis)}</div>`:""}
         ${s.roles?`<div class="blk"><h4>Grupo comprador</h4><p>${s.roles}</p></div>`:""}
@@ -625,12 +657,13 @@ function select(id,scroll){
         ${s.alerts.length?`<div class="blk" style="margin-top:14px"><h4>Sinais de alerta</h4>${list(s.alerts,"alerts")}</div>`:""}
       </div>
     </div>
+    ${s.extra||""}
     ${s.ref?`<p class="ref"><b>Referência:</b> ${s.ref} <br><b>No quadro anterior:</b> ${s.old}</p>`:`<p class="ref"><b>No quadro anterior:</b> ${s.old}</p>`}`;
   const upd = ()=>{
     const boxes=[...document.querySelectorAll('#detail .checks input')];
     const on=boxes.filter(b=>b.checked).map(b=>+b.dataset.i);
     store.set("chk:"+id,on);
-    const p=$("#prog"); const done=on.length===boxes.length;
+    const p=$("#prog"); if(!p) return; const done=on.length===boxes.length;
     p.textContent = done?"Todos os critérios cumpridos: pode avançar.":`${on.length} de ${boxes.length} critérios cumpridos. Use como checklist de uma oportunidade real.`;
     p.classList.toggle("done",done);
   };
