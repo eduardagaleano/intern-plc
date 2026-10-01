@@ -70,7 +70,8 @@ section.view>*{min-width:0}
 .stage:hover{border-color:var(--muted)}
 .stage[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:-1px}
 .stage .code{font-family:var(--f-mono);font-size:11px;color:var(--muted);display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 6px}
-.stage .code span{white-space:nowrap}
+.stage .code span{white-space:normal}
+.stage,.stage>*{min-width:0;overflow-wrap:anywhere}
 .stage .name{font-family:var(--f-display);font-weight:700;font-size:16px;line-height:1.2}
 .alias{font-size:12.5px;color:var(--muted);font-style:italic;font-family:var(--f-body);font-weight:400}
 .stage .ttl{display:grid;gap:6px;align-content:start}
@@ -139,7 +140,7 @@ section.view>*{min-width:0}
 @media (max-width:860px){.tec-grid{grid-template-columns:1fr}}
 .ctags{display:flex;flex-wrap:wrap;gap:4px;align-content:start}
 .ctags b{flex-basis:100%;font-size:10.5px;color:var(--muted);letter-spacing:.06em}
-.ctag{font-family:var(--f-mono);font-size:10.5px;line-height:1.3;padding:2px 6px;border-radius:3px;border:1px solid var(--line);color:var(--muted);background:var(--surface)}
+.ctag{max-width:100%;overflow-wrap:anywhere;font-family:var(--f-mono);font-size:10.5px;line-height:1.3;padding:2px 6px;border-radius:3px;border:1px solid var(--line);color:var(--muted);background:var(--surface)}
 .ctag.eng{border-color:var(--closer);color:var(--closer)}
 .crmreq{display:grid;gap:8px;font-size:13.5px}
 .crmreq ul{margin:2px 0 0;padding-left:18px}
@@ -594,7 +595,7 @@ const STAGES = [
  ref:"JOLT Effect (Dixon e McKenna): recomendar, limitar a exploração e tirar o risco da mesa. Em 56% das perdas por falta de decisão o cliente queria mudar, mas travou com medo de errar. Gartner: excesso de informação leva a compra menor ou a nenhuma compra.",
  old:"NGC negociação"},
 {id:"c5",lane:"closer",code:"8",name:"NGC fechamento",alias:"ETP e TR escritos (commit)",board:"Pipeline",tag:"commit",short:"",
- job:"Validação final e contratação",sla:"60 a 90 dias (calibrar pela mediana pós ETP/TR)",
+ job:"Validação final e contratação",sla:"60 a 90 dias",
  objetivo:"Conduzir o rito do ETP/TR até o empenho sem perder o comitê, e passar o bastão sem perder o que foi prometido.",
  entrada:"ETP e TR escritos pela prefeitura.",
  exit:[],
