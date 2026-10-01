@@ -148,7 +148,7 @@ codigo_ibge,municipio,uf,populacao_2010
 1400456,Pacaraima,RR,10433
 1400472,Rorainópolis,RR,24279
 1400506,São João da Baliza,RR,6769
-1400605,São Luiz,RR,6750
+1400605,São Luiz do Anauá,RR,6750
 1400704,Uiramutã,RR,8375
 1500107,Abaetetuba,PA,141100
 1500131,Abel Figueiredo,PA,6780
@@ -196,7 +196,7 @@ codigo_ibge,municipio,uf,populacao_2010
 1502855,Curuá,PA,12254
 1502905,Curuçá,PA,34294
 1502939,Dom Eliseu,PA,51319
-1502954,Eldorado dos Carajás,PA,31786
+1502954,Eldorado do Carajás,PA,31786
 1503002,Faro,PA,8177
 1503044,Floresta do Araguaia,PA,17768
 1503077,Garrafão do Norte,PA,25034
@@ -257,7 +257,7 @@ codigo_ibge,municipio,uf,populacao_2010
 1506302,Salvaterra,PA,20183
 1506351,Santa Bárbara do Pará,PA,17141
 1506401,Santa Cruz do Arari,PA,8155
-1506500,Santa Isabel do Pará,PA,59466
+1506500,Santa Izabel do Pará,PA,59466
 1506559,Santa Luzia do Pará,PA,19424
 1506583,Santa Maria das Barreiras,PA,17206
 1506609,Santa Maria do Pará,PA,23026
@@ -362,7 +362,7 @@ codigo_ibge,municipio,uf,populacao_2010
 1707652,Figueirópolis,TO,5340
 1707702,Filadélfia,TO,8505
 1708205,Formoso do Araguaia,TO,18427
-1708254,Fortaleza do Tabocão,TO,2419
+1708254,Tabocão,TO,2419
 1708304,Goianorte,TO,4956
 1709005,Goiatins,TO,12064
 1709302,Guaraí,TO,23200
@@ -943,7 +943,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2304236,Croatá,CE,17069
 2304251,Cruz,CE,22479
 2304269,Deputado Irapuan Pinheiro,CE,9095
-2304277,Ererê,CE,6840
+2304277,Ereré,CE,6840
 2304285,Eusébio,CE,46033
 2304301,Farias Brito,CE,19007
 2304350,Forquilha,CE,21786
@@ -975,7 +975,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2306108,Irauçuba,CE,22324
 2306207,Itaiçaba,CE,7316
 2306256,Itaitinga,CE,35817
-2306306,Itapagé,CE,48350
+2306306,Itapajé,CE,48350
 2306405,Itapipoca,CE,116065
 2306504,Itapiúna,CE,18626
 2306553,Itarema,CE,37471
@@ -1074,7 +1074,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2314003,Várzea Alegre,CE,38434
 2314102,Viçosa do Ceará,CE,54955
 2400109,Acari,RN,11035
-2400208,Açu,RN,53227
+2400208,Assú,RN,53227
 2400307,Afonso Bezerra,RN,10844
 2400406,Água Nova,RN,2980
 2400505,Alexandria,RN,13507
@@ -1084,8 +1084,8 @@ codigo_ibge,municipio,uf,populacao_2010
 2400901,Antônio Martins,RN,6907
 2401008,Apodi,RN,34763
 2401107,Areia Branca,RN,25315
-2401206,Arês,RN,12924
-2401305,Augusto Severo,RN,9289
+2401206,Arez,RN,12924
+2401305,Campo Grande,RN,9289
 2401404,Baía Formosa,RN,8573
 2401453,Baraúna,RN,24182
 2401503,Barcelona,RN,3950
@@ -1164,7 +1164,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2408102,Natal,RN,803739
 2408201,Nísia Floresta,RN,23784
 2408300,Nova Cruz,RN,35490
-2408409,Olho-d'Água do Borges,RN,4295
+2408409,Olho d'Água do Borges,RN,4295
 2408508,Ouro Branco,RN,4699
 2408607,Paraná,RN,3952
 2408706,Paraú,RN,3859
@@ -1185,7 +1185,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2410108,Poço Branco,RN,13949
 2410207,Portalegre,RN,7320
 2410256,Porto do Mangue,RN,5217
-2410306,Presidente Juscelino,RN,8768
+2410306,Serra Caiada,RN,8768
 2410405,Pureza,RN,8424
 2410504,Rafael Fernandes,RN,4692
 2410603,Rafael Godeiro,RN,3063
@@ -1395,7 +1395,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2512309,Princesa Isabel,PB,21283
 2512408,Puxinanã,PB,12923
 2512507,Queimadas,PB,41049
-2512606,Quixabá,PB,1699
+2512606,Quixaba,PB,1699
 2512705,Remígio,PB,17581
 2512721,Pedro Régis,PB,5765
 2512747,Riachão,PB,3266
@@ -1538,7 +1538,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2606606,Ibimirim,PE,26954
 2606705,Ibirajuba,PE,7534
 2606804,Igarassu,PE,102021
-2606903,Iguaraci,PE,11779
+2606903,Iguaracy,PE,11779
 2607000,Inajá,PE,19081
 2607109,Ingazeira,PE,4496
 2607208,Ipojuca,PE,80637
@@ -1619,7 +1619,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2613503,São José do Belmonte,PE,32617
 2613602,São José do Egito,PE,31829
 2613701,São Lourenço da Mata,PE,102895
-2613800,São Vicente Ferrer,PE,17000
+2613800,São Vicente Férrer,PE,17000
 2613909,Serra Talhada,PE,79232
 2614006,Serrita,PE,18331
 2614105,Sertânia,PE,33787
@@ -1750,7 +1750,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2709202,Traipu,AL,25702
 2709301,União dos Palmares,AL,62358
 2709400,Viçosa,AL,25407
-2800100,Amparo de São Francisco,SE,2275
+2800100,Amparo do São Francisco,SE,2275
 2800209,Aquidabã,SE,20056
 2800308,Aracaju,SE,571149
 2800407,Arauá,SE,10878
@@ -1773,7 +1773,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2802304,Frei Paulo,SE,13874
 2802403,Gararu,SE,11405
 2802502,General Maynard,SE,2929
-2802601,Gracho Cardoso,SE,5645
+2802601,Graccho Cardoso,SE,5645
 2802700,Ilha das Flores,SE,8348
 2802809,Indiaroba,SE,15831
 2802908,Itabaiana,SE,86967
@@ -1849,7 +1849,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2901908,Aporá,BA,17731
 2901957,Apuarema,BA,7459
 2902005,Aracatu,BA,13743
-2902054,Araças,BA,11561
+2902054,Araçás,BA,11561
 2902104,Araci,BA,51651
 2902203,Aramari,BA,10036
 2902252,Arataca,BA,10392
@@ -2029,7 +2029,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2917102,Itororó,BA,19914
 2917201,Ituaçu,BA,18127
 2917300,Ituberá,BA,26591
-2917334,Iuiú,BA,10900
+2917334,Iuiu,BA,10900
 2917359,Jaborandi,BA,8973
 2917409,Jacaraci,BA,13651
 2917508,Jacobina,BA,79247
@@ -2093,7 +2093,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2922052,Mulungu do Morro,BA,12249
 2922102,Mundo Novo,BA,24395
 2922201,Muniz Ferreira,BA,7317
-2922250,Muquém de São Francisco,BA,10272
+2922250,Muquém do São Francisco,BA,10272
 2922300,Muritiba,BA,28899
 2922409,Mutuípe,BA,21449
 2922508,Nazaré,BA,27274
@@ -2172,7 +2172,7 @@ codigo_ibge,municipio,uf,populacao_2010
 2928208,Santana,BA,24750
 2928307,Santanópolis,BA,8776
 2928406,Santa Rita de Cássia,BA,26250
-2928505,Santa Teresinha,BA,9648
+2928505,Santa Terezinha,BA,9648
 2928604,Santo Amaro,BA,57800
 2928703,Santo Antônio de Jesus,BA,90985
 2928802,Santo Estêvão,BA,47880
@@ -2301,7 +2301,7 @@ codigo_ibge,municipio,uf,populacao_2010
 3105202,Bandeira,MG,4987
 3105301,Bandeira do Sul,MG,5338
 3105400,Barão de Cocais,MG,28442
-3105509,Barão de Monte Alto,MG,5720
+3105509,Barão do Monte Alto,MG,5720
 3105608,Barbacena,MG,126284
 3105707,Barra Longa,MG,6143
 3105905,Barroso,MG,19599
@@ -2497,7 +2497,7 @@ codigo_ibge,municipio,uf,populacao_2010
 3122603,Dom Joaquim,MG,4535
 3122702,Dom Silvério,MG,5196
 3122801,Dom Viçoso,MG,2994
-3122900,Dona Eusébia,MG,6001
+3122900,Dona Euzébia,MG,6001
 3123007,Dores de Campos,MG,9299
 3123106,Dores de Guanhães,MG,5223
 3123205,Dores do Indaiá,MG,13778
@@ -2799,7 +2799,7 @@ codigo_ibge,municipio,uf,populacao_2010
 3147501,Passabém,MG,1766
 3147600,Passa Quatro,MG,15582
 3147709,Passa Tempo,MG,8197
-3147808,Passa-Vinte,MG,2079
+3147808,Passa Vinte,MG,2079
 3147907,Passos,MG,106290
 3147956,Patis,MG,5579
 3148004,Patos de Minas,MG,138710
@@ -3006,7 +3006,7 @@ codigo_ibge,municipio,uf,populacao_2010
 3164902,São Sebastião do Rio Verde,MG,2110
 3165008,São Tiago,MG,10561
 3165107,São Tomás de Aquino,MG,7093
-3165206,São Thomé das Letras,MG,6655
+3165206,São Tomé das Letras,MG,6655
 3165305,São Vicente de Minas,MG,7008
 3165404,Sapucaí-Mirim,MG,6241
 3165503,Sardoá,MG,5594
@@ -3104,7 +3104,7 @@ codigo_ibge,municipio,uf,populacao_2010
 3200409,Anchieta,ES,23902
 3200508,Apiacá,ES,7512
 3200607,Aracruz,ES,81832
-3200706,Atilio Vivacqua,ES,9850
+3200706,Atílio Vivácqua,ES,9850
 3200805,Baixo Guandu,ES,29081
 3200904,Barra de São Francisco,ES,40649
 3201001,Boa Esperança,ES,14199
@@ -3339,7 +3339,7 @@ codigo_ibge,municipio,uf,populacao_2010
 3506359,Bertioga,SP,47645
 3506409,Bilac,SP,7048
 3506508,Birigui,SP,108728
-3506607,Biritiba-Mirim,SP,28575
+3506607,Biritiba Mirim,SP,28575
 3506706,Boa Esperança do Sul,SP,13645
 3506805,Bocaina,SP,10859
 3506904,Bofete,SP,9618
@@ -3449,7 +3449,7 @@ codigo_ibge,municipio,uf,populacao_2010
 3515806,Flora Rica,SP,1752
 3515905,Floreal,SP,3003
 3516002,Flórida Paulista,SP,12848
-3516101,Florínia,SP,2829
+3516101,Florínea,SP,2829
 3516200,Franca,SP,318640
 3516309,Francisco Morato,SP,154472
 3516408,Franco da Rocha,SP,131604
@@ -3518,7 +3518,7 @@ codigo_ibge,municipio,uf,populacao_2010
 3521903,Itajobi,SP,14556
 3522000,Itaju,SP,3246
 3522109,Itanhaém,SP,87057
-3522158,Itaóca,SP,3228
+3522158,Itaoca,SP,3228
 3522208,Itapecerica da Serra,SP,152614
 3522307,Itapetininga,SP,144377
 3522406,Itapeva,SP,87753
@@ -3610,7 +3610,7 @@ codigo_ibge,municipio,uf,populacao_2010
 3530508,Mococa,SP,66290
 3530607,Mogi das Cruzes,SP,387779
 3530706,Mogi Guaçu,SP,137245
-3530805,Moji Mirim,SP,86505
+3530805,Mogi Mirim,SP,86505
 3530904,Mombuca,SP,3266
 3531001,Monções,SP,2132
 3531100,Mongaguá,SP,46293
@@ -3824,7 +3824,7 @@ codigo_ibge,municipio,uf,populacao_2010
 3549805,São José do Rio Preto,SP,408258
 3549904,São José dos Campos,SP,629921
 3549953,São Lourenço da Serra,SP,13973
-3550001,São Luís do Paraitinga,SP,10397
+3550001,São Luiz do Paraitinga,SP,10397
 3550100,São Manuel,SP,38342
 3550209,São Miguel Arcanjo,SP,31450
 3550308,São Paulo,SP,11253503
@@ -4406,7 +4406,7 @@ codigo_ibge,municipio,uf,populacao_2010
 4205803,Garuva,SC,14761
 4205902,Gaspar,SC,57981
 4206009,Governador Celso Ramos,SC,12999
-4206108,Grão Pará,SC,6223
+4206108,Grão-Pará,SC,6223
 4206207,Gravatal,SC,10635
 4206306,Guabiruba,SC,18430
 4206405,Guaraciaba,SC,10498
@@ -4453,7 +4453,7 @@ codigo_ibge,municipio,uf,populacao_2010
 4209409,Laguna,SC,51562
 4209458,Lajeado Grande,SC,1490
 4209508,Laurentino,SC,6004
-4209607,Lauro Muller,SC,14367
+4209607,Lauro Müller,SC,14367
 4209706,Lebon Régis,SC,11838
 4209805,Leoberto Leal,SC,3365
 4209854,Lindóia do Sul,SC,4642
@@ -4548,7 +4548,7 @@ codigo_ibge,municipio,uf,populacao_2010
 4215802,São Bento do Sul,SC,74801
 4215901,São Bonifácio,SC,3008
 4216008,São Carlos,SC,10291
-4216057,São Cristovão do Sul,SC,5012
+4216057,São Cristóvão do Sul,SC,5012
 4216107,São Domingos,SC,9491
 4216206,São Francisco do Sul,SC,42520
 4216255,São João do Oeste,SC,6036
@@ -4942,7 +4942,7 @@ codigo_ibge,municipio,uf,populacao_2010
 4315354,Quinze de Novembro,RS,3653
 4315404,Redentora,RS,10222
 4315453,Relvado,RS,2155
-4315503,Restinga Seca,RS,15849
+4315503,Restinga Sêca,RS,15849
 4315552,Rio dos Índios,RS,3616
 4315602,Rio Grande,RS,197228
 4315701,Rio Pardo,RS,37591
@@ -5083,7 +5083,7 @@ codigo_ibge,municipio,uf,populacao_2010
 4322608,Venâncio Aires,RS,65946
 4322707,Vera Cruz,RS,23983
 4322806,Veranópolis,RS,22810
-4322855,Vespasiano Correa,RS,1974
+4322855,Vespasiano Corrêa,RS,1974
 4322905,Viadutos,RS,5311
 4323002,Viamão,RS,239384
 4323101,Vicente Dutra,RS,5285
@@ -5096,7 +5096,7 @@ codigo_ibge,municipio,uf,populacao_2010
 4323606,Vista Alegre do Prata,RS,1569
 4323705,Vista Gaúcha,RS,2759
 4323754,Vitória das Missões,RS,3485
-4323770,Westfalia,RS,2793
+4323770,Westfália,RS,2793
 4323804,Xangri-lá,RS,12434
 5000203,Água Clara,MS,14424
 5000252,Alcinópolis,MS,4569
@@ -5274,7 +5274,7 @@ codigo_ibge,municipio,uf,populacao_2010
 5106802,Porto dos Gaúchos,MT,5449
 5106828,Porto Esperidião,MT,11031
 5106851,Porto Estrela,MT,3649
-5107008,Poxoréo,MT,17599
+5107008,Poxoréu,MT,17599
 5107040,Primavera do Leste,MT,52066
 5107065,Querência,MT,13033
 5107107,São José dos Quatro Marcos,MT,18998
@@ -5296,7 +5296,7 @@ codigo_ibge,municipio,uf,populacao_2010
 5107768,Santa Rita do Trivelato,MT,2491
 5107776,Santa Terezinha,MT,7397
 5107792,Santo Antônio do Leste,MT,3754
-5107800,Santo Antônio do Leverger,MT,18463
+5107800,Santo Antônio de Leverger,MT,18463
 5107859,São Félix do Araguaia,MT,10625
 5107875,Sapezal,MT,18094
 5107883,Serra Nova Dourada,MT,1365
@@ -5535,7 +5535,7 @@ codigo_ibge,municipio,uf,populacao_2010
 5220009,São João d'Aliança,GO,10257
 5220058,São João da Paraúna,GO,1689
 5220108,São Luís de Montes Belos,GO,30034
-5220157,São Luíz do Norte,GO,4617
+5220157,São Luiz do Norte,GO,4617
 5220207,São Miguel do Araguaia,GO,22283
 5220264,São Miguel do Passa Quatro,GO,3757
 5220280,São Patrício,GO,1991
