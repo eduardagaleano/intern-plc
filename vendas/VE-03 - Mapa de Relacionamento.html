@@ -1,0 +1,296 @@
+<title>Mapa de Relacionamento B2G</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: página única, propostas numeradas em sequência de leitura; cada proposta = explicação curta + mockup */
+:root{
+  --bg:#FFFFFF; --surface:#FFFFFF; --surface-2:#F3F5F4; --ink:#16201C; --muted:#5A6661; --line:#D8DFDB;
+  --sdr:#2E9E5B; --closer:#7B4FD6;
+  --strong:#2D7A4C; --strong-soft:#E1F1E7; --mid:#C08A12; --mid-soft:#FBF0D6; --weak:#C0472F; --weak-soft:#F8E2DC; --none:#9AA5A0; --none-soft:#EEF1EF;
+  --f:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif; --m:"JetBrains Mono",ui-monospace,Menlo,monospace; --r:8px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);font-size:15px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px;padding-block:32px 72px;display:grid;gap:40px}
+h1,h2,h3,h4{margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(26px,3.4vw,36px);font-weight:800}
+h2{font-size:22px;font-weight:800}
+h3{font-size:16px;font-weight:700}
+h4{font-family:var(--m);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+p{margin:0}
+.eyebrow{font-family:var(--m);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lede{max-width:76ch;color:var(--muted)}
+.note{font-size:12.5px;color:var(--muted)}
+section{display:grid;gap:16px;min-width:0}
+.sec-head{display:grid;gap:6px;max-width:80ch}
+.num{font-family:var(--m);font-size:12px;color:var(--closer)}
+.frame{border:1px solid var(--line);border-radius:var(--r);padding:18px;background:var(--surface);min-width:0}
+.scroll{overflow-x:auto}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:12.5px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:0}
+.pros{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:13.5px}
+.pros div{background:var(--surface-2);border-radius:6px;padding:10px 12px}
+.pros b{display:block;font-size:12px;font-family:var(--m);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
+.tag{font-family:var(--m);font-size:10.5px;padding:2px 6px;border-radius:3px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
+
+/* benchmark cards */
+.bench{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.bcard{border:1px solid var(--line);border-radius:var(--r);padding:14px;display:grid;gap:6px;align-content:start;font-size:13.5px}
+.bcard h3{font-size:15px}
+.bcard .what{color:var(--muted)}
+
+/* person node */
+.p{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:var(--surface);min-width:0}
+.av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px;background:var(--surface-2);box-shadow:0 0 0 3px var(--none)}
+.av.s{box-shadow:0 0 0 3px var(--strong)} .av.m{box-shadow:0 0 0 3px var(--mid)} .av.w{box-shadow:0 0 0 3px var(--weak)}
+.p .nm{font-weight:700;font-size:13px;line-height:1.25}
+.p .cg{font-size:11.5px;color:var(--muted);line-height:1.3}
+.role{display:inline-block;margin-top:3px;font-family:var(--m);font-size:10px;padding:1px 5px;border-radius:3px;background:#EFE8FB;color:var(--closer)}
+.role.eb{background:#16201C;color:#fff}
+.role.ch{background:var(--strong-soft);color:var(--strong)}
+.role.gk{background:var(--weak-soft);color:var(--weak)}
+.pain{font-family:var(--m);font-size:10px;color:var(--mid);margin-left:4px}
+.p.missing{border-style:dashed;background:var(--surface-2)}
+.p.missing .av{box-shadow:none;border:1.5px dashed var(--none);background:transparent;color:var(--none)}
+
+/* 1 org chart */
+.org{display:grid;gap:22px;min-width:880px}
+.org .lvl{display:flex;justify-content:center;gap:12px;position:relative}
+.org .lvl .p{width:200px}
+.org .row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.org .col{display:grid;gap:8px;align-content:start;border-top:2px solid var(--line);padding-top:10px}
+.org .col h4{margin-bottom:2px}
+
+/* 2 frentes */
+.fr{display:grid;grid-template-columns:repeat(8,minmax(130px,1fr));gap:8px;min-width:1100px}
+.fcol{display:grid;gap:6px;align-content:start}
+.fcol h4{font-size:10px;padding:6px 6px;border-radius:4px;background:var(--surface-2);text-align:center}
+.fcol .p{grid-template-columns:1fr;padding:7px 8px}
+.fcol .p .av{display:none}
+.st{font-family:var(--m);font-size:10px;padding:1px 5px;border-radius:3px;justify-self:start}
+.st.e{background:var(--strong-soft);color:var(--strong)} .st.d{background:var(--none-soft);color:var(--muted)} .st.b{background:var(--weak-soft);color:var(--weak)} .st.x{background:transparent;border:1px dashed var(--none);color:var(--muted)}
+.score{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
+.kpi{border:1px solid var(--line);border-radius:6px;padding:8px 12px;display:grid;gap:2px;min-width:120px}
+.kpi b{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.kpi span{font-size:11.5px;color:var(--muted)}
+.kpi.alert{border-color:var(--weak);background:var(--weak-soft)}
+
+/* 3 matriz */
+table{border-collapse:collapse;width:100%;font-size:13px;min-width:720px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:middle}
+th{font-family:var(--m);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2)}
+td.c{text-align:center}
+.cell{display:inline-block;width:26px;height:18px;border-radius:3px}
+.cell.s{background:var(--strong)} .cell.m{background:var(--mid)} .cell.w{background:var(--weak)} .cell.n{background:var(--none-soft);border:1px solid var(--line)}
+
+/* 4 timeline */
+.tl svg{display:block;width:100%;min-width:760px;height:auto}
+.tl text{font-family:var(--f);fill:var(--ink)}
+
+/* 5 card */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.kc{border:1px solid var(--line);border-top:4px solid var(--closer);border-radius:var(--r);padding:12px;display:grid;gap:8px;font-size:13px}
+.kc.sdr{border-top-color:var(--sdr)}
+.kc .t{font-weight:800;font-size:14.5px}
+.kc .stg{font-family:var(--m);font-size:10.5px;color:var(--muted)}
+.stack{display:flex;align-items:center}
+.stack .av{width:26px;height:26px;font-size:10px;margin-right:-6px;border:2px solid #fff}
+.stack .more{margin-left:12px;font-size:12px;color:var(--muted)}
+.cov{display:flex;gap:6px;flex-wrap:wrap}
+.flag{font-family:var(--m);font-size:10.5px;padding:2px 6px;border-radius:3px}
+.flag.r{background:var(--weak-soft);color:var(--weak)} .flag.g{background:var(--strong-soft);color:var(--strong)} .flag.y{background:var(--mid-soft);color:#8A6200}
+.bar{height:6px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--closer)}
+.kc.sdr .bar i{background:var(--sdr)}
+
+/* rec */
+.rec{border-left:4px solid var(--closer);background:#F7F3FE;border-radius:0 var(--r) var(--r) 0;padding:16px 18px;display:grid;gap:8px;max-width:90ch}
+.rec ol{margin:0;padding-left:20px;display:grid;gap:6px}
+.sources{font-size:13px;padding-left:18px;columns:2 320px;column-gap:28px}
+.sources li{break-inside:avoid;margin-bottom:5px}
+a{color:var(--closer)}
+@media (max-width:760px){.pros{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+  <header style="display:grid;gap:10px">
+    <div class="eyebrow">OSPA Place · Revenue Operations · propostas visuais · out/2026</div>
+    <h1>Mapa de relacionamento da conta</h1>
+    <p class="lede">Como os CRMs enterprise mostram quem é quem dentro da conta e como monitoram a força de cada relação, e cinco propostas visuais para o CRM próprio. Os nomes e cargos dos exemplos são fictícios e servem só para mostrar o formato.</p>
+  </header>
+
+  <section>
+    <div class="sec-head"><h2>Como as plataformas fazem</h2><p class="lede">Todas combinam três camadas: quem é a pessoa (cargo e área), que papel ela tem na compra, e quão forte está a relação com ela. O que muda é onde isso aparece.</p></div>
+    <div class="bench">
+      <div class="bcard"><span class="eyebrow">Salesforce</span><h3>Buyer Relationship Map</h3><p class="what">Mapa visual dos contatos por nível hierárquico, na oportunidade e na conta. Contatos marcados como decisor, influenciador ou gatekeeper; campos padrão de senioridade, área e atributos de comprador. Integrado ao plano de conta.</p></div>
+      <div class="bcard"><span class="eyebrow">Microsoft Dynamics 365</span><h3>Org chart com saúde da relação</h3><p class="what">Organograma com papéis (decisor, influenciador, blocker, desconhecido) e um anel colorido em volta da foto de cada contato indicando a saúde da relação e a tendência.</p></div>
+      <div class="bcard"><span class="eyebrow">HubSpot</span><h3>Buying Groups</h3><p class="what">Card no registro do negócio que agrupa os contatos por papel na compra (decisor, champion, blocker) e mostra o grupo como organograma. IA sugere quem falta mapear.</p></div>
+      <div class="bcard"><span class="eyebrow">Backstory (ex People.ai) e Gong</span><h3>Engajamento capturado</h3><p class="what">Leem e-mail, agenda e chamadas para mostrar quem de fato participa, comparam com o grupo comprador esperado e marcam negócios com um contato só ou com decisor pouco engajado.</p></div>
+      <div class="bcard"><span class="eyebrow">Ferramentas de mapeamento</span><h3>Matriz e estado de cobertura</h3><p class="what">Matriz pessoas x time com cor por força de relação, e cada papel classificado como engajado, silencioso, resistente ou faltando, com um placar semanal de cobertura.</p></div>
+    </div>
+  </section>
+
+  <!-- 1 -->
+  <section>
+    <div class="sec-head"><span class="num">PROPOSTA 1</span><h2>Organograma com papel e força da relação</h2><p>O modelo de Salesforce e Dynamics, adaptado à prefeitura: gabinete no topo, secretarias embaixo. O anel em volta da pessoa mostra a força da relação; a etiqueta mostra o papel na compra; os quadros tracejados mostram papéis que ainda não têm ninguém.</p></div>
+    <div class="legend"><span><i style="background:var(--strong)"></i>Relação forte</span><span><i style="background:var(--mid)"></i>Em construção</span><span><i style="background:var(--weak)"></i>Fraca ou resistente</span><span><i style="background:var(--none)"></i>Sem contato</span><span><b style="color:var(--mid);font-family:var(--m);font-size:11px">◆ dono da dor</b></span></div>
+    <div class="frame scroll"><div class="org">
+      <div class="lvl">
+        <div class="p"><div class="av">PR</div><div><div class="nm">Prefeito(a)</div><div class="cg">Gabinete</div><span class="role">sem papel ativo</span></div></div>
+        <div class="p"><div class="av m">CG</div><div><div class="nm">Chefe de gabinete</div><div class="cg">Gabinete</div><span class="role gk">gatekeeper</span></div></div>
+      </div>
+      <div class="row">
+        <div class="col"><h4>Planejamento urbano</h4>
+          <div class="p"><div class="av s">SP</div><div><div class="nm">Secretária de Planejamento <span class="pain">◆</span></div><div class="cg">Secretária</div><span class="role eb">economic buyer</span></div></div>
+          <div class="p"><div class="av s">DL</div><div><div class="nm">Diretor de Licenciamento</div><div class="cg">Diretor</div><span class="role ch">champion</span></div></div>
+          <div class="p"><div class="av m">AU</div><div><div class="nm">Analista urbanista</div><div class="cg">Técnico</div><span class="role">user buyer</span></div></div>
+        </div>
+        <div class="col"><h4>Inovação e TI</h4>
+          <div class="p"><div class="av m">CT</div><div><div class="nm">Coordenador de TI</div><div class="cg">Coordenador</div><span class="role">technical buyer</span></div></div>
+          <div class="p missing"><div class="av">?</div><div><div class="nm">Responsável GIS</div><div class="cg">papel faltando</div></div></div>
+        </div>
+        <div class="col"><h4>Fazenda</h4>
+          <div class="p"><div class="av">SF</div><div><div class="nm">Secretário da Fazenda</div><div class="cg">Secretário</div><span class="role">influenciador</span></div></div>
+        </div>
+        <div class="col"><h4>Procuradoria</h4>
+          <div class="p"><div class="av w">PG</div><div><div class="nm">Procurador(a)</div><div class="cg">Procuradoria</div><span class="role gk">gatekeeper · resiste</span></div></div>
+        </div>
+      </div>
+    </div></div>
+    <div class="pros"><div><b>Bom para</b>Entender a política da conta: quem manda em quem, onde está o poder de decisão e onde a relação está fraca.</div><div><b>Limite</b>Fica no registro da conta; não aparece no pipeline. Exige manter a hierarquia atualizada.</div></div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <div class="sec-head"><span class="num">PROPOSTA 2</span><h2>Mapa por frentes da prefeitura, com placar de cobertura</h2><p>Em vez da hierarquia, as 8 frentes do campo Mapeamento de Stakeholders viram colunas. Cada pessoa tem um estado de cobertura: engajada (conversa de mão dupla), silenciosa (mapeada, sem resposta), resistente, ou papel faltando. O placar no topo responde em segundos se a conta está pronta para a próxima etapa.</p></div>
+    <div class="frame">
+      <div class="score">
+        <div class="kpi"><b>4 de 8</b><span>frentes engajadas</span></div>
+        <div class="kpi"><b>6</b><span>pessoas mapeadas</span></div>
+        <div class="kpi"><b>3</b><span>engajadas</span></div>
+        <div class="kpi"><b>✓ ✓ ✕</b><span>champion · decisor · jurídico</span></div>
+        <div class="kpi alert"><b>Nível 3</b><span>exigido para NGC: nível 4</span></div>
+      </div>
+      <div class="scroll"><div class="fr">
+        <div class="fcol"><h4>Urbanismo e licenciamento</h4>
+          <div class="p"><div class="nm">Secretária de Planejamento <span class="pain">◆</span></div><span class="role eb">economic buyer</span><span class="st e">engajada</span></div>
+          <div class="p"><div class="nm">Diretor de Licenciamento</div><span class="role ch">champion</span><span class="st e">engajado</span></div></div>
+        <div class="fcol"><h4>Geo / GIS</h4><div class="p missing"><div class="nm">Responsável GIS</div><span class="st x">faltando</span></div></div>
+        <div class="fcol"><h4>Inovação e TI</h4><div class="p"><div class="nm">Coordenador de TI</div><span class="role">technical</span><span class="st e">engajado</span></div></div>
+        <div class="fcol"><h4>Gabinete</h4><div class="p"><div class="nm">Chefe de gabinete</div><span class="role gk">gatekeeper</span><span class="st d">silencioso</span></div></div>
+        <div class="fcol"><h4>Desenvolvimento econômico</h4><div class="p missing"><div class="nm">Secretário(a)</div><span class="st x">faltando</span></div></div>
+        <div class="fcol"><h4>Fazenda e orçamento</h4><div class="p"><div class="nm">Secretário da Fazenda</div><span class="role">influenciador</span><span class="st d">silencioso</span></div></div>
+        <div class="fcol"><h4>Procuradoria e controle</h4><div class="p"><div class="nm">Procurador(a)</div><span class="role gk">gatekeeper</span><span class="st b">resistente</span></div></div>
+        <div class="fcol"><h4>Externo</h4><div class="p"><div class="nm">Sindicato da construção</div><span class="role ch">champion externo</span><span class="st d">silencioso</span></div></div>
+      </div></div>
+    </div>
+    <div class="pros"><div><b>Bom para</b>B2G: a pergunta real é "quais secretarias já estão do nosso lado?". Conversa direto com o engajamento exigido por etapa e com o campo de frentes que vocês já têm.</div><div><b>Limite</b>Não mostra hierarquia. Funciona melhor na conta e no detalhe da oportunidade do que no quadro.</div></div>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <div class="sec-head"><span class="num">PROPOSTA 3</span><h2>Matriz de cobertura: quem do nosso time fala com quem</h2><p>Linhas são as pessoas da prefeitura; colunas são as pessoas do nosso lado. A cor mostra a força da relação. É o formato que as ferramentas de mapeamento usam para ver exposição: muita célula vazia ou vermelha significa conta dependente de uma só relação.</p></div>
+    <div class="frame scroll"><table>
+      <thead><tr><th>Pessoa na prefeitura</th><th>Papel</th><th class="c">SDR</th><th class="c">Closer</th><th class="c">Liderança</th><th class="c">ICR</th><th class="c">CS</th><th>Última interação</th></tr></thead>
+      <tbody>
+        <tr><td>Secretária de Planejamento ◆</td><td>economic buyer</td><td class="c"><span class="cell m"></span></td><td class="c"><span class="cell s"></span></td><td class="c"><span class="cell m"></span></td><td class="c"><span class="cell n"></span></td><td class="c"><span class="cell n"></span></td><td>há 6 dias</td></tr>
+        <tr><td>Diretor de Licenciamento</td><td>champion</td><td class="c"><span class="cell s"></span></td><td class="c"><span class="cell s"></span></td><td class="c"><span class="cell n"></span></td><td class="c"><span class="cell m"></span></td><td class="c"><span class="cell n"></span></td><td>há 2 dias</td></tr>
+        <tr><td>Coordenador de TI</td><td>technical</td><td class="c"><span class="cell n"></span></td><td class="c"><span class="cell m"></span></td><td class="c"><span class="cell n"></span></td><td class="c"><span class="cell n"></span></td><td class="c"><span class="cell n"></span></td><td>há 15 dias</td></tr>
+        <tr><td>Chefe de gabinete</td><td>gatekeeper</td><td class="c"><span class="cell n"></span></td><td class="c"><span class="cell n"></span></td><td class="c"><span class="cell w"></span></td><td class="c"><span class="cell n"></span></td><td class="c"><span class="cell n"></span></td><td>há 40 dias</td></tr>
+        <tr><td>Procurador(a)</td><td>gatekeeper · resiste</td><td class="c"><span class="cell n"></span></td><td class="c"><span class="cell w"></span></td><td class="c"><span class="cell n"></span></td><td class="c"><span class="cell n"></span></td><td class="c"><span class="cell n"></span></td><td>há 21 dias</td></tr>
+      </tbody></table>
+      <div class="legend" style="margin-top:10px"><span><i style="background:var(--strong);border-radius:2px"></i>forte</span><span><i style="background:var(--mid);border-radius:2px"></i>em construção</span><span><i style="background:var(--weak);border-radius:2px"></i>fraca</span><span><i style="background:var(--none-soft);border:1px solid var(--line);border-radius:2px"></i>sem relação</span></div>
+    </div>
+    <div class="pros"><div><b>Bom para</b>Passagem SDR → closer → CS, e saber quem pode reaquecer uma relação. Mostra também quando a liderança ou o ICR precisam entrar.</div><div><b>Limite</b>Exige registrar quem do time participou de cada interação. Útil a partir da SQA consideração; antes disso é excesso.</div></div>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <div class="sec-head"><span class="num">PROPOSTA 4</span><h2>Linha do tempo da expansão</h2><p>Mostra exatamente o movimento que você descreveu: a conta começa com uma pessoa, uma reunião abre a porta e o número de pessoas engajadas cresce. Cada degrau é um contato novo; cada losango é uma reunião. A métrica que sai daqui é o tempo entre o 1º e o 2º contato engajado.</p></div>
+    <div class="frame scroll tl">
+      <svg viewBox="0 0 900 250" role="img" aria-label="Exemplo: pessoas engajadas na conta ao longo de 120 dias, subindo de 1 para 6 depois das reuniões">
+        <g stroke="#D8DFDB" stroke-width="1">
+          <line x1="70" y1="40" x2="870" y2="40"/><line x1="70" y1="80" x2="870" y2="80"/><line x1="70" y1="120" x2="870" y2="120"/><line x1="70" y1="160" x2="870" y2="160"/><line x1="70" y1="200" x2="870" y2="200"/>
+        </g>
+        <g font-size="11" fill="#5A6661" font-family="JetBrains Mono, monospace">
+          <text x="58" y="204" text-anchor="end" fill="#5A6661">0</text><text x="58" y="164" text-anchor="end" fill="#5A6661">2</text><text x="58" y="124" text-anchor="end" fill="#5A6661">4</text><text x="58" y="84" text-anchor="end" fill="#5A6661">6</text>
+          <text x="70" y="226" fill="#5A6661">dia 0</text><text x="337" y="226" fill="#5A6661">dia 40</text><text x="603" y="226" fill="#5A6661">dia 80</text><text x="850" y="226" text-anchor="end" fill="#5A6661">dia 120</text>
+        </g>
+        <!-- MQA cadence zone, 0 contacts until day 28 -->
+        <rect x="70" y="30" width="187" height="170" fill="#E1F1E7" opacity=".5"/>
+        <rect x="257" y="30" width="200" height="170" fill="#E1F1E7" opacity=".25"/>
+        <rect x="457" y="30" width="413" height="170" fill="#EFE8FB" opacity=".45"/>
+        <g font-size="11" font-family="Manrope, sans-serif" font-weight="700">
+          <text x="78" y="48" fill="#2D7A4C">MQA · cadência</text><text x="265" y="48" fill="#2D7A4C">MQA interação → SQA</text><text x="465" y="48" fill="#7B4FD6">SQA consideração → intenção (closer)</text>
+        </g>
+        <!-- steps: day0-28:0, 28:1, 63:2 (after meeting at 60), 75:3, 95:4, 105:5, 115:6 ; x = 70 + d*6.667 ; y = 200 - n*20 -->
+        <path d="M70 200 H257 V180 H490 V160 H650 V140 H703 V120 H790 V100 H837 V80 H870" fill="none" stroke="#7B4FD6" stroke-width="3"/>
+        <g fill="#16201C">
+          <path d="M470 196 l6 -6 6 6 -6 6z"/><path d="M630 196 l6 -6 6 6 -6 6z"/><path d="M763 196 l6 -6 6 6 -6 6z"/>
+        </g>
+        <g font-size="10.5" font-family="Manrope, sans-serif" fill="#16201C">
+          <text x="476" y="190" text-anchor="middle">diagnóstico</text><text x="636" y="190" text-anchor="middle">sessão de valor</text><text x="769" y="190" text-anchor="middle">proposta</text>
+        </g>
+        <!-- annotation 1->2 -->
+        <line x1="257" y1="168" x2="490" y2="168" stroke="#C0472F" stroke-dasharray="4 3"/>
+        <text x="373" y="162" text-anchor="middle" font-size="11.5" font-weight="700" fill="#C0472F" font-family="Manrope, sans-serif">35 dias do 1º ao 2º contato</text>
+      </svg>
+      <p class="note" style="margin-top:8px">Exemplo fictício. Eixo vertical: pessoas da prefeitura com conversa de mão dupla nos últimos 30 dias.</p>
+    </div>
+    <div class="pros"><div><b>Bom para</b>Mostrar se a expansão depende de reunião e quanto demora. Na média do time, vira o indicador de "lag de multithreading".</div><div><b>Limite</b>É um gráfico de análise, para a conta ou para a liderança; não substitui a sinalização no quadro.</div></div>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <div class="sec-head"><span class="num">PROPOSTA 5</span><h2>Resumo no card do pipeline</h2><p>Onde você pediu para ver logo ao abrir o CRM. O card traz a pilha de pessoas engajadas (cor = força da relação), a cobertura contra o exigido pela etapa e um alerta quando a conta está abaixo do mínimo. É o formato HubSpot de "campos no card", com o grupo comprador resumido.</p></div>
+    <div class="cards">
+      <div class="kc sdr"><div class="stg">MQA interação · SDR</div><div class="t">Prefeitura A</div>
+        <div class="stack"><span class="av m">DL</span><span class="more">1 pessoa engajada · 1 secretaria</span></div>
+        <div class="bar"><i style="width:50%"></i></div>
+        <div class="cov"><span class="flag g">ok para a etapa</span><span class="flag y">pedir indicação no diagnóstico</span></div></div>
+      <div class="kc"><div class="stg">SQA consideração · closer</div><div class="t">Prefeitura B</div>
+        <div class="stack"><span class="av s">SP</span><span class="av s">DL</span><span class="av m">CT</span><span class="more">3 pessoas · 2 secretarias</span></div>
+        <div class="bar"><i style="width:75%"></i></div>
+        <div class="cov"><span class="flag g">champion ✓</span><span class="flag g">decisor ✓</span><span class="flag y">jurídico ausente</span></div></div>
+      <div class="kc"><div class="stg">NGC negociação · closer</div><div class="t">Prefeitura C</div>
+        <div class="stack"><span class="av s">SP</span><span class="more">1 pessoa engajada</span></div>
+        <div class="bar"><i style="width:20%;background:var(--weak)"></i></div>
+        <div class="cov"><span class="flag r">um contato só · exigido: comitê (nível 4)</span></div></div>
+    </div>
+    <div class="pros"><div><b>Bom para</b>Leitura imediata no quadro, sem filtro. A barra e a cor dizem se a conta está coberta para a etapa em que está.</div><div><b>Limite</b>É um resumo: para entender por quê, a pessoa abre o mapa (proposta 1 ou 2).</div></div>
+  </section>
+
+  <section>
+    <div class="rec">
+      <h3>Recomendação para o contexto de vocês</h3>
+      <ol>
+        <li><b>No quadro do pipeline: proposta 5.</b> Pilha de pessoas, cobertura contra o exigido pela etapa e alerta vermelho. Resolve o "abrir o CRM e não ver".</li>
+        <li><b>Na conta e no detalhe da oportunidade: proposta 2.</b> O mapa por frentes usa os campos que vocês já têm (frente e papel) e responde a pergunta que importa em prefeitura: quais secretarias estão do nosso lado.</li>
+        <li><b>Para a liderança: proposta 4</b> como indicador do time (dias do 1º ao 2º contato), e a proposta 3 só em contas Tier 1, a partir da SQA consideração.</li>
+        <li><b>A proposta 1 é opcional.</b> Hierarquia em prefeitura muda a cada gestão; o custo de manter costuma ser maior que o ganho.</li>
+      </ol>
+      <p class="note">Para tudo isso funcionar, o CRM precisa de quatro campos por contato: frente, papel na compra, postura (apoia, neutro, resiste) e data da última conversa de mão dupla. A força da relação pode ser calculada a partir da recência e da frequência dessas conversas.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Fontes</h2>
+    <ul class="sources">
+      <li><a href="https://www.asagarwal.com/salesforcesummer24-introducing-buyer-relationship-map/" target="_blank" rel="noopener">Salesforce, Buyer Relationship Map (Summer '24)</a></li>
+      <li><a href="https://astreait.com/Visualize-Key-Contacts-on-the-Buyer-Relationship-Map-in-Salesforce/" target="_blank" rel="noopener">Salesforce Buyer Relationship Map: papéis e campos</a></li>
+      <li><a href="https://www.salesforceben.com/get-strategic-with-salesforce-account-plans-new-winter-25-release-feature/" target="_blank" rel="noopener">Salesforce Account Plans (Winter '25)</a></li>
+      <li><a href="https://learn.microsoft.com/en-us/dynamics365/release-plan/2023wave1/sales/dynamics365-sales/visualize-key-stakeholders-take-action-smart-organization-chart" target="_blank" rel="noopener">Microsoft, smart organization chart no Dynamics 365</a></li>
+      <li><a href="https://github.com/MicrosoftDocs/dynamics-365-customer-engagement/blob/main/ce/sales/view-understand-org-charts.md" target="_blank" rel="noopener">Microsoft Docs, org charts e saúde da relação</a></li>
+      <li><a href="https://www.superwork.co/blog/hubspot-buying-role" target="_blank" rel="noopener">HubSpot Buying Groups e Buying Role</a></li>
+      <li><a href="https://crmcanvas.app/blog/hubspot-buying-groups-guide" target="_blank" rel="noopener">HubSpot Buying Groups explicado</a></li>
+      <li><a href="https://alignedup.com/guides/top-stakeholder-mapping-software/" target="_blank" rel="noopener">Aligned, ferramentas de mapeamento de stakeholders</a></li>
+      <li><a href="https://support.demandbase.com/hc/en-us/articles/54284273651483-Understanding-Gong-Call-Intelligence-in-the-Account-Intelligence-Agent-AIA" target="_blank" rel="noopener">Demandbase e Gong: participantes x buying group</a></li>
+      <li><a href="https://www.geisheker.com/buying-committee-cartography/" target="_blank" rel="noopener">Buying Committee Cartography: estados de cobertura</a></li>
+      <li><a href="https://arpedio.com/resources/guides/relationship-mapping" target="_blank" rel="noopener">Arpedio, guia de relationship mapping</a></li>
+      <li><a href="https://www.squivr.com/blog/salesforce-relationship-mapping-the-complete-guide-for-revenue-teams" target="_blank" rel="noopener">Squivr, relationship mapping para times de receita</a></li>
+      <li><a href="https://community.hubspot.com/t5/CRM/How-to-Edit-Deal-Card-on-Board-View/m-p/579205" target="_blank" rel="noopener">HubSpot, campos no card do quadro</a></li>
+    </ul>
+  </section>
+</div>
