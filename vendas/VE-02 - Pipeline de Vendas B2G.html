@@ -162,6 +162,11 @@ section.view>*{min-width:0}
 .sum .kpi{font-weight:600}
 .sum .ctags b{display:none}
 .sum .tchip{display:block;margin-bottom:4px}
+#editbar{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;display:flex;gap:8px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;box-shadow:0 6px 24px rgba(0,0,0,.08);max-width:calc(100vw - 32px)}
+#editbar .btn.primary{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+#editbar .btn:disabled{opacity:.45;cursor:default}
+body.editing [data-ek][contenteditable="plaintext-only"]{outline:1px dashed var(--dot-closer);outline-offset:2px;border-radius:2px;cursor:text}
+body.editing [data-ek][contenteditable="plaintext-only"]:focus{outline:2px solid var(--dot-closer);background:#F6F1FE}
 .crmreq{display:grid;gap:8px;font-size:13.5px}
 .crmreq ul{margin:2px 0 0;padding-left:18px}
 .pts{font-family:var(--f-mono);font-size:10.5px;padding:1px 5px;border-radius:3px;background:var(--closer-soft);color:var(--closer);white-space:nowrap}
@@ -458,7 +463,14 @@ a{color:var(--closer)}
   </section>
 </div>
 
+<script type="application/json" id="edits">{"ov":{},"log":[]}</script>
 <script>
+const PAGE_SRC = document.body.innerHTML;
+const EDITS = (()=>{try{return JSON.parse(document.getElementById("edits").textContent)}catch(e){return {ov:{},log:[]}}})();
+const OV = EDITS.ov || {};
+const esc = t => String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const E = (path, raw) => `<span data-ek="${path}">${Object.prototype.hasOwnProperty.call(OV,path)?esc(OV[path]):(raw??"")}</span>`;
+const listE = (base, arr, cls) => `<ul${cls?` class="${cls}"`:""}>${arr.map((x,i)=>`<li>${E(base+"."+i,x)}</li>`).join("")}</ul>`;
 const STAGES = [
 {id:"p0",lane:"sdr",code:"0",name:"MQA Prospect",alias:"reserva de contas fora do ABM",board:"Contas (reserva)",short:"Conta com origem, subgrupo e ICP score; sobe para o MQA por gatilho ou por vaga no ABM",
  job:"Fora do mercado agora: a maioria das prefeituras não está comprando neste momento",sla:"revisão trimestral",
@@ -787,11 +799,11 @@ function renderBoard(){
     const gate = s.gate?'<span class="tag gate">proposta em reunião</span>':"";
     h+=`<button class="stage" style="grid-column:${col}" data-lane="${s.lane}" data-id="${s.id}" aria-pressed="false">
       <span class="code"><span>${s.code==="CS"?"CS":"Etapa "+s.code}</span><span>${s.sla?("SLA "+s.sla):""}</span></span>
-      <span class="ttl"><span class="name">${s.name}</span><span class="alias">${s.alias||""}</span><span style="display:flex;gap:4px;flex-wrap:wrap">${tagHtml(s.tag)}${gate}</span></span>
-      <span class="ms"><b class="mono" style="font-size:10.5px;color:var(--muted);display:block;letter-spacing:.06em">MILESTONE</b>${s.short}</span>
+      <span class="ttl"><span class="name">${E(s.id+".name",s.name)}</span><span class="alias">${E(s.id+".alias",s.alias||"")}</span><span style="display:flex;gap:4px;flex-wrap:wrap">${tagHtml(s.tag)}${gate}</span></span>
+      <span class="ms"><b class="mono" style="font-size:10.5px;color:var(--muted);display:block;letter-spacing:.06em">MILESTONE</b>${E(s.id+".milestone",s.short)}</span>
       ${crmTags(s.id)||"<span></span>"}
-      ${s.tec?`<span class="tecbox"><b class="mono lbl">TÉCNICAS</b><span class="tchip main">${s.tec.p.n}</span><span class="tchip">apoio: ${s.tec.a.n}</span><span class="tsig"><b>Sinal de valor:</b> ${s.tec.sinal}</span></span>`:"<span></span>"}
-      ${s.meeting?`<span class="meet"><b>${s.meeting.name}</b>CTA: ${s.meeting.cta}</span>`:"<span></span>"}
+      ${s.tec?`<span class="tecbox"><b class="mono lbl">TÉCNICAS</b><span class="tchip main">${E(s.id+".tec.p",s.tec.p.n)}</span><span class="tchip">apoio: ${E(s.id+".tec.a",s.tec.a.n)}</span><span class="tsig"><b>Sinal de valor:</b> ${E(s.id+".tec.sinal",s.tec.sinal)}</span></span>`:"<span></span>"}
+      ${s.meeting?`<span class="meet"><b>${E(s.id+".meeting.name",s.meeting.name)}</b>CTA: ${E(s.id+".meeting.cta",s.meeting.cta)}</span>`:"<span></span>"}
     </button>`;
     col++;
   });
@@ -808,49 +820,52 @@ function select(id,scroll){
   store.set("stage",id);
   const checked = store.get("chk:"+id)||[];
   const m = s.meeting;
+  const P = s.id+".";
   const meet = m?`<div class="meeting">
-      <div class="mh"><h4>Reunião da etapa</h4><h3>${m.name}</h3><span class="mono">${m.dur} · ${m.who}</span></div>
+      <div class="mh"><h4>Reunião da etapa</h4><h3>${E(P+"meeting.name",m.name)}</h3><span class="mono">${E(P+"meeting.dur",m.dur)} · ${E(P+"meeting.who",m.who)}</span></div>
       <div class="mb">
-        <div class="blk"><h4>Pauta</h4><ol>${m.pauta.map(p=>`<li>${p}</li>`).join("")}</ol></div>
-        <div class="cta"><h4>CTA no fim da reunião</h4><p>${m.cta}</p></div>
-        <div class="two"><div class="blk do"><h4>Pode mostrar</h4>${list(m.show)}</div><div class="blk dont"><h4>Não fazer</h4>${list(m.dont)}</div></div>
-        ${m.after?`<p class="after">${m.after}</p>`:""}
-      </div></div>`:`<div class="meeting"><div class="mh"><h4>Reunião da etapa</h4><p>${s.noMeeting||""}</p></div></div>`;
+        <div class="blk"><h4>Pauta</h4><ol>${m.pauta.map((x,i)=>`<li>${E(P+"meeting.pauta."+i,x)}</li>`).join("")}</ol></div>
+        <div class="cta"><h4>CTA no fim da reunião</h4><p>${E(P+"meeting.cta",m.cta)}</p></div>
+        <div class="two"><div class="blk do"><h4>Pode mostrar</h4>${listE(P+"meeting.show",m.show)}</div><div class="blk dont"><h4>Não fazer</h4>${listE(P+"meeting.dont",m.dont)}</div></div>
+        ${m.after?`<p class="after">${E(P+"meeting.after",m.after)}</p>`:""}
+      </div></div>`:`<div class="meeting"><div class="mh"><h4>Reunião da etapa</h4><p>${E(P+"noMeeting",s.noMeeting||"")}</p></div></div>`;
   const nxt = STAGES[STAGES.indexOf(s)+1];
+  const NP = nxt?nxt.id+".":"";
   $("#detail").innerHTML = `
     <div class="detail-head">
-      <div style="display:grid;gap:4px"><span class="eyebrow">${s.code==="CS"?"CS":"Etapa "+s.code} · ${s.board}</span><h2>${s.name}</h2><span class="alias">${s.alias||""}</span></div>
-      <div class="meta"><span class="pill ${s.lane}">${laneLabel(s.lane)}</span>${s.sla?`<span class="pill">SLA ${s.sla}</span>`:""}<span class="pill">job: ${s.job}</span></div>
+      <div style="display:grid;gap:4px"><span class="eyebrow">${s.code==="CS"?"CS":"Etapa "+s.code} · ${s.board}</span><h2>${E(P+"name",s.name)}</h2><span class="alias">${E(P+"alias",s.alias||"")}</span></div>
+      <div class="meta"><span class="pill ${s.lane}">${laneLabel(s.lane)}</span>${s.sla?`<span class="pill">SLA ${E(P+"sla",s.sla)}</span>`:""}<span class="pill">job: ${E(P+"job",s.job)}</span></div>
     </div>
     <div class="cols">
       <div>
-        <div class="blk"><h4>Objetivo</h4><p>${s.objetivo}</p></div>
-        <div class="blk msblk"><h4>Milestone · a conta entrou nesta etapa</h4><p class="msq">${s.milestone}</p><h4 style="margin-top:6px">Evidências</h4>${list(s.ms)}</div>
-        ${s.exitTitle?`<div class="blk"><h4>${s.exitTitle}</h4>${list(s.exit)}</div>`:(nxt?`<div class="blk"><h4>Para avançar para ${nxt.name}</h4><p class="note" style="font-style:italic">${nxt.milestone}</p>
-          <ul class="checks">${nxt.ms.map((e,i)=>`<li><input type="checkbox" id="chk-${s.id}-${i}" data-i="${i}" ${checked.includes(i)?"checked":""}><label for="chk-${s.id}-${i}">${e}</label></li>`).join("")}</ul>
+        <div class="blk"><h4>Objetivo</h4><p>${E(P+"objetivo",s.objetivo)}</p></div>
+        <div class="blk msblk"><h4>Milestone · a conta entrou nesta etapa</h4><p class="msq">${E(P+"milestone",s.milestone)}</p><h4 style="margin-top:6px">Evidências</h4>${listE(P+"ms",s.ms)}</div>
+        ${s.exitTitle?`<div class="blk"><h4>${s.exitTitle}</h4>${listE(P+"exit",s.exit)}</div>`:(nxt?`<div class="blk"><h4>Para avançar para ${E(NP+"name",nxt.name)}</h4><p class="note" style="font-style:italic">${E(NP+"milestone",nxt.milestone)}</p>
+          <ul class="checks">${nxt.ms.map((e,i)=>`<li><input type="checkbox" id="chk-${s.id}-${i}" data-i="${i}" ${checked.includes(i)?"checked":""}><label for="chk-${s.id}-${i}">${E(NP+"ms."+i,e)}</label></li>`).join("")}</ul>
           <span class="progress" id="prog"></span></div>`:"")}
-        ${s.kr?`<div class="blk"><h4>KR</h4><p>${s.kr}</p></div>`:""}
-        ${s.kpis.length?`<div class="blk"><h4>KPIs</h4>${list(s.kpis)}</div>`:""}
-        ${s.roles?`<div class="blk"><h4>Grupo comprador</h4><p>${s.roles}</p></div>`:""}
-        <div class="blk"><h4>No CRM</h4><p class="crm">${s.crm}</p></div>
+        ${s.kr?`<div class="blk"><h4>KR</h4><p>${E(P+"tec.kr",s.kr)}</p></div>`:""}
+        ${s.kpis.length?`<div class="blk"><h4>KPIs</h4>${listE(P+"kpis",s.kpis)}</div>`:""}
+        ${s.roles?`<div class="blk"><h4>Grupo comprador</h4><p>${E(P+"roles",s.roles)}</p></div>`:""}
+        <div class="blk"><h4>No CRM</h4><p class="crm">${E(P+"crm",s.crm)}</p></div>
         ${crmBlock(s)}
       </div>
       <div>
         ${meet}
-        ${s.alerts.length?`<div class="blk" style="margin-top:14px"><h4>Sinais de alerta</h4>${list(s.alerts,"alerts")}</div>`:""}
+        ${s.alerts.length?`<div class="blk" style="margin-top:14px"><h4>Sinais de alerta</h4>${listE(P+"alerts",s.alerts,"alerts")}</div>`:""}
       </div>
     </div>
-    ${s.tec?`<div class="tec"><div class="tec-head"><h3>Como vender nesta etapa</h3><p><b>Objetivo:</b> ${s.tec.obj}</p></div>
+    ${s.tec?`<div class="tec"><div class="tec-head"><h3>Como vender nesta etapa</h3><p><b>Objetivo:</b> ${E(P+"tec.obj",s.tec.obj)}</p></div>
       <div class="tec-grid">
-        <div class="tcard main"><span class="eyebrow">Técnica principal</span><h3>${s.tec.p.n}</h3><p>${s.tec.p.c}</p><h4>${s.tec.p.qt}</h4>${list(s.tec.p.q)}</div>
-        <div class="tcard"><span class="eyebrow">Técnica de apoio</span><h3>${s.tec.a.n}</h3><p>${s.tec.a.c}</p></div>
+        <div class="tcard main"><span class="eyebrow">Técnica principal</span><h3>${E(P+"tec.p",s.tec.p.n)}</h3><p>${E(P+"tec.p.c",s.tec.p.c)}</p><h4>${s.tec.p.qt}</h4>${listE(P+"tec.p.q",s.tec.p.q)}</div>
+        <div class="tcard"><span class="eyebrow">Técnica de apoio</span><h3>${E(P+"tec.a",s.tec.a.n)}</h3><p>${E(P+"tec.a.c",s.tec.a.c)}</p></div>
       </div>
       <div class="tec-grid">
-        <div class="tcard sig"><span class="eyebrow">Sinal de que o lead viu valor · por conta</span><p>${s.tec.sinal}</p></div>
-        <div class="tcard kr"><span class="eyebrow">KR · do time</span><p>${s.tec.kr}</p></div>
+        <div class="tcard sig"><span class="eyebrow">Sinal de que o lead viu valor · por conta</span><p>${E(P+"tec.sinal",s.tec.sinal)}</p></div>
+        <div class="tcard kr"><span class="eyebrow">KR · do time</span><p>${E(P+"tec.kr",s.tec.kr)}</p></div>
       </div></div>`:""}
     ${s.extra||""}
-    ${s.ref?`<p class="ref"><b>Referência:</b> ${s.ref} <br><b>No quadro anterior:</b> ${s.old}</p>`:`<p class="ref"><b>No quadro anterior:</b> ${s.old}</p>`}`;
+    ${s.ref?`<p class="ref"><b>Referência:</b> ${E(P+"ref",s.ref)} <br><b>No quadro anterior:</b> ${s.old}</p>`:`<p class="ref"><b>No quadro anterior:</b> ${s.old}</p>`}`;
+  markEditable();
   const upd = ()=>{
     const boxes=[...document.querySelectorAll('#detail .checks input')];
     const on=boxes.filter(b=>b.checked).map(b=>+b.dataset.i);
@@ -1036,12 +1051,13 @@ function renderResumo(){
     macro+=`<th colspan="${n}" class="macro m-${m[0]}">${m[1]}<small>${m[2]}</small>${tt}</th>`; i+=n;}
   macro+='</tr>';
   const row=(label,fn,cls="")=>`<tr><td>${label}</td>${st.map(s=>`<td class="${cls}">${fn(s)}</td>`).join("")}</tr>`;
-  $("#sum-table").innerHTML = `<colgroup><col style="width:132px">${st.map(()=>'<col>').join("")}</colgroup><thead>${macro}<tr><th>Etapa</th>${st.map(s=>`<th class="stg ${s.lane}"><span class="ldot ${s.lane}" title="${laneLabel(s.lane)}"></span>${s.name}<small>${laneLabel(s.lane)}${s.sla?" · SLA "+s.sla:""}</small></th>`).join("")}</tr></thead><tbody>
-   ${row("Milestone",s=>s.milestone||"")}
-   ${row("KPI principal",s=>KPI_MAIN[s.id]||"","kpi")}
+  $("#sum-table").innerHTML = `<colgroup><col style="width:132px">${st.map(()=>'<col>').join("")}</colgroup><thead>${macro}<tr><th>Etapa</th>${st.map(s=>`<th class="stg ${s.lane}"><span class="ldot ${s.lane}" title="${laneLabel(s.lane)}"></span>${E(s.id+".name",s.name)}<small>${laneLabel(s.lane)}${s.sla?" · SLA "+s.sla:""}</small></th>`).join("")}</tr></thead><tbody>
+   ${row("Milestone",s=>E(s.id+".milestone",s.milestone||""))}
+   ${row("KPI principal",s=>E(s.id+".kpi",KPI_MAIN[s.id]||""),"kpi")}
    ${row("Campos do CRM",s=>crmTags(s.id)||'<span class="note">sem campo novo</span>')}
-   ${row("Técnicas",s=>s.tec?`<span class="tchip main ${s.lane}">${s.tec.p.n}</span><span class="tchip">apoio: ${s.tec.a.n}</span>`:'<span class="note">conduzido por CS</span>')}
+   ${row("Técnicas",s=>s.tec?`<span class="tchip main ${s.lane}">${E(s.id+".tec.p",s.tec.p.n)}</span><span class="tchip">apoio: ${E(s.id+".tec.a",s.tec.a.n)}</span>`:'<span class="note">conduzido por CS</span>')}
   </tbody>`;
+  markEditable();
 }
 function renderFields(){
   const rows = ORDER.map(id=>{const it=itemsFor(id); const eng=ENG_BY_STAGE[id]; if(!it.length&&!eng) return "";
@@ -1092,6 +1108,61 @@ function renderResult(){
   $("#reset").addEventListener("click",()=>{scState=new Set(SC_SAMPLE);store.set("sc2",[...scState]);renderScore();});
 }
 
+let editing=false, dirty=0, ART=null;
+function markEditable(){
+  document.querySelectorAll("[data-ek]").forEach(el=>{
+    const ok = editing && !el.closest(".stage");
+    el.contentEditable = ok ? "plaintext-only" : "false";
+    if(ok && !el.dataset.bound){
+      el.dataset.bound="1";
+      el.addEventListener("input",()=>{
+        const k=el.dataset.ek, v=el.textContent.trim();
+        if(!(k in PENDING)) PENDING[k]={from:(k in OV?OV[k]:el.dataset.orig||""),to:v}; else PENDING[k].to=v;
+        OV[k]=v; dirty=Object.keys(PENDING).length;
+        document.querySelectorAll(`[data-ek="${CSS.escape(k)}"]`).forEach(o=>{ if(o!==el) o.textContent=v; });
+        updBar();
+      });
+      el.addEventListener("click",ev=>{ if(editing) ev.stopPropagation(); });
+    }
+    if(!el.dataset.orig) el.dataset.orig = el.textContent.trim();
+  });
+}
+const PENDING={};
+function staticEditables(){
+  document.querySelectorAll("header.top .lede, .callout > h3, .callout > p, .rule h3, .rule p").forEach((el,i)=>{
+    if(el.dataset.ek) return; const k="static."+i; el.dataset.ek=k;
+    if(Object.prototype.hasOwnProperty.call(OV,k)) el.textContent=OV[k];
+  });
+}
+function updBar(msg){
+  const b=$("#editbar"); if(!b) return;
+  $("#ed-toggle").textContent = editing?"Sair da edição":"Editar página";
+  $("#ed-save").hidden = !editing; $("#ed-discard").hidden = !editing;
+  $("#ed-save").disabled = !dirty;
+  $("#ed-status").textContent = msg || (editing?(dirty?`${dirty} alteração(ões) não salva(s)`:"Clique em um texto para editar"):((EDITS.log||[]).length?`${EDITS.log.length} alteração(ões) salvas nesta página`:""));
+}
+async function saveEdits(){
+  if(!ART||!dirty) return;
+  const now=new Date().toISOString();
+  const log=(EDITS.log||[]).concat(Object.entries(PENDING).map(([k,v])=>({path:k,from:v.from,to:v.to,at:now})));
+  const state=JSON.stringify({ov:OV,log}).replace(/</g,"\\u003c");
+  const body=PAGE_SRC.replace(/<script type="application\/json" id="edits">[\s\S]*?<\/script>/, `<script type="application/json" id="edits">${state}<\/script>`);
+  const reset=(document.head.querySelector("style")||{}).textContent||"";
+  const doc=`<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>${reset}</style></head><body>${body}</body></html>`;
+  updBar("Salvando…");
+  try{ await ART.publish(doc); updBar("Salvo"); }
+  catch(e){ const c=e&&e.code; updBar(c==="conflict"?"Outra versão foi salva ao mesmo tempo; a página vai recarregar.":(c==="not_granted"||c==="not_writer")?"Você não tem permissão para salvar esta página.":"Não foi possível salvar. Tente de novo."); }
+}
+function initEditing(){
+  staticEditables();
+  const bar=document.createElement("div"); bar.id="editbar"; bar.hidden=true;
+  bar.innerHTML='<span id="ed-status" class="mono"></span><button class="btn" id="ed-discard" hidden>Descartar</button><button class="btn" id="ed-save" hidden>Salvar alterações</button><button class="btn primary" id="ed-toggle">Editar página</button>';
+  document.body.appendChild(bar);
+  $("#ed-toggle").addEventListener("click",()=>{ editing=!editing; document.body.classList.toggle("editing",editing); markEditable(); updBar(); });
+  $("#ed-save").addEventListener("click",saveEdits);
+  $("#ed-discard").addEventListener("click",()=>{ location.reload(); });
+  Promise.resolve(window.claude&&window.claude.use?window.claude.use("artifact"):null).then(a=>{ ART=a; if(a){ bar.hidden=false; updBar(); } }).catch(()=>{});
+}
 function showView(v){
   document.querySelectorAll("nav.tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.view===v?"true":"false"));
   document.querySelectorAll("section.view").forEach(s=>s.hidden = s.id!=="view-"+v);
@@ -1099,7 +1170,7 @@ function showView(v){
 }
 document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
 
-renderBoard(); renderResumo(); renderTec(); renderFields(); renderRules(); renderMeetTable(); renderMatrix(); renderMap(); renderScore();
+initEditing(); renderBoard(); renderResumo(); renderTec(); renderFields(); renderRules(); renderMeetTable(); renderMatrix(); renderMap(); renderScore();
 select(store.get("stage")||"c3",false);
 const hv = (location.hash||"").slice(1);
 showView(["resumo","quadro","tecnicas","campos","reunioes","revelar","score","mudancas","nome","fontes"].includes(hv)?hv:(store.get("view")||"resumo"));
