@@ -45,7 +45,7 @@ section.view>*{min-width:0}
 
 /* quadro */
 .board-scroll{overflow-x:auto;padding-bottom:6px}
-.board{display:grid;grid-template-rows:auto auto 0 repeat(6,auto) auto;grid-template-columns:repeat(5,minmax(170px,1fr)) 14px repeat(4,minmax(170px,1fr)) 14px minmax(150px,.8fr);gap:8px;min-width:1510px}
+.board{display:grid;grid-template-rows:auto auto auto repeat(6,auto) auto;grid-template-columns:repeat(5,minmax(170px,1fr)) 14px repeat(4,minmax(170px,1fr)) 14px minmax(150px,.8fr);gap:8px;min-width:1510px}
 .lane-label{grid-row:1;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 8px;border-radius:var(--r)}
 .lane-label{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .ltot{font-weight:400;letter-spacing:.04em;padding:1px 7px;border-radius:3px;background:var(--surface)}
@@ -167,6 +167,19 @@ section.view>*{min-width:0}
 #editbar .btn:disabled{opacity:.45;cursor:default}
 body.editing [data-ek][contenteditable="plaintext-only"]{outline:1px dashed var(--dot-closer);outline-offset:2px;border-radius:2px;cursor:text}
 body.editing [data-ek][contenteditable="plaintext-only"]:focus{outline:2px solid var(--dot-closer);background:#F6F1FE}
+.commit{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.commit>div{border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;display:grid;gap:6px;align-content:start;font-size:13.5px}
+.commit ul{margin:0;padding-left:18px;display:grid;gap:3px}
+.cm-lead{background:#F2ECFD;border-color:transparent!important}
+.cm-lead h4{color:var(--dot-closer)}
+.cm-desc h4{color:var(--gate)}
+.cm-gap{background:var(--warn-soft);border-color:transparent!important}
+.sz{display:inline-block;margin-left:6px;font-family:var(--f-mono);font-size:10px;font-weight:500;letter-spacing:0;text-transform:none;padding:1px 6px;border-radius:3px;background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.sum .sz{display:inline-block;margin:6px 0 0;white-space:normal;max-width:100%}
+ul.desc li{color:var(--gate)}
+.sum ul{margin:0;padding-left:16px}
+.sum .gap-cell{background:#FFFBF0}
+@media (max-width:860px){.commit{grid-template-columns:1fr}}
 .crmreq{display:grid;gap:8px;font-size:13.5px}
 .crmreq ul{margin:2px 0 0;padding-left:18px}
 .pts{font-family:var(--f-mono);font-size:10.5px;padding:1px 5px;border-radius:3px;background:var(--closer-soft);color:var(--closer);white-space:nowrap}
@@ -285,6 +298,10 @@ a{color:var(--closer)}
       <h3>Resumo do pipeline de vendas</h3>
       <p>Uma linha por informação, uma coluna por etapa. O milestone é o evento que faz a conta entrar na etapa. Detalhes de reunião, pauta, CTA e evidências ficam na aba Quadro.</p>
     </div>
+    <div class="callout">
+      <h3>Um compromisso do lead por etapa</h3>
+      <p>Cada etapa pede ao lead um único compromisso, que é exatamente o evento que leva ao próximo milestone. Quando o compromisso é grande (trazer outra secretaria, validar valores, escrever o ETP e o TR), ele é o único pedido da etapa, e a OSPA faz o trabalho pesado em volta: convite redigido para o lead só encaminhar, briefing preenchido junto na reunião, minutas prontas. Isso reduz a fadiga do lead e o medo de dizer sim e errar. Em vermelho, o que precisamos descobrir em cada etapa, ligado aos campos do CRM.</p>
+    </div>
     <div class="sumlegend"><span><span class="ldot sdr"></span>SDR · 95 dias · ~3,2 meses</span><span><span class="ldot closer"></span>Closer · 145 dias · ~4,8 meses</span><span><span class="ldot"></span>CS</span><span><b>Total do MQA ao empenho: 240 dias · ~8 meses</b></span></div>
     <div class="tbl-wrap sum-wrap"><table class="sum" id="sum-table"></table></div>
   </section>
@@ -312,7 +329,7 @@ a{color:var(--closer)}
   <section class="view" id="view-campos" hidden>
     <div class="callout">
       <h3>Campos personalizados por etapa</h3>
-      <p>Os três campos de forecasting seguem as passagens do quadro. <b>Demand forecasting</b> é medido em MQA interação e SQA interação; completo, a conta entra em SQA apresentação como <b>demanda prevista</b>. <b>Opportunity forecasting</b> é medido no diagnóstico; completo, a oportunidade entra em SQA consideração como <b>oportunidade prevista</b> e passa ao closer. <b>Pipeline forecasting</b> é medido pelo closer, de SQA consideração a NGC fechamento, e termina no empenho. Os dois primeiros são do SDR; o terceiro, do closer. Qualificação B2G, Mapeamento de Stakeholders e Papel no Comitê descrevem a conta e as pessoas; a Trilha de fechamento lista as nossas entregas de buyer enablement.</p>
+      <p>Os três campos de forecasting seguem as passagens do quadro. <b>Demand forecasting</b> é medido de MQA interação ao diagnóstico: as contas em SQA apresentação são a <b>demanda prevista</b>, e a demanda completa no diagnóstico leva a conta à SQA consideração. <b>Opportunity forecasting</b> é medido no diagnóstico e na consideração: as oportunidades em SQA consideração são a <b>oportunidade prevista</b>, e a oportunidade completa leva à SQA intenção. <b>Pipeline forecasting</b> é medido pelo closer da SQA intenção ao empenho. Ao tentar mover um card sem os itens obrigatórios, o CRM abre um pop-up que lista o que falta e bloqueia a mudança de etapa (deal blocker).</p>
     </div>
     <h2>O que é obrigatório para entrar em cada etapa</h2>
     <div class="tbl-wrap"><table id="fields-stage"></table></div>
@@ -330,7 +347,7 @@ a{color:var(--closer)}
   <section class="view" id="view-reunioes" hidden>
     <div class="callout">
       <h3>Por que o playbook não está sendo seguido</h3>
-      <p>Playbook em documento descreve o comportamento; o CRM é que faz o comportamento acontecer. Como o CRM agora é próprio, as regras abaixo podem virar travas: o botão de gerar proposta só aparece em SQA intenção, depois do milestone de entrada, a proposta sai de modelo fechado por tier, cada etapa tem campos obrigatórios e cada reunião tem um modelo de pauta com CTA. A revisão semanal de pipeline passa a checar critério de saída, não opinião, e a passagem de SQA intenção para NGC negociação tem um deal review com a liderança.</p>
+      <p>Playbook em documento descreve o comportamento; o CRM é que faz o comportamento acontecer. Como o CRM agora é próprio, as regras abaixo podem virar travas: o botão de gerar proposta só aparece em SQA intenção, depois do milestone de entrada, a proposta sai de modelo fechado por tier, cada etapa tem campos obrigatórios (mover o card sem eles abre um pop-up que bloqueia a mudança e lista o que falta) e cada reunião tem um modelo de pauta com CTA. A revisão semanal de pipeline passa a checar critério de saída, não opinião, e a passagem de SQA intenção para NGC negociação tem um deal review com a liderança.</p>
     </div>
     <h2>Regras de condução</h2>
     <div class="rules" id="rules"></div>
@@ -367,7 +384,7 @@ a{color:var(--closer)}
   <section class="view" id="view-score" hidden>
     <div class="callout">
       <h3>Scorecard híbrido: a sua planilha de pontos + MEDDPICC</h3>
-      <p>Dois scores, ligados aos campos do CRM e às passagens do quadro. A <b>previsão de demanda e de oportunidades</b> (Demand + Opportunity forecasting, 24 pts) é do SDR: Demand completo leva a conta a SQA apresentação; Opportunity completo leva a SQA consideração. A <b>previsão de pipeline</b> (Pipeline forecasting, 37 pts) é do closer e inclui a escada de compromisso da sua planilha (25 pts nas etapas NGC). Cada check vale pontos, mas a etapa só avança com os itens obrigatórios dela marcados. Marque abaixo para simular.</p>
+      <p>Dois scores, ligados aos campos do CRM e às passagens do quadro. A <b>previsão de demanda e de oportunidades</b> (Demand + Opportunity forecasting, 24 pts) cobre do MQA interação à SQA consideração: Demand completo leva à SQA consideração; Opportunity completo leva à SQA intenção. A <b>previsão de pipeline</b> (Pipeline forecasting, 40 pts) é do closer, da SQA intenção ao empenho, e inclui a escada de compromisso da sua planilha (25 pts). Cada check vale pontos, mas a etapa só avança com os itens obrigatórios dela marcados. Marque abaixo para simular.</p>
     </div>
     <div class="score-grid">
       <div class="tbl-wrap" style="padding:4px 16px" id="score-rows"></div>
@@ -399,8 +416,8 @@ a{color:var(--closer)}
     </div>
     <h2>Pendências para discutir</h2>
     <div class="callout">
-      <p><b>Briefing da prefeitura.</b> Formulário para a prefeitura com principais desafios, o que querem resolver, o que precisam analisar e diretrizes de gestão. Entra depois da SQA apresentação; etapa exata ainda em aberto.</p>
-      <p><b>Compromissos x tarefas por etapa.</b> Discutir a relação entre os compromissos do comprador (milestones) e as tarefas do time em cada etapa, e onde o briefing se encaixa nessa lógica.</p>
+      <p><b>Briefing da prefeitura.</b> Proposta atual: preenchido junto com a prefeitura no fim do diagnóstico (SQA apresentação), para não virar dever de casa do lead. A confirmar.</p>
+      <p><b>Engajamento no card e deal blocker.</b> Definir com quem cuida do CRM: sinal de engajamento da conta no card (pessoas, secretarias, alerta) e pop-up que bloqueia a mudança de etapa quando faltam itens obrigatórios.</p>
     </div>
     <h2>Mapa do quadro anterior para o novo</h2>
     <div class="tbl-wrap"><table id="map-table"></table></div>
@@ -572,14 +589,15 @@ const STAGES = [
  roles:"Dono da dor, ou alguém da área que indique o dono da dor.",
  alerts:["Reunião marcada com quem não sente a dor","Terceira remarcação","Contexto registrado sem as palavras da pessoa (só a nossa hipótese)"],
  ref:"Prática enterprise de SDR: a meta é reunião realizada, não agendada; agendamento é atividade com data, não etapa. SPIN: perguntas de Situação e Problema antes da reunião de diagnóstico.",
- old:"SQA interação (antes: diagnóstico agendado)"},
+ old:"SQA interação (antes: diagnóstico agendado)",
+ extra:`<div class="extra"><h3>Critérios de reunião qualificada agendada</h3><ul style="margin:0;padding-left:18px;display:grid;gap:4px"><li>Com o dono da dor presente</li><li>Contexto registrado no modelo do CRM (3 de 4 itens, com as palavras da pessoa)</li><li>Data em até 14 dias</li><li>Agenda de 3 tópicos enviada e aceita</li><li>Participantes confirmados; desejável mais uma pessoa da área</li></ul><p class="note">Reunião agendada que não cumpre os critérios não conta no KPI de aceite. A data fica num campo do card, com alerta de não comparecimento e de terceira remarcação.</p></div>`},
 {id:"c1",lane:"sdr",code:"4",name:"SQA apresentação",alias:"reunião de diagnóstico",board:"Contas ABM",short:"Dor confirmada nas palavras do cliente e sessão de valor agendada com mais uma secretaria",
  job:"Identificação do problema e exploração de soluções",sla:"15 dias",
  objetivo:"Entender a situação e a dor nas palavras do cliente, e ganhar o direito de mostrar valor para mais gente.",
  entrada:"Oportunidade aceita pelo closer.",
  exit:["Situação atual descrita e dor confirmada pelo cliente (registro com as palavras dele)","Impacto: o que acontece se nada mudar","Evento crítico candidato (calendário de gestão, plano diretor, LOA, financiamento)","Champion candidato identificado","Sessão de valor agendada com pelo menos mais uma secretaria"],
  kr:"Diagnósticos que viram sessão de valor com 2 secretarias.",
- kpis:["Taxa SQA apresentação para SQA consideração","Tempo em etapa","Demand forecasting completo (10 de 10) nas contas da etapa: é a demanda prevista"],
+ kpis:["Taxa SQA apresentação para SQA consideração","Tempo em etapa","Contas na etapa = demanda prevista; Demand forecasting completo (10 de 10) na saída"],
  crm:"SPICED (situação, dor, impacto, evento crítico, decisão) com campos obrigatórios para sair da etapa. Envio do resumo do diagnóstico registrado no card. Trava: a oportunidade só passa para o closer com a nota de passagem completa.",
  meeting:{name:"Reunião de diagnóstico",dur:"45 a 60 min",who:"SDR (closer opcional em conta Tier 1), dono da dor e quem ele trouxer",
   pauta:["Combinado inicial: objetivo, tempo e o que se decide no final","Contexto da prefeitura e da área: como funciona hoje","Um insight com dado do próprio município: ensinar algo novo, não apresentar a empresa","Perguntas de problema e de implicação (SPIN): onde trava, quanto custa, quem sofre","Evento crítico: o que precisa estar pronto e até quando","Quem mais é afetado e quem decide","Resumo em voz alta, com as palavras do cliente"],
@@ -597,7 +615,7 @@ const STAGES = [
  entrada:"Diagnóstico completo e sessão de valor agendada.",
  exit:["Dor reconhecida por pelo menos 2 secretarias (registro em ata ou e-mail)","Resultado esperado com uma métrica e linha de base hipotética","Evento crítico com data","Rota de contratação hipotética (inexigibilidade, CPSI, ata ou licitação) e fonte de recurso provável","Champion testado: já fez algo por nós (convidou alguém, conseguiu um dado)","Workshop do comitê agendado"],
  kr:"Pipeline qualificado criado no trimestre: oportunidades com dor validada e workshop agendado.",
- kpis:["# e valor de pipeline criado","Taxa SQA consideração para SQA intenção","Opportunity forecasting completo (13 de 13): é a oportunidade prevista"],
+ kpis:["# e valor de pipeline criado","Taxa SQA consideração para SQA intenção","Oportunidades na etapa = oportunidade prevista; Opportunity forecasting completo (13 de 13) na saída"],
  crm:"Entra no pipeline e no forecast (categoria pipeline). Valor estimado e data provável obrigatórios. Scorecard visível no card.",
  meeting:{name:"Sessão de valor",dur:"60 a 90 min · online",who:"Closer, especialista e 2 ou mais secretarias",
   pauta:["Recapitular a dor com as palavras do diagnóstico e confirmar com o grupo","Demo de referência (online), no ambiente tester ou de uma prefeitura cliente de porte parecido: 2 ou 3 fluxos ligados à dor declarada, sempre conectando ao caso deles","Rodada por papel: o que cada secretaria ganharia","Estimativa de impacto com a métrica deles","Como a prefeitura costuma contratar soluções assim, quem assina, se há dotação","Quem precisa estar no comitê para isso andar"],
@@ -614,7 +632,7 @@ const STAGES = [
  objetivo:"Apresentar, sempre em reunião, a proposta de escopo da parceria ao comitê de compra e a proposta de valores ao decisor econômico, e sair com a validação explícita dos dois.",
  entrada:"Champion convocou a reunião de proposta com os papéis do comitê de compra.",
  exit:[],kr:"",
- kpis:["Cobertura de papéis do comitê de compra","Taxa SQA intenção para NGC negociação","Rodadas de ajuste (meta: até 2)","Pipeline forecasting: 4 de 37 (obrigatórios)"],
+ kpis:["Cobertura de papéis do comitê de compra","Taxa SQA intenção para NGC negociação","Rodadas de ajuste (meta: até 2)","Opportunity forecasting completo (13 de 13) na entrada"],
  crm:"A proposta é gerada aqui, a partir do modelo por tier, sem edição livre de escopo, e só depois do milestone de entrada. Proposta só é registrada como apresentada com data de reunião. Mapa do comitê com papel e postura. Plano de trabalho anexado ao card.",
  meeting:{name:"Proposta de escopo da parceria + proposta de valores",dur:"2 reuniões de 60 min, com até 10 dias entre elas",who:"Reunião 1: closer, especialista e comitê de compra. Reunião 2: closer, liderança comercial (Tier 1) e decisor econômico",
   pauta:["Reunião 1 · Escopo: recapitular as dores de cada secretaria, com as palavras delas","Reunião 1 · A recomendação: um escopo de parceria, o que entra agora e o que fica para fases futuras","Reunião 1 · Resultados esperados, indicadores e plano de implantação","Reunião 2 · Valores: investimento anual, vigência e condições, coerentes com a faixa dita no diagnóstico","Reunião 2 · Rota de contratação e como tiramos o risco (implantação faseada, capacitação, referências, segurança jurídica)","Reunião 2 · Pedido de validação explícita de escopo e valores"],
@@ -630,7 +648,7 @@ const STAGES = [
  objetivo:"Com escopo e valores já validados, conduzir a rota de contratação até a prefeitura escrever o ETP e o TR, sem reabrir a proposta.",
  entrada:"Validação explícita de escopo e valores.",
  exit:[],kr:"",
- kpis:["Taxa NGC negociação para NGC fechamento","Valor médio por contrato","Dias entre a validação e o ETP/TR","Pipeline forecasting: 24 de 37 (obrigatórios)"],
+ kpis:["Taxa NGC negociação para NGC fechamento","Valor médio por contrato","Dias entre a validação e o ETP/TR","Pipeline forecasting: 27 de 40 (obrigatórios)"],
  crm:"Categoria de forecast: melhor cenário. Escopo e valores validados ficam travados no card; qualquer ajuste é registrado como alavanca e precisa de aprovação da liderança.",
  meeting:{name:"Plano do rito de contratação",dur:"45 min e ritos quinzenais",who:"Closer, champion e, quando necessário, procuradoria e jurídico da OSPA Place",
   pauta:["Confirmar o que foi validado: escopo, valores e vigência","Rota de contratação e precedente validado com a procuradoria","Abertura do DFD e responsáveis","Entrega do dossiê de contratação (minutas, atestados, justificativa de preço)","Datas e responsáveis do ETP e do TR"],
@@ -740,6 +758,29 @@ const TEC = {
 };
 STAGES.forEach(s=>{const t=TEC[s.id]; if(t){s.tec=t; s.kr=t.kr;}});
 
+
+const COMMIT = {
+ p0:{lead:["Nenhum. A conta está na sala de espera.","nenhum"],ospa:["Marketing: régua 1:muitos por cluster e convites para eventos","Monitorar sinais e recalcular o ICP score a cada trimestre","Promover para o ABM por gatilho ou por vaga"],desc:["Origem da conta e subgrupo","Sinais públicos (PDM, LOA, troca de secretário)"],gargalo:"Promoções que não convertem: revisar o corte do ICP e os gatilhos que promovem."},
+ s0:{lead:["Nenhum além de responder, se quiser.","nenhum"],ospa:["Qualificar a conta e fazer a higiene do CRM (duplicidade, contatos existentes, outras verticais)","Buscar 6 a 8 contatos e mapear frente e papel","Rodar a cadência por gatilho, com mensagem por papel"],desc:["Gatilho e hipótese de dor","Quem são os 6 a 8 papéis"],gargalo:"Muitas contas sem resposta: olhar a base de contatos (entrega) e a copy da abordagem (resposta)."},
+ s1:{lead:["Responder abrindo o contexto: contar como funciona hoje e onde trava.","pequeno"],ospa:["Descobrir a situação e os problemas, e quem é o dono da dor","Preferir ligação a mensagem","Registrar tudo no modelo de contexto do CRM"],desc:["Como funciona hoje","Um desafio concreto","Quem é o dono da dor"],gargalo:"Conversa que não aprofunda: perguntas de situação e problema fracas, ou canal errado (mensagem em vez de ligação)."},
+ s2:{lead:["Aceitar o diagnóstico com data e comparecer.","médio"],ospa:["Ligar para fechar a data (ideal)","Completar o modelo de contexto (3 de 4 itens)","Enviar agenda de 3 tópicos e confirmar participantes","Cumprir os critérios de reunião qualificada agendada"],desc:["Por que agora: gatilho ou prazo","Quem mais é afetado"],gargalo:"Contexto sem aceite, ou não comparecimento: CTA fraco, reunião marcada com quem não sente a dor, ou falta de confirmação."},
+ c1:{lead:["Chamar 1 ou 2 pessoas de outra secretaria para a sessão de valor.","grande · único pedido da etapa"],ospa:["Aprofundar o diagnóstico e completar o Demand forecasting","Trazer comparação com outras cidades e um case por setor","Dar a faixa de investimento","Redigir o convite para o lead só encaminhar","Resumo do diagnóstico em até 24 h; briefing preenchido junto, no fim da reunião"],desc:["Dor explicitada","Implicação e risco reconhecidos","Impacto e valor reconhecidos","Gatilho que justifica agir agora","Sinais de alinhamento com Fazenda, Desenvolvimento econômico e Geo"],gargalo:"Diagnóstico sem convite a outro setor: valor percebido baixo, ou pedido pesado demais para o lead (convite não veio pronto)."},
+ c2:{lead:["Convocar a reunião de proposta com os papéis que faltam no comitê de compra.","grande · único pedido da etapa"],ospa:["Sessão de valor com demo de referência, conduzida pelo closer","Diagnóstico de processos e de impacto funcional por setor","Propor a métrica de sucesso e o briefing de métricas para a gestão","Desenhar o escopo como rotina da parceria","Mapear o user buyer de cada setor e o technical buyer (TI)"],desc:["User buyer de cada setor","Technical buyer","Métrica de sucesso","Champion interno testado (e externo, se houver)","Quem pode travar"],gargalo:"Champion que não convoca: champion fraco, ou valor por secretaria pouco claro na sessão de valor."},
+ c3:{lead:["Validar por escrito o escopo e os valores.","grande · único pedido da etapa"],ospa:["Apresentar a proposta de escopo (rotina da parceria) e, depois, a de valores","Propor impacto e métricas","Montar a timeline da parceria no portal do cliente","Tirar o risco da mesa: implantação faseada, referências, segurança jurídica"],desc:["Critérios de decisão","Economic buyer","Risco percebido (FOMU) e como mitigar","Blocker ou postura de resistência","Fonte de recurso e concorrência"],gargalo:"Validação que não sai: cardápio de opções, risco percebido não tratado, ou decisor fora da reunião de valores."},
+ c4:{lead:["Escrever o ETP e o TR.","grande · nós entregamos as minutas"],ospa:["Entregar o dossiê de contratação e as minutas de ETP e TR","Validar a rota e o precedente com a procuradoria","Ritos quinzenais com o champion"],desc:["Documentos necessários","Rota de contratação validada","Responsáveis e datas do ETP e do TR"],gargalo:"ETP e TR parados: dossiê incompleto, rota não validada com a procuradoria, ou minutas não entregues."},
+ c5:{lead:["Concluir o rito: reserva, parecer, publicação e empenho.","grande · rito da prefeitura"],ospa:["Acompanhar cada passo do rito com data","Responder a procuradoria e o controle","Passagem de bastão para CS e kickoff agendado"],desc:["Datas de cada passo do rito","Riscos de calendário (fim do exercício, LOA)"],gargalo:"Empenho atrasado: reserva orçamentária, fim de exercício ou troca de pessoas no rito."},
+ cs:{lead:["Participar do kickoff.","pequeno"],ospa:["CS conduz o kickoff e a primeira entrega de valor"],desc:["Linha de base da métrica de sucesso"],gargalo:"Kickoff sem data: passagem incompleta."}
+};
+function commitBlock(s){
+  const c=COMMIT[s.id]; if(!c) return ""; const P=s.id+".";
+  return `<div class="commit">
+    <div class="cm-lead"><h4>Compromisso do lead <span class="sz">${c.lead[1]}</span></h4><p>${E(P+"lead",c.lead[0])}</p></div>
+    <div class="cm-ospa"><h4>Tarefas da OSPA Place</h4>${listE(P+"ospa",c.ospa)}</div>
+    <div class="cm-desc"><h4>Descobrir nesta etapa</h4>${listE(P+"desc",c.desc,"desc")}</div>
+    <div class="cm-gap"><h4>Se a conversão travar aqui</h4><p>${E(P+"gargalo",c.gargalo)}</p></div>
+  </div>`;
+}
+
 const RULES = [
  ["Uma reunião, um objetivo, um CTA","Combinar no início o que se decide no fim. Sem CTA definido, a reunião não acontece.","Up-front contract; Gartner sense making"],
  ["Revelar na velocidade da conta","Mostrar só o que a conta já consegue reconhecer como valor. Use a escada de revelação.","Gartner: excesso de informação leva a compras menores ou a nenhuma compra"],
@@ -791,9 +832,9 @@ function renderBoard(){
   const tot=l=>{let a=0,b=0;STAGES.filter(s=>s.lane===l&&DAYS[s.id]).forEach(s=>{a+=DAYS[s.id][0];b+=DAYS[s.id][1]});const mo=d=>(d/30).toFixed(1).replace('.',',').replace(',0','');return a===b?`${a} dias · ~${mo(a)} meses`:`${a} a ${b} dias · ~${mo(a)} a ${mo(b)} meses`;};
   let h = `<div class="lane-label sdr"><span>SDR · board de contas ABM</span><b class="ltot">${tot("sdr")}</b></div><div class="lane-label closer"><span>Closer · pipeline de vendas</span><b class="ltot">${tot("closer")}</b></div><div class="lane-label cs">CS</div>`;
   h += `<div class="mband fit" style="grid-row:2;grid-column:1/3">Fit da conta · Cities (ICP score)<small>medido no MQA Prospect e no MQA</small></div>`
-    + `<div class="mband dem" style="grid-row:2;grid-column:3/5">Demand forecasting · 10 pts<small>em MQA interação e SQA interação → demanda prevista em SQA apresentação</small></div>`
-    + `<div class="mband opp" style="grid-row:2;grid-column:5/6">Opportunity forecasting · 13 pts<small>no diagnóstico → oportunidade prevista</small></div>`
-    + `<div class="mband pip" style="grid-row:2;grid-column:7/11">Pipeline forecasting · 37 pts<small>medido de SQA consideração a NGC fechamento (MEDDPICC + escada de compromisso de 25 pts nas NGC); fecha no empenho</small></div>`;
+    + `<div class="mband dem" style="grid-row:2;grid-column:3/6">Demand forecasting · 10 pts<small>de MQA interação ao diagnóstico; contas em SQA apresentação = demanda prevista</small></div>`
+    + `<div class="mband opp" style="grid-row:3;grid-column:5/8">Opportunity forecasting · 13 pts<small>no diagnóstico e na consideração; oportunidades em SQA consideração = oportunidade prevista</small></div>`
+    + `<div class="mband pip" style="grid-row:2;grid-column:8/11">Pipeline forecasting · 40 pts<small>da SQA intenção à NGC fechamento (decisão + escada de compromisso de 25 pts); fecha no empenho</small></div>`;
   let col = 1;
   STAGES.forEach((s,i)=>{
     if(s.id==="c2"||s.id==="cs"){h+=`<div class="handoff" style="grid-column:${col}" aria-hidden="true"><i></i></div>`;col++;}
@@ -841,6 +882,7 @@ function select(id,scroll){
       <div>
         <div class="blk"><h4>Objetivo</h4><p>${E(P+"objetivo",s.objetivo)}</p></div>
         <div class="blk msblk"><h4>Milestone · a conta entrou nesta etapa</h4><p class="msq">${E(P+"milestone",s.milestone)}</p><h4 style="margin-top:6px">Evidências</h4>${listE(P+"ms",s.ms)}</div>
+        ${commitBlock(s)}
         ${s.exitTitle?`<div class="blk"><h4>${s.exitTitle}</h4>${listE(P+"exit",s.exit)}</div>`:(nxt?`<div class="blk"><h4>Para avançar para ${E(NP+"name",nxt.name)}</h4><p class="note" style="font-style:italic">${E(NP+"milestone",nxt.milestone)}</p>
           <ul class="checks">${nxt.ms.map((e,i)=>`<li><input type="checkbox" id="chk-${s.id}-${i}" data-i="${i}" ${checked.includes(i)?"checked":""}><label for="chk-${s.id}-${i}">${E(NP+"ms."+i,e)}</label></li>`).join("")}</ul>
           <span class="progress" id="prog"></span></div>`:"")}
@@ -953,22 +995,23 @@ const FIELDS = [
    {t:"Cobertura de 5 papéis: Economic, Technical, User, Champion e Gatekeeper jurídico",st:"c4",v:"manter",n:""},
    {t:"Separar \"Blocker\" em um campo de postura (apoia, neutro, resiste)",st:"x",v:"ajustar",n:"Blocker é postura, não papel: um procurador pode ser Gatekeeper e resistir ao mesmo tempo. Com o campo de postura, a pessoa mantém o papel real."}
   ]},
- {id:"demand",label:"PLC | Demand Forecasting",nivel:"Conta e oportunidade · SDR",papel:"Previsão de demanda. Medido de MQA interação a SQA interação; completo, a conta entra em SQA apresentação e passa a contar como demanda prevista.",
+ {id:"demand",label:"PLC | Demand Forecasting",nivel:"Conta e oportunidade · SDR",papel:"Previsão de demanda. Medido de MQA interação à SQA apresentação; completa no diagnóstico e leva a conta à SQA consideração. As contas em SQA apresentação são a demanda prevista.",
   ref:"Winning by Design, SPICED: dor e evento crítico. Forrester: conta engajada e priorizada antes da qualificação comercial.",
   opts:[
    {t:"Conversa efetiva com pelo menos 1 stakeholder da prefeitura realizada",st:"s1",q:2,v:"ajustar",n:"Reescrever como \"resposta explícita de pelo menos 1 stakeholder (interesse, indicação ou objeção com conteúdo)\". É o milestone de MQA interação."},
-   {t:"Dor explícita identificada e validada",st:"s2",q:4,v:"ajustar",n:"Nesta altura: dor citada pelo dono da dor (ou alguém da área), com as palavras dele, na conversa de contexto. É o milestone da SQA interação. A validação com outras secretarias fica para o pipeline."},
-   {t:"Urgência real identificada por um evento ou gatilho que justifica agir agora",st:"c1",q:4,v:"ajustar",n:"Exigir o evento e a data provável (revisão do PDM, LOA, programa, fim de mandato). Urgência sem data não serve para previsão."}
+   {t:"Dor explícita identificada e validada",st:"c2",q:4,v:"ajustar",n:"Citada na conversa de contexto (SQA interação) e explicitada no diagnóstico, com as palavras do dono da dor."},
+   {t:"Urgência real identificada por um evento ou gatilho que justifica agir agora",st:"c2",q:4,v:"ajustar",n:"Gatilho com data, confirmado no diagnóstico (revisão do PDM, LOA, programa, fim de mandato)."}
   ]},
- {id:"opp",label:"PLC | Opportunity forecasting",nivel:"Oportunidade · SDR no diagnóstico",papel:"Previsão de oportunidades. Medido na SQA apresentação (diagnóstico); completo, a oportunidade entra em SQA consideração, passa ao closer e conta como oportunidade prevista no pipeline qualificado.",
-  ref:"SPIN (implicação) e SPICED (impacto). MEDDPICC: identificar cedo decisor econômico e champion. Ebsta e Pavilion: decisor envolvido cedo aumenta a conversão em 55%.",
+ {id:"opp",label:"PLC | Opportunity forecasting",nivel:"Oportunidade · SDR no diagnóstico e closer na consideração",papel:"Previsão de oportunidades. Medido na SQA apresentação e na SQA consideração; completa, a oportunidade entra em SQA intenção. As oportunidades em SQA consideração são a oportunidade prevista.",
+  ref:"SPIN (implicação) e SPICED (impacto). MEDDPICC: champion testado e métrica. Mapa de papéis por setor.",
   opts:[
-   {t:"Implicação/custo do problema reconhecido pelo prospect",st:"c2",q:2,v:"manter",n:"Sai da pergunta de implicação do SPIN na reunião de diagnóstico."},
-   {t:"Impacto/valor quantificado e reconhecido pelo prospect",st:"c2",q:3,v:"ajustar",n:"No diagnóstico, uma ordem de grandeza aceita pelo cliente basta. A métrica com linha de base é refinada na sessão de valor."},
-   {t:"Comparação com casos de outros municípios similares apresentada",st:"c2",q:1,v:"ajustar",n:"É atividade nossa, não evidência do comprador: peso baixo."},
-   {t:"Validador técnico identificado (technical buyer)",st:"c2",q:1,v:"manter",n:"Nome e cargo, para ser convidado à sessão de valor."},
-   {t:"Champion interno identificado",st:"c2",q:3,v:"ajustar",n:"Nesta altura é champion candidato. O teste (já agiu por nós) acontece em SQA consideração."},
-   {t:"Decisor com poder orçamentário identificado (economic buyer)",st:"c2",q:3,v:"mover",n:"Antes era exigido só antes da proposta. Identificar o nome no diagnóstico dá previsibilidade; envolver o decisor continua sendo trabalho do closer."},
+   {t:"Implicação/custo do problema reconhecido pelo prospect",st:"c2",q:2,v:"manter",n:"Sai da pergunta de implicação do SPIN no diagnóstico."},
+   {t:"Impacto/valor quantificado e reconhecido pelo prospect",st:"c2",q:3,v:"ajustar",n:"No diagnóstico, impacto e valor reconhecidos em ordem de grandeza. A métrica com linha de base vem na consideração."},
+   {t:"Comparação com casos de outros municípios similares apresentada",st:"c2",q:1,v:"ajustar",n:"Atividade nossa no diagnóstico: peso baixo."},
+   {t:"Champion interno identificado",st:"c3",q:3,v:"ajustar",n:"Candidato no diagnóstico, testado na consideração (já agiu por nós)."},
+   {t:"Validador técnico identificado (technical buyer)",st:"c3",q:1,v:"manter",n:"Normalmente TI ou Geo, mapeado na sessão de valor."},
+   {t:"User buyer identificado por setor",st:"c3",q:1,v:"novo",n:"Quem vai usar no dia a dia, em cada secretaria envolvida."},
+   {t:"Métrica de sucesso identificada e aceita",st:"c3",q:2,v:"novo",n:"Vem do diagnóstico de processos e impacto funcional; é o que o CS vai medir."},
    {t:"Champion externo identificado (mercado imobiliário/urbanismo local)",st:"x",q:1,v:"manter",n:"Bônus: pressão externa legítima. Não trava etapa."}
   ]},
  {id:"trilha",label:"PLC | Trilha de fechamento",nivel:"Oportunidade (entregas nossas)",papel:"Buyer enablement: o que entregamos para a prefeitura conseguir comprar. Não pontua, porque é atividade nossa; trava etapa, porque sem isso o comprador não anda.",
@@ -983,21 +1026,22 @@ const FIELDS = [
    {t:"Planilha de documentos jurídicos enviada",st:"c5",v:"manter",n:"Parte do dossiê de contratação."},
    {t:"Precedente de inexigibilidade/CPSI validado com a procuradoria",st:"c5",v:"manter",n:"Item crítico: sem ele a rota de contratação é hipótese."}
   ]},
- {id:"pipe",label:"PLC | Pipeline forecasting",nivel:"Oportunidade · closer",papel:"Previsão do pipeline. Medido de SQA consideração a NGC fechamento; recebe os itens MEDDPICC que antes estavam no Opportunity e mantém a escada de compromisso da sua planilha (25 pts nas etapas NGC).",
-  ref:"MEDDPICC (critérios, processo, rito, concorrência) e categorias de forecast com evidência do comprador (Salesforce: pipeline, best case, commit). JOLT para o risco percebido.",
+ {id:"pipe",label:"PLC | Pipeline forecasting",nivel:"Oportunidade · closer",papel:"Previsão do pipeline. Medido da SQA intenção à NGC fechamento: recebe os itens de decisão (MEDDPICC) e mantém a escada de compromisso da sua planilha (25 pts).",
+  ref:"MEDDPICC (decisor, critérios, processo, rito, concorrência) e categorias de forecast com evidência do comprador. JOLT para o risco percebido.",
   opts:[
-   {t:"Concorrência mapeada (outro fornecedor, solução interna ou não fazer nada)",st:"c3",c:1,v:"mover",n:"Veio do Opportunity forecasting."},
-   {t:"Fonte de recurso identificada (dotação, LOA ou financiamento)",st:"c3",c:3,v:"mover",n:"Era \"orçamento para inovação validado\", no Opportunity forecasting."},
-   {t:"Prefeitura definiu as secretarias envolvidas + foi criado relacionamento multi-secretaria",st:"c4",c:7,v:"juntar",n:"Na planilha: \"próx. equipes\" (7 pts). Vira \"comitê de compra multi-secretaria ativo\"."},
+   {t:"Decisor com poder orçamentário identificado (economic buyer)",st:"c4",c:3,v:"mover",n:"Identificado na SQA intenção, antes da reunião de valores. Veio do Opportunity forecasting."},
    {t:"Critérios de decisão mapeados",st:"c4",c:2,v:"mover",n:"Veio do Opportunity forecasting."},
-   {t:"Processo de decisão mapeado (quem aprova e quem conduz)",st:"c4",c:3,v:"mover",n:"Veio do Opportunity forecasting. O rito de contratação fica no item \"modo de contratação\"."},
-   {t:"Postura de resistência mapeada, com plano (ou nenhuma identificada)",st:"c4",c:1,v:"mover",n:"Era \"blocker identificado\", no Opportunity forecasting."},
-   {t:"Escopo completo (software + serviços) validado",st:"c4",c:2,v:"ajustar",n:"Na planilha: \"solução + features\" (2). Reescrever como \"escopo recomendado aceito (uma opção)\"."},
-   {t:"Prefeitura validou o LTV e MRR",st:"c4",c:3,v:"ajustar",n:"Na planilha: \"LTV + tipo de contrato\" (3). Reescrever como \"investimento anual e vigência aceitos\"."},
+   {t:"Processo de decisão mapeado (quem aprova e quem conduz)",st:"c4",c:3,v:"mover",n:"O rito de contratação fica no item \"modo de contratação\"."},
+   {t:"Concorrência mapeada (outro fornecedor, solução interna ou não fazer nada)",st:"c4",c:1,v:"mover",n:"Veio do Opportunity forecasting."},
+   {t:"Postura de resistência mapeada, com plano (ou nenhuma identificada)",st:"c4",c:1,v:"mover",n:"Era \"blocker identificado\"."},
+   {t:"Fonte de recurso identificada (dotação, LOA ou financiamento)",st:"c4",c:3,v:"mover",n:"Era \"orçamento para inovação validado\"."},
+   {t:"Risco percebido pelo prospect mapeado e mitigado (FOMU)",st:"c4",c:2,v:"mover",n:"Tratado na proposta; obrigatório para a validação de valores."},
+   {t:"Prefeitura definiu as secretarias envolvidas + foi criado relacionamento multi-secretaria",st:"c4",c:7,v:"juntar",n:"Na planilha: \"próx. equipes\" (7 pts). Vira \"comitê de compra multi-secretaria ativo\"."},
+   {t:"Escopo completo (software + serviços) validado",st:"c4",c:2,v:"ajustar",n:"Na planilha: \"solução + features\" (2). \"Escopo recomendado aceito (uma opção)\": validado na entrada da NGC."},
+   {t:"Prefeitura validou o LTV e MRR",st:"c4",c:3,v:"ajustar",n:"Na planilha: \"LTV + tipo de contrato\" (3). \"Investimento anual e vigência aceitos\": validados na entrada da NGC."},
    {t:"Prefeitura validou o modo de contratação",st:"c5",c:3,v:"manter",n:"Na planilha: \"modo contrato\" (3). Depende do precedente validado com a procuradoria."},
-   {t:"Risco percebido pelo prospect mapeado e mitigado (FOMU)",st:"c4",c:2,v:"mover",n:"Veio do Opportunity forecasting. É o T do JOLT, obrigatório para o aval."},
-   {t:"Prefeitura escreveu o ETP e TR",st:"c5",c:5,v:"manter",n:"Na planilha: 5 pts. Pré-requisito do commit. Registrar a data: a data prevista de fechamento é calculada a partir dela."},
-   {t:"Prefeitura definiu uma previsão de data para fechamento",st:"x",c:0,v:"remover",n:"Sai do score: a prefeitura não se compromete com a data. A data prevista é calculada (ETP/TR + mediana histórica até o empenho, por rota)."},
+   {t:"Prefeitura escreveu o ETP e TR",st:"c5",c:5,v:"manter",n:"Na planilha: 5 pts. Pré-requisito do commit; a data prevista de fechamento é calculada a partir dela."},
+   {t:"Prefeitura definiu uma previsão de data para fechamento",st:"x",c:0,v:"remover",n:"Sai do score: a data prevista é calculada (ETP/TR + mediana histórica até o empenho, por rota)."},
    {t:"Reserva orçamentária confirmada",st:"cs",c:3,v:"novo",n:"Sem dotação o processo para no fim do exercício."},
    {t:"Foi agendado o pré-kickoff para o projeto",st:"cs",c:2,v:"manter",n:"Fecha a escada e conecta com a passagem para CS."}
   ]}
@@ -1036,8 +1080,8 @@ const KPI_MAIN = {
  s0:"% de contas com resposta explícita em até 35 dias de cadência",
  s1:"% de contas que passam de conversa para contexto compartilhado (qualidade da abordagem)",
  s2:"% que aceitam o diagnóstico com data e comparecimento (meta acima de 80%)",
- c1:"Demanda prevista: nº de contas com Demand forecasting completo",
- c2:"Oportunidade prevista: nº e valor de oportunidades com Opportunity forecasting completo",
+ c1:"Demanda prevista: nº de contas em SQA apresentação; Demand forecasting completo na saída",
+ c2:"Oportunidade prevista: nº e valor de oportunidades em SQA consideração; Opportunity forecasting completo na saída",
  c3:"% de propostas com validação explícita de escopo e valores em até 25 dias",
  c4:"Dias entre a validação e o ETP/TR escrito (meta: até 40)",
  c5:"Taxa de ganho e acerto do forecast de commit (meta acima de 80%)",
@@ -1054,8 +1098,12 @@ function renderResumo(){
   const row=(label,fn,cls="")=>`<tr><td>${label}</td>${st.map(s=>`<td class="${cls}">${fn(s)}</td>`).join("")}</tr>`;
   $("#sum-table").innerHTML = `<colgroup><col style="width:132px">${st.map(()=>'<col>').join("")}</colgroup><thead>${macro}<tr><th>Etapa</th>${st.map(s=>`<th class="stg ${s.lane}"><span class="ldot ${s.lane}" title="${laneLabel(s.lane)}"></span>${E(s.id+".name",s.name)}<small>${laneLabel(s.lane)}${s.sla?" · SLA "+s.sla:""}</small></th>`).join("")}</tr></thead><tbody>
    ${row("Milestone",s=>E(s.id+".milestone",s.milestone||""))}
+   ${row("Compromisso do lead",s=>COMMIT[s.id]?`${E(s.id+".lead",COMMIT[s.id].lead[0])}<span class="sz">${COMMIT[s.id].lead[1]}</span>`:"")}
+   ${row("Tarefas OSPA",s=>COMMIT[s.id]?listE(s.id+".ospa",COMMIT[s.id].ospa):"")}
+   ${row("Descobrir",s=>COMMIT[s.id]?listE(s.id+".desc",COMMIT[s.id].desc,"desc"):"","desc-cell")}
    ${row("KPI principal",s=>E(s.id+".kpi",KPI_MAIN[s.id]||""),"kpi")}
    ${row("Campos do CRM",s=>crmTags(s.id)||'<span class="note">sem campo novo</span>')}
+   ${row("Se travar aqui",s=>COMMIT[s.id]?E(s.id+".gargalo",COMMIT[s.id].gargalo):"","gap-cell")}
    ${row("Técnicas",s=>s.tec?`<span class="tchip main ${s.lane}">${E(s.id+".tec.p",s.tec.p.n)}</span><span class="tchip">apoio: ${E(s.id+".tec.a",s.tec.a.n)}</span>`:'<span class="note">conduzido por CS</span>')}
   </tbody>`;
   markEditable();
@@ -1077,8 +1125,8 @@ const SC_ITEMS = [];
 FIELDS.forEach(f=>f.opts.forEach((o,i)=>{ if(o.q||o.c) SC_ITEMS.push({id:f.id+i,f:f.id,t:o.t,st:o.st,q:o.q||0,c:o.c||0}); }));
 SC_ITEMS.push({id:"empenho",f:"pipe",t:"Empenho emitido",st:"cs",q:0,c:0});
 const Q_MAX = SC_ITEMS.reduce((a,i)=>a+i.q,0), C_MAX = SC_ITEMS.reduce((a,i)=>a+i.c,0);
-const SC_SAMPLE = ["demand0","demand1","demand2","opp0","opp1","opp2","opp3","opp4","opp5","pipe0","pipe1"];
-let scState = new Set(store.get("sc3") || SC_SAMPLE);
+const SC_SAMPLE = ["demand0","demand1","demand2","opp0","opp1","opp2","opp3","opp4"];
+let scState = new Set(store.get("sc5") || SC_SAMPLE);
 function renderScore(){
   const col = (fid,title,sub) => `<div class="sccol"><h3>${title}</h3><p class="note">${sub}</p>${SC_ITEMS.filter(i=>fid.includes(i.f)).map(i=>`<label class="scitem"><input type="checkbox" data-id="${i.id}" ${scState.has(i.id)?"checked":""}><span>${i.t}<small>${SNAME[i.st]==="fora do gate"?"bônus":"obrigatório para "+SNAME[i.st]}</small></span><b class="mono">${i.q?"+"+i.q:i.c?"+"+i.c:""}</b></label>`).join("")}</div>`;
   $("#score-rows").innerHTML = col(["demand","opp"],"Previsão de demanda e de oportunidades (SDR)","Demand forecasting completo = entra em SQA apresentação. Opportunity forecasting completo = entra em SQA consideração.") + col(["pipe"],"Previsão de pipeline (closer)","Pipeline forecasting, na lógica de pontos da sua planilha. Governa as etapas NGC.");
