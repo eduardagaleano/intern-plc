@@ -12,6 +12,7 @@
   --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
   --r:6px;
+  --dot-sdr:#2E9E5B; --dot-closer:#7B4FD6;
   color-scheme:light;
 }
 *{box-sizing:border-box}
@@ -150,8 +151,13 @@ section.view>*{min-width:0}
 .sum .macro small{display:block;font-family:var(--f-body);font-weight:500;font-size:11.5px;color:var(--muted)}
 .sum .m-mqa{background:var(--sdr-soft)} .sum .m-sqa{background:#EEF1EA} .sum .m-ngc{background:var(--closer-soft)} .sum .m-cs{background:var(--cs-soft)}
 .sum .stg{font-family:var(--f-display);font-size:15px;font-weight:700;border-top:4px solid var(--line);text-transform:none;letter-spacing:0;color:var(--ink)}
-.sum .tchip.main.sdr{background:var(--sdr-soft);color:var(--sdr)}
-.sum .stg.sdr{border-top-color:var(--sdr)} .sum .stg.closer{border-top-color:var(--closer)} .sum .stg.cs{border-top-color:var(--cs)}
+.sum .tchip.main.sdr{background:#E3F4EA;color:var(--dot-sdr)}
+.sum .tchip.main.closer{background:#EFE8FB;color:var(--dot-closer)}
+.sum .stg.sdr{border-top-color:var(--dot-sdr)} .sum .stg.closer{border-top-color:var(--dot-closer)} .sum .stg.cs{border-top-color:var(--cs)}
+.ldot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:1px;background:var(--cs)}
+.ldot.sdr{background:var(--dot-sdr)} .ldot.closer{background:var(--dot-closer)}
+.sum .mdays{display:inline-block;margin-top:6px;font-family:var(--f-mono);font-size:11px;font-weight:500;padding:2px 8px;border-radius:3px;background:var(--surface);color:var(--ink)}
+.sumlegend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
 .sum .stg small{display:block;font-family:var(--f-mono);font-weight:400;font-size:10.5px;color:var(--muted);margin-top:2px}
 .sum .kpi{font-weight:600}
 .sum .ctags b{display:none}
@@ -274,6 +280,7 @@ a{color:var(--closer)}
       <h3>Resumo do pipeline de vendas</h3>
       <p>Uma linha por informação, uma coluna por etapa. O milestone é o evento que faz a conta entrar na etapa. Detalhes de reunião, pauta, CTA e evidências ficam na aba Quadro.</p>
     </div>
+    <div class="sumlegend"><span><span class="ldot sdr"></span>SDR · 95 dias · ~3,2 meses</span><span><span class="ldot closer"></span>Closer · 145 dias · ~4,8 meses</span><span><span class="ldot"></span>CS</span><span><b>Total do MQA ao empenho: 240 dias · ~8 meses</b></span></div>
     <div class="tbl-wrap sum-wrap"><table class="sum" id="sum-table"></table></div>
   </section>
 
@@ -768,7 +775,6 @@ function tagHtml(t){
 
 function renderBoard(){
   const b = $("#board");
-  const DAYS={s0:[35,35],s1:[35,35],s2:[10,10],c1:[15,15],c2:[20,20],c3:[25,25],c4:[40,40],c5:[60,60]};
   const tot=l=>{let a=0,b=0;STAGES.filter(s=>s.lane===l&&DAYS[s.id]).forEach(s=>{a+=DAYS[s.id][0];b+=DAYS[s.id][1]});const mo=d=>(d/30).toFixed(1).replace('.',',').replace(',0','');return a===b?`${a} dias · ~${mo(a)} meses`:`${a} a ${b} dias · ~${mo(a)} a ${mo(b)} meses`;};
   let h = `<div class="lane-label sdr"><span>SDR · board de contas ABM</span><b class="ltot">${tot("sdr")}</b></div><div class="lane-label closer"><span>Closer · pipeline de vendas</span><b class="ltot">${tot("closer")}</b></div><div class="lane-label cs">CS</div>`;
   h += `<div class="mband fit" style="grid-row:2;grid-column:1/3">Fit da conta · Cities (ICP score)<small>medido no MQA Prospect e no MQA</small></div>`
@@ -1007,6 +1013,7 @@ function crmTags(id){
   const eng=ENG_BY_STAGE[id]; if(eng) tags.push(`<span class="ctag eng" title="${eng}">Engajamento: ${eng.match(/nível \d/)[0]}</span>`);
   return tags.length?`<span class="ctags"><b class="mono">CAMPOS DO CRM</b>${tags.join("")}</span>`:"";
 }
+const DAYS={s0:[35,35],s1:[35,35],s2:[10,10],c1:[15,15],c2:[20,20],c3:[25,25],c4:[40,40],c5:[60,60]};
 const MACRO = {p0:["mqa","MQA","conta qualificada"],s0:["mqa","MQA","conta qualificada"],s1:["mqa","MQA","conta qualificada"],s2:["sqa","SQA","aceita para venda"],c1:["sqa","SQA","aceita para venda"],c2:["sqa","SQA","aceita para venda"],c3:["sqa","SQA","aceita para venda"],c4:["ngc","NGC","negociação e contratação"],c5:["ngc","NGC","negociação e contratação"],cs:["cs","CS","onboarding"]};
 const KPI_MAIN = {
  p0:"Contas promovidas da reserva para o ABM por trimestre",
@@ -1024,10 +1031,12 @@ function renderResumo(){
   const st = STAGES;
   let macro='<tr><th>Macro etapa</th>'; let i=0;
   while(i<st.length){const m=MACRO[st[i].id]; let n=1; while(i+n<st.length && MACRO[st[i+n].id][1]===m[1]) n++;
-    macro+=`<th colspan="${n}" class="macro m-${m[0]}">${m[1]}<small>${m[2]}</small></th>`; i+=n;}
+    let d=0; for(let k=i;k<i+n;k++){const x=DAYS[st[k].id]; if(x) d+=x[0];}
+    const tt=d?`<span class="mdays">${d} dias · ~${(d/30).toFixed(1).replace('.',',').replace(',0','')} meses</span>`:`<span class="mdays">${m[1]==="CS"?"processo de CS":""}</span>`;
+    macro+=`<th colspan="${n}" class="macro m-${m[0]}">${m[1]}<small>${m[2]}</small>${tt}</th>`; i+=n;}
   macro+='</tr>';
   const row=(label,fn,cls="")=>`<tr><td>${label}</td>${st.map(s=>`<td class="${cls}">${fn(s)}</td>`).join("")}</tr>`;
-  $("#sum-table").innerHTML = `<colgroup><col style="width:132px">${st.map(()=>'<col>').join("")}</colgroup><thead>${macro}<tr><th>Etapa</th>${st.map(s=>`<th class="stg ${s.lane}">${s.name}<small>${laneLabel(s.lane)}${s.sla?" · SLA "+s.sla:""}</small></th>`).join("")}</tr></thead><tbody>
+  $("#sum-table").innerHTML = `<colgroup><col style="width:132px">${st.map(()=>'<col>').join("")}</colgroup><thead>${macro}<tr><th>Etapa</th>${st.map(s=>`<th class="stg ${s.lane}"><span class="ldot ${s.lane}" title="${laneLabel(s.lane)}"></span>${s.name}<small>${laneLabel(s.lane)}${s.sla?" · SLA "+s.sla:""}</small></th>`).join("")}</tr></thead><tbody>
    ${row("Milestone",s=>s.milestone||"")}
    ${row("KPI principal",s=>KPI_MAIN[s.id]||"","kpi")}
    ${row("Campos do CRM",s=>crmTags(s.id)||'<span class="note">sem campo novo</span>')}
